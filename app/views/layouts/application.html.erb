@@ -17,8 +17,8 @@
           <%= current_user.email %> | <%= User.model_name.human %> 
           <%= button_to 'Sair', destroy_user_session_path, method: :delete %>
         <% elsif owner_signed_in? %>
-          <%= current_owner.email %> | <%= Owner.model_name.human %> 
-          <%= button_to 'Sair', destroy_owner_session_path, method: :delete %>
+            <%= current_owner.email %> | <%= Owner.model_name.human %> 
+            <%= button_to 'Sair', destroy_owner_session_path, method: :delete %>
         <% else %>
           <% unless request.path == home_choice_path %>
             <%= link_to 'Entrar', home_choice_path %>

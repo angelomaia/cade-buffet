@@ -10,7 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_15_211749) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_16_155151) do
+  create_table "buffets", force: :cascade do |t|
+    t.string "name"
+    t.string "corporate_name"
+    t.string "cnpj"
+    t.string "phone"
+    t.string "email"
+    t.string "address"
+    t.string "neighborhood"
+    t.string "city"
+    t.string "state"
+    t.string "zipcode"
+    t.string "description"
+    t.boolean "pix"
+    t.boolean "debit"
+    t.boolean "credit"
+    t.boolean "cash"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "owner_id", null: false
+    t.index ["owner_id"], name: "index_buffets_on_owner_id"
+  end
+
   create_table "owners", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -19,6 +41,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_15_211749) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "buffet_id"
+    t.index ["buffet_id"], name: "index_owners_on_buffet_id"
     t.index ["email"], name: "index_owners_on_email", unique: true
     t.index ["reset_password_token"], name: "index_owners_on_reset_password_token", unique: true
   end
@@ -35,4 +59,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_15_211749) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "buffets", "owners"
+  add_foreign_key "owners", "buffets"
 end
