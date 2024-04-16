@@ -10,11 +10,28 @@
   </head>
 
   <body>
-    <h1><%= link_to 'Cadê Buffet?', root_path %></h1>
-    <div>
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
-    </div>
-    <%= yield %>
+    <header>
+      <h1><%= link_to 'Cadê Buffet', root_path %></h1>
+      <nav>
+        <% if user_signed_in? %>
+          <%= current_user.email %> |
+          <%= button_to 'Sair', destroy_user_session_path, method: :delete %>
+        <% elsif owner_signed_in? %>
+          <%= current_owner.email %> |
+          <%= button_to 'Sair', destroy_owner_session_path, method: :delete %>
+        <% else %>
+          <% unless request.path == home_choice_path %>
+            <%= link_to 'Entrar', home_choice_path %>
+          <% end %>
+        <% end %>
+      </nav>
+    </header>
+    <main>
+      <div>
+        <p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>
+      </div>
+      <%= yield %>
+    </main>
   </body>
 </html>
