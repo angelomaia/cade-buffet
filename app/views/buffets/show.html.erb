@@ -1,0 +1,13 @@
+<h1>Buffet <%= @buffet.name %></h1>
+<h2><%= @buffet.corporate_name %> | <%= @buffet.cnpj %></h2>
+<dl>
+  <dt> 
+    Localização: <%= @buffet.address %>, <%= @buffet.neighborhood %>, <%= @buffet.city %> - <%= @buffet.state %>, <%= @buffet.zipcode %>
+  </dt>
+  <dt> Email: <%= @buffet.email %> </dt>
+  <dt> Telefone: <%= @buffet.phone %> </dt>
+  <dt> Descrição: <%= @buffet.description %> </dt>
+  <dt> Métodos de Pagamento: <%= @buffet.pix %> <%= @buffet.debit %> <%= @buffet.credit %> <%= @buffet.cash %></dt>
+</dl>
+
+<%= link_to 'Editar Buffet', edit_buffet_path %>

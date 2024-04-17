@@ -3,3 +3,21 @@ pt-BR:
     models:
       user: 'Cliente'
       owner: 'Dono de Buffet'
+      buffet: 'Buffet'
+    attributes:
+      buffet:
+        name: 'Nome Fantasia'
+        corporate_name: 'Razão Social'
+        cnpj: 'CNPJ'
+        address: 'Endereço'
+        neighborhood: 'Bairro'
+        city: 'Cidade'
+        state: 'Estado'
+        email: 'E-mail'
+        phone: 'Telefone'
+        zipcode: 'CEP'
+        description: 'Descrição'
+        pix: 'PIX'
+        debit: 'Cartão de Débito'
+        credit: 'Cartão de Crédito'
+        cash: 'Dinheiro'
