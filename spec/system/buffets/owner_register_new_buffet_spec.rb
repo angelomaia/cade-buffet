@@ -9,16 +9,10 @@ describe 'Owner register new buffet' do
   end
 
   it 'and sees the form' do
-    Owner.create!(email: 'angelo@email.com', password: 'password')
+    owner = Owner.create!(email: 'angelo@email.com', password: 'password')
 
     visit root_path
-    click_on 'Entrar'
-    click_on 'Dono de Buffet'
-    fill_in 'E-mail', with: 'angelo@email.com'
-    fill_in 'Senha', with: 'password'
-    within('form') do
-      click_on 'Entrar'
-    end
+    login_owner(owner)
 
     expect(current_path).to eq new_buffet_path
     expect(page).to have_content 'Cadastrar Buffet'
@@ -41,16 +35,10 @@ describe 'Owner register new buffet' do
   end
 
   it 'and it works' do
-    Owner.create!(email: 'angelo@email.com', password: 'password')
+    owner = Owner.create!(email: 'angelo@email.com', password: 'password')
 
     visit root_path
-    click_on 'Entrar'
-    click_on 'Dono de Buffet'
-    fill_in 'E-mail', with: 'angelo@email.com'
-    fill_in 'Senha', with: 'password'
-    within('form') do
-      click_on 'Entrar'
-    end
+    login_owner(owner)
     fill_in 'Nome Fantasia', with: 'Alegria'
     fill_in 'Razão Social', with: 'Alegria SA'
     fill_in 'CNPJ', with: '1934812038173'
@@ -70,16 +58,10 @@ describe 'Owner register new buffet' do
   end
 
   it 'and leave blank fields' do
-    Owner.create!(email: 'angelo@email.com', password: 'password')
+    owner = Owner.create!(email: 'angelo@email.com', password: 'password')
 
     visit root_path
-    click_on 'Entrar'
-    click_on 'Dono de Buffet'
-    fill_in 'E-mail', with: 'angelo@email.com'
-    fill_in 'Senha', with: 'password'
-    within('form') do
-      click_on 'Entrar'
-    end
+    login_owner(owner)
     fill_in 'Nome Fantasia', with: ''
     fill_in 'Razão Social', with: ''
     fill_in 'CNPJ', with: ''
@@ -99,16 +81,10 @@ describe 'Owner register new buffet' do
 
 
   it 'and sees the buffet info' do
-    Owner.create!(email: 'angelo@email.com', password: 'password')
+    owner = Owner.create!(email: 'angelo@email.com', password: 'password')
 
     visit root_path
-    click_on 'Entrar'
-    click_on 'Dono de Buffet'
-    fill_in 'E-mail', with: 'angelo@email.com'
-    fill_in 'Senha', with: 'password'
-    within('form') do
-      click_on 'Entrar'
-    end
+    login_owner(owner)
     fill_in 'Nome Fantasia', with: 'Alegria'
     fill_in 'Razão Social', with: 'Alegria SA'
     fill_in 'CNPJ', with: '1934812038173'

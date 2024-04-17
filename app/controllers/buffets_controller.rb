@@ -1,5 +1,6 @@
 class BuffetsController < ApplicationController
-  before_action :authenticate_owner!
+  before_action :authenticate_owner!, only: [:new, :create, :edit, :update]
+  before_action :set_buffet_check_owner, only: [:edit, :update]
   skip_before_action :redirect_owner_to_buffet_creation, only: [:new, :create]
 
   def new
@@ -22,6 +23,17 @@ class BuffetsController < ApplicationController
     end
   end
 
+  def edit;  end
+  
+  def update
+    if @buffet.update(buffet_params)
+      redirect_to buffet_path(@buffet.id), notice: 'Buffet alterado com sucesso.'
+    else
+      flash.now[:notice] = "Não foi possível atualizar o Buffet"
+      render 'edit'
+    end
+  end
+  
   private
 
   def buffet_params
@@ -32,5 +44,12 @@ class BuffetsController < ApplicationController
       :phone, :zipcode,
       :description, :pix,
       :debit, :credit, :cash)
+  end
+
+  def set_buffet_check_owner
+    @buffet = Buffet.find(params[:id])
+    if @buffet.owner != current_owner
+      return redirect_to root_path, alert: 'Você não pode editar este Buffet.'
+    end
   end
 end

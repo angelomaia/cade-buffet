@@ -12,18 +12,11 @@ describe 'Buffet owner tries to authenticate' do
   end
 
   it 'and it works' do
-    Owner.create(email: 'angelo@email.com', password: 'password')
+    owner = Owner.create(email: 'angelo@email.com', password: 'password')
 
     visit root_path
-    click_on 'Entrar'
-    click_on 'Dono de Buffet'
-    fill_in 'E-mail', with: 'angelo@email.com'
-    fill_in 'Senha', with: 'password'
-    within('form') do
-      click_on 'Entrar'
-    end
+    login_owner(owner)
 
-    #expect(page).to have_content 'Login efetuado com sucesso.'
     expect(page).not_to have_link 'Entrar'
     expect(page).to have_button 'Sair'
     within('nav') do
@@ -33,17 +26,11 @@ describe 'Buffet owner tries to authenticate' do
 
   it 'logs in and out' do
     # Arrange
-    Owner.create!(email: 'angelo@email.com', password: 'password')
+    owner = Owner.create!(email: 'angelo@email.com', password: 'password')
 
     # Act
     visit root_path
-    click_on 'Entrar'
-    click_on 'Dono de Buffet'
-    fill_in 'E-mail', with: 'angelo@email.com'
-    fill_in 'Senha', with: 'password'
-    within('form') do
-      click_on 'Entrar'
-    end
+    login_owner(owner)
     click_on 'Sair'
 
     # Assert

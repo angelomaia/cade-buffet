@@ -10,4 +10,6 @@
   <dt> Métodos de Pagamento: <%= @buffet.pix %> <%= @buffet.debit %> <%= @buffet.credit %> <%= @buffet.cash %></dt>
 </dl>
 
-<%= link_to 'Editar Buffet', edit_buffet_path %>
+<% if @buffet.owner == current_owner %>
+  <%= link_to 'Editar Buffet', edit_buffet_path %>
+<% end %>

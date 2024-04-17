@@ -17,8 +17,15 @@
           <%= current_user.email %> | <%= User.model_name.human %> 
           <%= button_to 'Sair', destroy_user_session_path, method: :delete %>
         <% elsif owner_signed_in? %>
+          <% unless current_owner.buffet == nil || !@buffet.valid? %>
+            <h3><%= link_to 'Meu Buffet', @buffet %></h3>
+          <% end%>
+            <div>
             <%= current_owner.email %> | <%= Owner.model_name.human %> 
+            </div>
+            <div>
             <%= button_to 'Sair', destroy_owner_session_path, method: :delete %>
+            </div>
         <% else %>
           <% unless request.path == home_choice_path %>
             <%= link_to 'Entrar', home_choice_path %>
