@@ -1,5 +1,11 @@
 <h1>Tipos de eventos para o Buffet <%=@buffet.name%></h1>
 
+<% if !@events.any? %>
+  Ainda não há Tipos de Evento cadastrados para este Buffet.
+<% end %>
+
 <% @events.each do |event| %>
   <%= link_to event.name, event %> 
 <% end%>
+
+<%= link_to 'Voltar', :back %>
