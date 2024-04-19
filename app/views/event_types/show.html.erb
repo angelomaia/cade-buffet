@@ -1,6 +1,7 @@
 <h1><%= @event_type.name %></h1>
 
-<dl>
+<dl></dl>
+<dd><%= EventType.human_attribute_name(:description)%>: <%= @event_type.description %></dd>
 <dd><%= EventType.human_attribute_name(:duration)%>: <%= @event_type.duration %></dd>
 <dd><%= EventType.human_attribute_name(:min_people)%>: <%= @event_type.min_people %></dd>
 <dd><%= EventType.human_attribute_name(:max_people)%>: <%= @event_type.max_people %></dd>
@@ -11,5 +12,16 @@
   <% end%>
 </dd>
 <dd><%= EventType.human_attribute_name(:location)%>: <%= I18n.translate(@event_type.location) %></dd>
+
+<% if @event_type.price != nil %>
+  <dl>
+  <dd><%= Price.human_attribute_name(:base)%>: R$ <%= @event_type.price.base %></dd>
+  <dd><%= Price.human_attribute_name(:extra_person)%>: R$ <%= @event_type.price.extra_person %></dd>
+  <dd><%= Price.human_attribute_name(:extra_hour)%>: R$ <%= @event_type.price.extra_hour %></dd>
+  <dd><%= Price.human_attribute_name(:weekend_base)%>: R$ <%= @event_type.price.weekend_base %></dd>
+  <dd><%= Price.human_attribute_name(:weekend_extra_person)%>: R$ <%= @event_type.price.weekend_extra_person %></dd>
+  <dd><%= Price.human_attribute_name(:weekend_extra_hour)%>: R$ <%= @event_type.price.weekend_extra_hour %></dd>
+  </dl>
+<% end %>
 
 <%= link_to 'Editar Tipo de Evento', edit_event_type_path %>

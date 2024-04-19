@@ -1,6 +1,8 @@
 class EventType < ApplicationRecord
   belongs_to :buffet
   has_one :price
+  accepts_nested_attributes_for :price
+  
   validates :name, :description, :duration, :min_people, :max_people, :menu, presence: true
 
   enum location: { exclusive: 0, anywhere: 1 }

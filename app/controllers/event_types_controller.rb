@@ -1,6 +1,6 @@
 class EventTypesController < ApplicationController
-  before_action :authenticate_owner!, only: [:new, :create, :edit, :update]
-  before_action :set_event_type_check_owner, only: [:edit, :update]
+  before_action :authenticate_owner!, only: [:new, :create, :edit, :update, :event_type_prices]
+  before_action :set_event_type_check_owner, only: [:edit, :update, :event_type_prices]
 
   def new
     @event_type = EventType.new
@@ -22,7 +22,8 @@ class EventTypesController < ApplicationController
     @event_type = EventType.find(params[:id])
   end
 
-  def edit; end
+  def edit
+  end
 
   def update
     if @event_type.update(event_type_params)
@@ -33,6 +34,10 @@ class EventTypesController < ApplicationController
     end
   end
 
+  def event_type_prices
+    @event_type.build_price if @event_type.price.nil?
+  end
+
   private
 
   def event_type_params
@@ -41,7 +46,12 @@ class EventTypesController < ApplicationController
       :min_people, :max_people,
       :duration, :menu, :alcohol,
       :decoration, :parking,
-      :location)
+      :location, price_attributes: [:base, 
+                                    :extra_person, 
+                                    :extra_hour, 
+                                    :weekend_base, 
+                                    :weekend_extra_person, 
+                                    :weekend_extra_hour])
   end
 
   def set_event_type_check_owner

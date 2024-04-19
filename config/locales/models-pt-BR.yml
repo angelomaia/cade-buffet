@@ -5,6 +5,7 @@ pt-BR:
       owner: 'Dono de Buffet'
       buffet: 'Buffet'
       event_type: 'Tipo de Evento'
+      price: 'Preços'
     attributes:
       buffet:
         name: 'Nome Fantasia'
@@ -36,3 +37,10 @@ pt-BR:
       event_type/location:
         exclusive: 'Exclusivamente no Endereço do Buffet'
         anywhere: 'Em qualquer local solicitado'
+      price:
+        base: 'Preço Base'
+        extra_person: 'Valor extra por pessoa'
+        extra_hour: 'Valor extra por hora'
+        weekend_base: 'Preço Final de Semana (FDS)'
+        weekend_extra_person: 'Valor extra por pessoa (FDS)'
+        weekend_extra_hour: 'Valor extra por hora (FDS)'
