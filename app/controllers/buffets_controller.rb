@@ -16,14 +16,18 @@ class BuffetsController < ApplicationController
   end
 
   def create
-    @buffet = Buffet.new(buffet_params)
-    @buffet.owner = current_owner
-    if @buffet.valid?
-      @buffet.save!
-      redirect_to @buffet, notice: "Buffet cadastrado com sucesso."
+    if current_owner.buffet == nil
+      @buffet = Buffet.new(buffet_params)
+      @buffet.owner = current_owner
+      if @buffet.valid?
+        @buffet.save!
+        redirect_to @buffet, notice: "Buffet cadastrado com sucesso."
+      else
+        flash.now[:notice] = "Buffet não cadastrado."
+        render 'new'
+      end
     else
-      flash.now[:notice] = "Buffet não cadastrado."
-      render 'new'
+      redirect_to buffet_path(current_owner.buffet.id), notice: 'Você já cadastrou um Buffet.'
     end
   end
 
