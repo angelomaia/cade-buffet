@@ -24,6 +24,8 @@
   </dl>
 <% end %>
 
-<%= link_to 'Editar Tipo de Evento', edit_event_type_path %>
-
+<% if @event_type.buffet.owner == current_owner %>
+  <%= link_to 'Editar Tipo de Evento', edit_event_type_path %>
+  <%= link_to 'Definir Preços', event_type_prices_event_type_path %>
+<% end %>
 <%= link_to 'Voltar', :back %>
