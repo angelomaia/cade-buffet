@@ -33,6 +33,11 @@ class BuffetsController < ApplicationController
       render 'edit'
     end
   end
+
+  def buffet_events
+    @buffet = Buffet.find(params[:id])
+    @events = @buffet.event_types
+  end
   
   private
 

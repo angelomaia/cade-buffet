@@ -11,3 +11,5 @@
   <% end%>
 </dd>
 <dd><%= EventType.human_attribute_name(:location)%>: <%= I18n.translate(@event_type.location) %></dd>
+
+<%= link_to 'Editar Tipo de Evento', edit_event_type_path %>

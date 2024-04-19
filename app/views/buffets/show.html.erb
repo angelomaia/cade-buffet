@@ -10,11 +10,14 @@
   <dt> Métodos de Pagamento: <%= @buffet.pix %> <%= @buffet.debit %> <%= @buffet.credit %> <%= @buffet.cash %></dt>
 </dl>
 
+<div>
+  <%= link_to 'Tipos de Evento', buffet_events_buffet_path %>
+</div>
 <% if @buffet.owner == current_owner %>
-<div>
-  <%= link_to 'Editar Buffet', edit_buffet_path %>
-</div>
-<div>
-  <%= link_to 'Adicionar Tipo de Evento', new_event_type_path %>
-</div>
+  <div>
+    <%= link_to 'Editar Buffet', edit_buffet_path %>
+  </div>
+  <div>
+    <%= link_to 'Adicionar Tipo de Evento', new_event_type_path %>
+  </div>
 <% end %>

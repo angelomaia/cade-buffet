@@ -1,6 +1,6 @@
 class EventTypesController < ApplicationController
-  before_action :authenticate_owner!, except: [:show]
-  before_action :set_event_type_check_owner!, only: [:edit, :update]
+  before_action :authenticate_owner!, only: [:new, :create, :edit, :update]
+  before_action :set_event_type_check_owner, only: [:edit, :update]
 
   def new
     @event_type = EventType.new
@@ -22,10 +22,15 @@ class EventTypesController < ApplicationController
     @event_type = EventType.find(params[:id])
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
+    if @event_type.update(event_type_params)
+      redirect_to event_type_path(@event_type.id), notice: 'Tipo de Evento alterado com sucesso.'
+    else
+      flash.now[:notice] = "Não foi possível atualizar o Tipo de Evento"
+      render 'edit'
+    end
   end
 
   private
@@ -41,7 +46,7 @@ class EventTypesController < ApplicationController
 
   def set_event_type_check_owner
     @event_type = EventType.find(params[:id])
-    if @event_type.owner != current_owner
+    if @event_type.buffet != current_owner.buffet
       return redirect_to root_path, alert: 'Você não pode editar este Tipo de Evento.'
     end
   end

@@ -4,8 +4,10 @@ Rails.application.routes.draw do
   root "home#index"
   get 'home/choice', to: 'home#choice'
   
-  resources :buffets, only: [:show, :new, :create, :edit, :update]
-  resources :event_types, only: [:show, :new, :create]
+  resources :buffets, only: [:show, :new, :create, :edit, :update] do
+    get 'buffet_events', on: :member
+  end
+  resources :event_types, only: [:show, :edit, :update, :new, :create]
 end
 
 # Devise alert:

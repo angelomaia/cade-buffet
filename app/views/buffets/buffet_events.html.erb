@@ -1,0 +1,5 @@
+<h1>Tipos de eventos para o Buffet <%=@buffet.name%></h1>
+
+<% @events.each do |event| %>
+  <%= link_to event.name, event %> 
+<% end%>

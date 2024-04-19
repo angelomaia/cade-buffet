@@ -11,8 +11,8 @@ describe 'Owner register new buffet' do
   it 'and sees the form' do
     owner = Owner.create!(email: 'angelo@email.com', password: 'password')
 
+    login_as owner, scope: :owner
     visit root_path
-    login_owner(owner)
 
     expect(current_path).to eq new_buffet_path
     expect(page).to have_content 'Cadastrar Buffet'
@@ -37,8 +37,8 @@ describe 'Owner register new buffet' do
   it 'and it works' do
     owner = Owner.create!(email: 'angelo@email.com', password: 'password')
 
+    login_as owner, scope: :owner
     visit root_path
-    login_owner(owner)
     fill_in 'Nome Fantasia', with: 'Alegria'
     fill_in 'Razão Social', with: 'Alegria SA'
     fill_in 'CNPJ', with: '1934812038173'
@@ -60,8 +60,8 @@ describe 'Owner register new buffet' do
   it 'and leave blank fields' do
     owner = Owner.create!(email: 'angelo@email.com', password: 'password')
 
+    login_as owner, scope: :owner
     visit root_path
-    login_owner(owner)
     fill_in 'Nome Fantasia', with: ''
     fill_in 'Razão Social', with: ''
     fill_in 'CNPJ', with: ''
@@ -83,8 +83,8 @@ describe 'Owner register new buffet' do
   it 'and sees the buffet info' do
     owner = Owner.create!(email: 'angelo@email.com', password: 'password')
 
+    login_as owner, scope: :owner
     visit root_path
-    login_owner(owner)
     fill_in 'Nome Fantasia', with: 'Alegria'
     fill_in 'Razão Social', with: 'Alegria SA'
     fill_in 'CNPJ', with: '1934812038173'

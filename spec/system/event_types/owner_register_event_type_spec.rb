@@ -14,8 +14,8 @@ describe 'Owner adds event type to buffet' do
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
                   email: 'alegria@email.com', phone: '8156456456', zipcode: '1231245', owner: owner)
     
+    login_as owner, scope: :owner
     visit root_path
-    login_owner(owner)
     click_on 'Meu Buffet'
     click_on 'Adicionar Tipo de Evento'
 
@@ -39,8 +39,8 @@ describe 'Owner adds event type to buffet' do
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
                   email: 'alegria@email.com', phone: '8156456456', zipcode: '1231245', owner: owner)
     
+    login_as owner, scope: :owner
     visit root_path
-    login_owner(owner)
     click_on 'Meu Buffet'
     click_on 'Adicionar Tipo de Evento'
     fill_in 'Nome do Evento', with: "Festa de Casamento"
@@ -61,5 +61,61 @@ describe 'Owner adds event type to buffet' do
     expect(page).to have_content 'Cardápio: Sushi, Strogonoff, Frios'
     expect(page).to have_content 'Extras: Bebidas alcoólicas Estacionamento/valet'
     expect(page).to have_content 'Localização do Evento: Em qualquer local solicitado'
+  end
+
+  it 'and leave blank fields' do
+    owner = Owner.create!(email: 'angelo@email.com', password: 'password')
+    buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
+                  address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
+                  email: 'alegria@email.com', phone: '8156456456', zipcode: '1231245', owner: owner)
+    
+    login_as owner, scope: :owner
+    visit root_path
+    click_on 'Meu Buffet'
+    click_on 'Adicionar Tipo de Evento'
+    fill_in 'Nome do Evento', with: ''
+    fill_in  'Descrição', with: ''
+    fill_in  'Quantidade mínima de Pessoas', with: ''
+    fill_in  'Quantidade máxima de Pessoas', with: ''
+    fill_in  'Duração (minutos)', with: ''
+    fill_in  'Cardápio', with:  ''
+    click_on 'Registrar'
+
+    expect(page).to have_content 'Tipo de Evento não cadastrado.'
+    expect(page).to have_content 'Nome do Evento não pode ficar em branco'
+    expect(page).to have_content 'Descrição não pode ficar em branco'
+    expect(page).to have_content 'Quantidade mínima de Pessoas não pode ficar em branco'
+    expect(page).to have_content 'Quantidade máxima de Pessoas não pode ficar em branco'
+    expect(page).to have_content 'Duração (minutos) não pode ficar em branco'
+    expect(page).to have_content 'Cardápio não pode ficar em branco'
+    expect(page).to have_content 'Novo Tipo de Evento'
+  end
+
+  it 'and access the event through a list' do
+    owner = Owner.create!(email: 'angelo@email.com', password: 'password')
+    buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
+                  address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
+                  email: 'alegria@email.com', phone: '8156456456', zipcode: '1231245', owner: owner)
+    
+    login_as owner, scope: :owner
+    visit root_path
+    click_on 'Meu Buffet'
+    click_on 'Adicionar Tipo de Evento'
+    fill_in 'Nome do Evento', with: "Festa de Casamento"
+    fill_in  'Descrição', with: "Uma festança"
+    fill_in  'Quantidade mínima de Pessoas', with: "20"
+    fill_in  'Quantidade máxima de Pessoas', with: "200"
+    fill_in  'Duração (minutos)', with: "240"
+    fill_in  'Cardápio', with: "Sushi, Strogonoff, Frios"
+    check  'Bebidas alcoólicas'
+    check  'Estacionamento/valet'
+    choose('event_type[location]', option: "anywhere")
+    click_on 'Registrar'
+    click_on 'Meu Buffet'
+    click_on 'Tipos de Evento'
+    click_on 'Festa de Casamento'
+
+    expect(page).to have_content 'Festa de Casamento'
+    expect(current_path).to eq "/event_types/#{EventType.last.id}"
   end
 end

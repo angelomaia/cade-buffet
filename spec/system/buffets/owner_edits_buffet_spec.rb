@@ -23,8 +23,8 @@ describe 'Owner edits buffet' do
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
                   email: 'felicidade@email.com', phone: '8156456456', zipcode: '1231245', owner: owner)
     
+    login_as owner, scope: :owner
     visit root_path
-    login_owner(owner)
     visit "/buffets/#{buffet.id}/edit"
 
     expect(current_path).to eq root_path
@@ -37,8 +37,8 @@ describe 'Owner edits buffet' do
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
                   email: 'alegria@email.com', phone: '8156456456', zipcode: '1231245', owner: owner)
     
+    login_as owner, scope: :owner
     visit root_path
-    login_owner(owner)
     click_on 'Meu Buffet'
     click_on 'Editar Buffet'
     fill_in 'E-mail', with: 'alegria@sa.com'
@@ -57,8 +57,8 @@ describe 'Owner edits buffet' do
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
                   email: 'alegria@email.com', phone: '8156456456', zipcode: '1231245', owner: owner)
     
+    login_as owner, scope: :owner
     visit root_path
-    login_owner(owner)
     click_on 'Meu Buffet'
     click_on 'Editar Buffet'
     fill_in 'E-mail', with: ''
