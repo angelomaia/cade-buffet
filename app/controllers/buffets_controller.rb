@@ -4,7 +4,11 @@ class BuffetsController < ApplicationController
   skip_before_action :redirect_owner_to_buffet_creation, only: [:new, :create]
 
   def new
-    @buffet = Buffet.new
+    if current_owner.buffet == nil
+      @buffet = Buffet.new
+    else
+      redirect_to buffet_path(current_owner.buffet.id), notice: 'Você já cadastrou um Buffet.'
+    end
   end
 
   def show

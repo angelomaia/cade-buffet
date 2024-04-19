@@ -79,7 +79,6 @@ describe 'Owner register new buffet' do
     expect(page).to have_content 'Cidade não pode ficar em branco'
   end
 
-
   it 'and sees the buffet info' do
     owner = Owner.create!(email: 'angelo@email.com', password: 'password')
 
@@ -105,5 +104,22 @@ describe 'Owner register new buffet' do
     expect(page).to have_content 'Recife - PE'
     expect(page).to have_content 'Alegria SA | 1934812038173'
 
+  end
+  it 'and tries to create another buffet' do
+    owner = Owner.create!(email: 'angelo@email.com', password: 'password')
+    buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
+                  address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
+                  email: 'alegria@email.com', phone: '8156456456', zipcode: '1231245', owner: owner)
+
+    login_as owner, scope: :owner
+    visit root_path
+    visit new_buffet_path
+
+    expect(current_path).not_to eq new_buffet_path
+    expect(page).not_to have_content 'Cadastrar Buffet'
+    expect(page).not_to have_field 'Nome Fantasia'
+    expect(page).not_to have_field 'Razão Social'
+    expect(page).to have_content 'Você já cadastrou um Buffet.'
+    expect(current_path).to eq "/buffets/#{buffet.id}"
   end
 end
