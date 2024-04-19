@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   get 'home/choice', to: 'home#choice'
   
   resources :buffets, only: [:show, :new, :create, :edit, :update]
+  resources :event_types, only: [:show, :new, :create]
 end

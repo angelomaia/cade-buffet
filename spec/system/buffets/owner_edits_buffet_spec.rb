@@ -50,4 +50,21 @@ describe 'Owner edits buffet' do
     expect(page).to have_content 'alegria@sa.com'
     expect(page).not_to have_content 'alegria@email.com'
   end
+
+  it 'and leaves a blank field' do
+    owner = Owner.create!(email: 'angelo@email.com', password: 'password')
+    buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
+                  address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
+                  email: 'alegria@email.com', phone: '8156456456', zipcode: '1231245', owner: owner)
+    
+    visit root_path
+    login_owner(owner)
+    click_on 'Meu Buffet'
+    click_on 'Editar Buffet'
+    fill_in 'E-mail', with: ''
+    click_on 'Registrar'
+
+    expect(page).to have_content 'Não foi possível atualizar o Buffet'
+    expect(page).to have_content 'E-mail não pode ficar em branco'
+  end
 end

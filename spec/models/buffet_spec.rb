@@ -11,6 +11,87 @@ RSpec.describe Buffet, type: :model do
 
         expect(buffet.valid?).to eq false
       end
+
+      it 'false when corporate name is empty' do
+        owner = Owner.create!(email: 'angelo@email.com', password: 'password')
+        buffet = Buffet.create(name: 'Angelo', corporate_name: '', cnpj: '65165161', 
+                  address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
+                  email: 'alegria@email.com', phone: '8156456456', zipcode: '1231245', owner: owner)
+
+        expect(buffet.valid?).to eq false
+      end
+
+      it 'false when cnpj is empty' do
+        owner = Owner.create!(email: 'angelo@email.com', password: 'password')
+        buffet = Buffet.create(name: 'Angelo', corporate_name: 'Alegria SA', cnpj: '', 
+                  address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
+                  email: 'alegria@email.com', phone: '8156456456', zipcode: '1231245', owner: owner)
+
+        expect(buffet.valid?).to eq false
+      end
+
+      it 'false when address is empty' do
+        owner = Owner.create!(email: 'angelo@email.com', password: 'password')
+        buffet = Buffet.create(name: 'Angelo', corporate_name: 'Alegria SA', cnpj: '65165161', 
+                  address: '', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
+                  email: 'alegria@email.com', phone: '8156456456', zipcode: '1231245', owner: owner)
+
+        expect(buffet.valid?).to eq false
+      end
+
+      it 'false when neighborhood is empty' do
+        owner = Owner.create!(email: 'angelo@email.com', password: 'password')
+        buffet = Buffet.create(name: 'Angelo', corporate_name: 'Alegria SA', cnpj: '65165161', 
+                  address: 'Rua da Felicidade, 100', neighborhood: '', city: 'Recife', state: 'PE', 
+                  email: 'alegria@email.com', phone: '8156456456', zipcode: '1231245', owner: owner)
+
+        expect(buffet.valid?).to eq false
+      end
+
+      it 'false when city is empty' do
+        owner = Owner.create!(email: 'angelo@email.com', password: 'password')
+        buffet = Buffet.create(name: 'Angelo', corporate_name: 'Alegria SA', cnpj: '65165161', 
+                  address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: '', state: 'PE', 
+                  email: 'alegria@email.com', phone: '8156456456', zipcode: '1231245', owner: owner)
+
+        expect(buffet.valid?).to eq false
+      end
+
+      it 'false when state is empty' do
+        owner = Owner.create!(email: 'angelo@email.com', password: 'password')
+        buffet = Buffet.create(name: 'Angelo', corporate_name: 'Alegria SA', cnpj: '65165161', 
+                  address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: '', 
+                  email: 'alegria@email.com', phone: '8156456456', zipcode: '1231245', owner: owner)
+
+        expect(buffet.valid?).to eq false
+      end
+
+      it 'false when email is empty' do
+        owner = Owner.create!(email: 'angelo@email.com', password: 'password')
+        buffet = Buffet.create(name: 'Angelo', corporate_name: 'Alegria SA', cnpj: '65165161', 
+                  address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
+                  email: '', phone: '8156456456', zipcode: '1231245', owner: owner)
+
+        expect(buffet.valid?).to eq false
+      end
+
+      it 'false when phone is empty' do
+        owner = Owner.create!(email: 'angelo@email.com', password: 'password')
+        buffet = Buffet.create(name: 'Angelo', corporate_name: 'Alegria SA', cnpj: '65165161', 
+                  address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
+                  email: 'alegria@email.com', phone: '', zipcode: '1231245', owner: owner)
+
+        expect(buffet.valid?).to eq false
+      end
+
+      it 'false when zipcode is empty' do
+        owner = Owner.create!(email: 'angelo@email.com', password: 'password')
+        buffet = Buffet.create(name: 'Angelo', corporate_name: 'Alegria SA', cnpj: '65165161', 
+                  address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
+                  email: 'alegria@email.com', phone: '8156456456', zipcode: '', owner: owner)
+
+        expect(buffet.valid?).to eq false
+      end
     end
     
     context 'uniqueness' do

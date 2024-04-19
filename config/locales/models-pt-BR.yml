@@ -4,6 +4,7 @@ pt-BR:
       user: 'Cliente'
       owner: 'Dono de Buffet'
       buffet: 'Buffet'
+      event_type: 'Tipo de Evento'
     attributes:
       buffet:
         name: 'Nome Fantasia'
@@ -21,3 +22,17 @@ pt-BR:
         debit: 'Cartão de Débito'
         credit: 'Cartão de Crédito'
         cash: 'Dinheiro'
+      event_type:
+        name: 'Nome do Evento'
+        description: 'Descrição'
+        min_people: 'Quantidade mínima de Pessoas'
+        max_people: 'Quantidade máxima de Pessoas'
+        duration: 'Duração (minutos)'
+        menu: 'Cardápio'
+        alcohol: 'Bebidas alcoólicas'
+        decoration: 'Decoração'
+        parking: 'Estacionamento/valet'
+        location: 'Localização do Evento'
+      event_type/location:
+        exclusive: 'Exclusivamente no Endereço do Buffet'
+        anywhere: 'Em qualquer local solicitado'
