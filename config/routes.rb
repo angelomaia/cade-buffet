@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     get 'buffet_events', on: :member
   end
   resources :event_types, only: [:show, :edit, :update, :new, :create]
+  resources :prices, only: [:show, :edit, :update, :new, :create]
 end
 
 # Devise alert:

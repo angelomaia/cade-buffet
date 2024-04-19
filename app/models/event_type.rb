@@ -1,5 +1,6 @@
 class EventType < ApplicationRecord
   belongs_to :buffet
+  has_one :price
   validates :name, :description, :duration, :min_people, :max_people, :menu, presence: true
 
   enum location: { exclusive: 0, anywhere: 1 }
