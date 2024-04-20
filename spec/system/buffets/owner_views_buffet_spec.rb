@@ -5,7 +5,8 @@ describe 'Owner views buffet' do
     owner = Owner.create!(email: 'angelo@email.com', password: 'password')
     buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
-                  email: 'alegria@email.com', phone: '8156456456', zipcode: '1231245', owner: owner)
+                  email: 'alegria@email.com', phone: '8156456456', zipcode: '1231245',   
+                  pix: true, debit: true, credit: false, cash: true, owner: owner)
     
     login_as owner, scope: :owner
     visit root_path
@@ -24,10 +25,12 @@ describe 'Owner views buffet' do
     owner_two = Owner.create!(email: 'angelo2@email.com', password: 'password')
     buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
-                  email: 'alegria@email.com', phone: '8156456456', zipcode: '1231245', owner: owner)
+                  email: 'alegria@email.com', phone: '8156456456', zipcode: '1231245',   
+                  pix: true, debit: true, credit: false, cash: true, owner: owner)
     buffet_two = Buffet.create!(name: 'Felicidade', corporate_name: 'Felicidade SA', cnpj: '1231534', 
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
-                  email: 'felicidade@email.com', phone: '8156456456', zipcode: '1231245', owner: owner_two)
+                  email: 'felicidade@email.com', phone: '8156456456', zipcode: '1231245',   
+                  pix: true, debit: true, credit: false, cash: true, owner: owner_two)
     
     login_as owner_two, scope: :owner
     visit root_path
@@ -45,7 +48,8 @@ describe 'Owner views buffet' do
     owner = Owner.create!(email: 'angelo@email.com', password: 'password')
     buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
-                  email: 'alegria@email.com', phone: '8156456456', zipcode: '1231245', owner: owner)
+                  email: 'alegria@email.com', phone: '8156456456', zipcode: '1231245',   
+                  pix: true, debit: true, credit: false, cash: true, owner: owner)
     
     login_as owner, scope: :owner
     visit root_path

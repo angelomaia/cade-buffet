@@ -12,7 +12,8 @@ describe 'Owner adds event type to buffet' do
     owner = Owner.create!(email: 'angelo@email.com', password: 'password')
     buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
-                  email: 'alegria@email.com', phone: '8156456456', zipcode: '1231245', owner: owner)
+                  email: 'alegria@email.com', phone: '8156456456', zipcode: '1231245',   
+                  pix: true, debit: true, credit: false, cash: true, owner: owner)
     
     login_as owner, scope: :owner
     visit root_path
@@ -37,7 +38,8 @@ describe 'Owner adds event type to buffet' do
     owner = Owner.create!(email: 'angelo@email.com', password: 'password')
     buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
-                  email: 'alegria@email.com', phone: '8156456456', zipcode: '1231245', owner: owner)
+                  email: 'alegria@email.com', phone: '8156456456', zipcode: '1231245',   
+                  pix: true, debit: true, credit: false, cash: true, owner: owner)
     
     login_as owner, scope: :owner
     visit root_path
@@ -67,7 +69,8 @@ describe 'Owner adds event type to buffet' do
     owner = Owner.create!(email: 'angelo@email.com', password: 'password')
     buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
-                  email: 'alegria@email.com', phone: '8156456456', zipcode: '1231245', owner: owner)
+                  email: 'alegria@email.com', phone: '8156456456', zipcode: '1231245',   
+                  pix: true, debit: true, credit: false, cash: true, owner: owner)
     
     login_as owner, scope: :owner
     visit root_path
@@ -95,7 +98,8 @@ describe 'Owner adds event type to buffet' do
     owner = Owner.create!(email: 'angelo@email.com', password: 'password')
     buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
-                  email: 'alegria@email.com', phone: '8156456456', zipcode: '1231245', owner: owner)
+                  email: 'alegria@email.com', phone: '8156456456', zipcode: '1231245',   
+                  pix: true, debit: true, credit: false, cash: true, owner: owner)
     
     login_as owner, scope: :owner
     visit root_path
