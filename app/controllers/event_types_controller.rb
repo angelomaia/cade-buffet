@@ -35,7 +35,8 @@ class EventTypesController < ApplicationController
   end
 
   def event_type_prices
-    @event_type.build_price if @event_type.price.nil?
+    @event_type.price.destroy if @event_type.price
+    @event_type.build_price
   end
 
   private
