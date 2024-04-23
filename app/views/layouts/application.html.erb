@@ -15,26 +15,31 @@
         <div class="container-fluid">
           <div class="navbar-brand mb-0"><h2><%= link_to 'Cadê Buffet?', root_path, class:"nav-link" %></h2></div>
 
-          <!-- Search form only for guests and users -->
           <% unless owner_signed_in? %>
-            <%= form_with url: buffet_search_buffets_path, method: :get, class: "d-flex" do |f| %>
+            <%= form_with url: buffet_search_buffets_path, method: :get do |f| %>
               <span class="d-flex align-items-center">
                 <% f.label :query, 'Buscar Buffet:', class: "form-label" %>
-                <%= f.text_field :query, placeholder: "Buscar Buffet", class: "form-control" %>
+                <%= f.text_field :query, placeholder: "Buscar Buffet", class: "form-control me-2" %>
                 <%= f.submit 'Buscar', class: "btn btn-outline-success" %>
               </span>
             <% end %>
           <% end %>
 
           <% if user_signed_in? %>
-            <span class="navbar-text">
-              <%= current_user.email %> | <%= User.model_name.human %>
-              <%= button_to 'Sair', destroy_user_session_path, method: :delete, class: "btn btn-danger ms-2" %>
+
+            <span class="d-flex align-items-center">
+              <span class="navbar-text me-2">
+                <%= current_user.email %> | <%= User.model_name.human %>
+              </span>
+                <%= button_to 'Sair', destroy_user_session_path, method: :delete, class: "btn btn-danger ms-2" %>
             </span>
+
           <% elsif owner_signed_in? %>
+
             <% unless current_owner.buffet.nil? || !@buffet.valid? %>
-              <h2><%= link_to 'Meu Buffet', @buffet, class: "nav-link" %></h2>
+              <h2><%= link_to 'Meu Buffet', current_owner.buffet, class: "nav-link" %></h2>
             <% end %>
+
             <span class="d-flex align-items-center">
                 <span class="navbar-text me-2">
                     <%= current_owner.email %> | <%= Owner.model_name.human %>
@@ -47,6 +52,7 @@
               <%= link_to 'Entrar', home_choice_path, class: "btn btn-primary" %>
             <% end %>
           <% end %>
+
         </div>
       </nav>
     </header>

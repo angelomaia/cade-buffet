@@ -29,11 +29,12 @@ describe 'User visits homepage' do
 
     expect(page).to have_content('Cadê Buffet')
     expect(page).to have_link('Cadê Buffet', href: root_path)
-    expect(page).to have_content 'Buffet: Alegria'
+    expect(page).to have_content 'Buffets'
+    expect(page).to have_content 'Alegria'
     expect(page).to have_content 'Recife - PE'
-    expect(page).to have_content 'Buffet: Felicidade'
+    expect(page).to have_content 'Felicidade'
     expect(page).to have_content 'Salvador - BA'
-    expect(page).to have_content 'Buffet: Euforia'
+    expect(page).to have_content 'Euforia'
     expect(page).to have_content 'São Paulo - SP'
   end
 

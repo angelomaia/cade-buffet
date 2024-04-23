@@ -1,14 +1,15 @@
-<div id="buffet-list" class="container mt-3">
+<div id="buffet-list" class="container mt-3", style="max-width: 900px">
   <% if @buffets.any? %>
+    <h2>Buffets</h2>
     <div class="list-group">
       <% @buffets.each do |buffet| %>
         <a href="<%= buffet_path(buffet) %>" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-          <span class="fw-bold">Buffet: <%= buffet.name %></span>
+          <span class="fw-bold"><%= buffet.name %></span>
           <span class="badge bg-secondary"><%= buffet.city %> - <%= buffet.state %></span>
         </a>
       <% end %>
     </div>
   <% else %>
-    <p class="text-muted">No buffets found.</p>
+    <p class="text-muted">Não foram encontrados Buffets.</p>
   <% end %>
 </div>
