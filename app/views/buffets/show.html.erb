@@ -1,13 +1,22 @@
-<h1>Buffet <%= @buffet.name %></h1>
-<h2><%= @buffet.corporate_name %> | <%= @buffet.cnpj %></h2>
+<h1>Buffet: <%= @buffet.name %></h1>
+<h3>CNPJ: <%= @buffet.cnpj %></h3>
 <dl>
+  <% if @buffet.description %>
+    <dt> Descrição: <%= @buffet.description %> </dt>
+  <% end %>
   <dt> 
     Localização: <%= @buffet.address %>, <%= @buffet.neighborhood %>, <%= @buffet.city %> - <%= @buffet.state %>, <%= @buffet.zipcode %>
   </dt>
-  <dt> Email: <%= @buffet.email %> </dt>
+  <dt> E-mail: <%= @buffet.email %> </dt>
   <dt> Telefone: <%= @buffet.phone %> </dt>
-  <dt> Descrição: <%= @buffet.description %> </dt>
-  <dt> Métodos de Pagamento: <%= @buffet.pix %> <%= @buffet.debit %> <%= @buffet.credit %> <%= @buffet.cash %></dt>
+  <dt> Métodos de Pagamento:  
+    <% payment_methods = [] %>
+    <% payment_methods << Buffet.human_attribute_name(:pix) if @buffet.pix %>
+    <% payment_methods << Buffet.human_attribute_name(:debit) if @buffet.debit %>
+    <% payment_methods << Buffet.human_attribute_name(:credit) if @buffet.credit %>
+    <% payment_methods << Buffet.human_attribute_name(:cash) if @buffet.cash %>
+    <%= payment_methods.join(', ') %>
+  </dt>
 </dl>
 
 <div>
@@ -21,3 +30,4 @@
     <%= link_to 'Adicionar Tipo de Evento', new_event_type_path %>
   </div>
 <% end %>
+<%= link_to 'Voltar', :back %>

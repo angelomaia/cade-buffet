@@ -7,7 +7,10 @@
 <% end %>
 
 <%= render 'form' %>
-
-<%= link_to 'Definir Preços', event_type_prices_event_type_path %>
+<% if !@event_type.price %>
+  <%= link_to 'Definir Preços', event_type_prices_event_type_path %>
+<% else %>
+  <%= link_to 'Editar Preços', event_type_prices_event_type_path %>
+<% end %>
 
 <%= link_to 'Voltar', :back %>

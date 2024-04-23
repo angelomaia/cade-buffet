@@ -19,7 +19,7 @@ describe 'Owner tries to edit prices for event' do
     click_on 'Tipos de Evento'
     click_on 'Festa de Casamento'
     click_on 'Editar Tipo de Evento'
-    click_on 'Definir Preços'
+    click_on 'Editar Preços'
     fill_in 'Preço Base', with: '2000'
     fill_in 'Valor extra por pessoa', with: '100'
     fill_in 'Valor extra por hora', with: '1000'

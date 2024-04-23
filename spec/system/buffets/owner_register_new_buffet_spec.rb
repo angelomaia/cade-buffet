@@ -99,10 +99,10 @@ describe 'Owner register new buffet' do
     click_on 'Registrar'
 
     expect(page).to have_content 'Buffet cadastrado com sucesso'
-    expect(page).to have_content 'Buffet Alegria'
+    expect(page).to have_content 'Buffet: Alegria'
     expect(page).to have_content 'alegria@sa.com'
     expect(page).to have_content 'Recife - PE'
-    expect(page).to have_content 'Alegria SA | 1934812038173'
+    expect(page).to have_content 'CNPJ: 1934812038173'
 
   end
   it 'and tries to create another buffet' do

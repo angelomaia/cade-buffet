@@ -1,5 +1,8 @@
-<div>
-  <h2>
-    Bem vindo ao Cadê Buffet!
-  </h2>
+<div id="buffet list">
+  <% @buffets.each do |buffet| %>
+    <p>
+      Buffet: <%= link_to buffet.name, buffet %>
+      <%= buffet.city %> - <%= buffet.state %>
+    </p>
+  <% end %>
 </div>

@@ -50,7 +50,7 @@ describe 'Owner edits buffet' do
 
     expect(current_path).to eq "/buffets/#{buffet.id}"
     expect(page).to have_content 'Buffet alterado com sucesso.'
-    expect(page).to have_content 'Buffet Alegria'
+    expect(page).to have_content 'Buffet: Alegria'
     expect(page).to have_content 'alegria@sa.com'
     expect(page).not_to have_content 'alegria@email.com'
   end

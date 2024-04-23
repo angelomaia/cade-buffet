@@ -13,10 +13,10 @@ describe 'Owner views buffet' do
     visit "/buffets/#{buffet.id}"
 
     expect(current_path).to eq "/buffets/#{buffet.id}"
-    expect(page).to have_content 'Buffet Alegria'
+    expect(page).to have_content 'Buffet: Alegria'
     expect(page).to have_content 'alegria@email.com'
     expect(page).to have_content 'Recife - PE'
-    expect(page).to have_content 'Alegria SA | 65165161'
+    expect(page).to have_content 'CNPJ: 65165161'
     expect(page).to have_content 'Editar Buffet'
   end
 
@@ -37,10 +37,10 @@ describe 'Owner views buffet' do
     visit "/buffets/#{buffet.id}"
 
     expect(current_path).to eq "/buffets/#{buffet.id}"
-    expect(page).to have_content 'Buffet Alegria'
+    expect(page).to have_content 'Buffet: Alegria'
     expect(page).to have_content 'alegria@email.com'
     expect(page).to have_content 'Recife - PE'
-    expect(page).to have_content 'Alegria SA | 65165161'
+    expect(page).to have_content 'CNPJ: 65165161'
     expect(page).not_to have_content 'Editar Buffet'
   end
 
