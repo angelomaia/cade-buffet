@@ -1,33 +1,54 @@
-<h1>Buffet: <%= @buffet.name %></h1>
-<h3>CNPJ: <%= @buffet.cnpj %></h3>
-<dl>
-  <% if @buffet.description %>
-    <dt> Descrição: <%= @buffet.description %> </dt>
-  <% end %>
-  <dt> 
-    Localização: <%= @buffet.address %>, <%= @buffet.neighborhood %>, <%= @buffet.city %> - <%= @buffet.state %>, <%= @buffet.zipcode %>
-  </dt>
-  <dt> E-mail: <%= @buffet.email %> </dt>
-  <dt> Telefone: <%= @buffet.phone %> </dt>
-  <dt> Métodos de Pagamento:  
-    <% payment_methods = [] %>
-    <% payment_methods << Buffet.human_attribute_name(:pix) if @buffet.pix %>
-    <% payment_methods << Buffet.human_attribute_name(:debit) if @buffet.debit %>
-    <% payment_methods << Buffet.human_attribute_name(:credit) if @buffet.credit %>
-    <% payment_methods << Buffet.human_attribute_name(:cash) if @buffet.cash %>
-    <%= payment_methods.join(', ') %>
-  </dt>
-</dl>
+<div class="container mt-4">
+  <h1>Buffet: <%= @buffet.name %></h1>
+  <h3><%= @buffet.description if @buffet.description %></h3>
+  <dl class="row">
+    <dt class="col-sm-3">Localização:</dt>
+    <dd class="col-sm-9">
+      <%= @buffet.address %>, <%= @buffet.neighborhood %>, <%= @buffet.city %> - <%= @buffet.state %>, <%= @buffet.zipcode %>
+    </dd>
+    <dt class="col-sm-3">Métodos de Pagamento:</dt>
+    <dd class="col-sm-9">
+      <% payment_methods = [] %>
+      <% payment_methods << Buffet.human_attribute_name(:pix) if @buffet.pix %>
+      <% payment_methods << Buffet.human_attribute_name(:debit) if @buffet.debit %>
+      <% payment_methods << Buffet.human_attribute_name(:credit) if @buffet.credit %>
+      <% payment_methods << Buffet.human_attribute_name(:cash) if @buffet.cash %>
+      <%= payment_methods.join(', ') %>
+    </dd>
+    <dt class="col-sm-3">E-mail:</dt>
+    <dd class="col-sm-9"><%= @buffet.email %></dd>
+    <dt class="col-sm-3">Telefone:</dt>
+    <dd class="col-sm-9"><%= @buffet.phone %></dd>
+    <dt class="col-sm-3">CNPJ:</dt>
+    <dd class="col-sm-9"><%= @buffet.cnpj %></dd>
+  </dl>
 
-<div>
-  <%= link_to 'Tipos de Evento', buffet_events_buffet_path %>
+  <% if @buffet.owner == current_owner %>
+    <div class="mt-3">
+      <%= link_to 'Editar Buffet', edit_buffet_path, class: "btn btn-warning" %>
+    </div>
+    <div class="mt-3">
+      <%= link_to 'Adicionar Tipo de Evento', new_event_type_path, class: "btn btn-info" %>
+    </div>
+  <% end %>
 </div>
-<% if @buffet.owner == current_owner %>
-  <div>
-    <%= link_to 'Editar Buffet', edit_buffet_path %>
+
+<div class="container mt-3">
+  <h3>Tipos de eventos do Buffet <%= @buffet.name %></h3>
+  
+  <% if !@buffet.event_types.any? %>
+    <div class="alert alert-warning" role="alert">
+      Ainda não há Tipos de Eventos cadastrados para este Buffet.
+    </div>
+  <% else %>
+    <div class="list-group">
+      <% @buffet.event_types.each do |event| %>
+        <%= link_to event.name, event, class: "list-group-item list-group-item-action" %>
+      <% end %>
+    </div>
+  <% end %>
+  <div class="mt-3 mb-4">
+    <%= link_to 'Voltar', :back, class: "btn btn-secondary mt-3" %>
   </div>
-  <div>
-    <%= link_to 'Adicionar Tipo de Evento', new_event_type_path %>
-  </div>
-<% end %>
-<%= link_to 'Voltar', :back %>
+</div>
+

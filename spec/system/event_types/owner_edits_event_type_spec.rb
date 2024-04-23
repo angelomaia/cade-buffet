@@ -53,7 +53,6 @@ describe 'Owner edits event type' do
     login_as owner, scope: :owner
     visit root_path
     click_on 'Meu Buffet'
-    click_on 'Tipos de Evento'
     click_on 'Festa de Casamento'
     click_on 'Editar Tipo de Evento'
 
@@ -86,7 +85,6 @@ describe 'Owner edits event type' do
     login_as owner, scope: :owner
     visit root_path
     click_on 'Meu Buffet'
-    click_on 'Tipos de Evento'
     click_on 'Festa de Casamento'
     click_on 'Editar Tipo de Evento'
     fill_in 'Nome do Evento', with: 'Alegrilandia'
@@ -119,7 +117,6 @@ describe 'Owner edits event type' do
     login_as owner, scope: :owner
     visit root_path
     click_on 'Meu Buffet'
-    click_on 'Tipos de Evento'
     click_on 'Festa de Casamento'
     click_on 'Editar Tipo de Evento'
     fill_in 'Nome do Evento', with: ''

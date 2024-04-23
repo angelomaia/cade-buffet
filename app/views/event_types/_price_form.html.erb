@@ -1,79 +1,78 @@
-
-<%= form_with(model: @event_type) do |f| %>
-  <div>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+<%= form_with(model: @event_type, local: true, html: { class: 'needs-validation', novalidate: '' }) do |f| %>
+  <div class="mb-3">
+    <%= f.label :name, class: 'form-label' %>
+    <%= f.text_field :name, class: 'form-control' %>
   </div>
-  <div>
-    <%= f.label :description %>
-    <%= f.text_area :description %>
+  <div class="mb-3">
+    <%= f.label :description, class: 'form-label' %>
+    <%= f.text_area :description, class: 'form-control' %>
   </div>
-  <div>
-    <%= f.label :min_people %>
-    <%= f.text_field :min_people %>    
+  <div class="mb-3">
+    <%= f.label :min_people, class: 'form-label' %>
+    <%= f.text_field :min_people, class: 'form-control' %>
   </div>
-  <div>
-    <%= f.label :max_people %>
-    <%= f.text_field :max_people %>    
+  <div class="mb-3">
+    <%= f.label :max_people, class: 'form-label' %>
+    <%= f.text_field :max_people, class: 'form-control' %>
   </div>
-  <div>
-    <%= f.label :duration %>
-    <%= f.text_field :duration %>    
+  <div class="mb-3">
+    <%= f.label :duration, class: 'form-label' %>
+    <%= f.text_field :duration, class: 'form-control' %>
   </div>
-  <div>
-    <%= f.label :menu %>
-    <%= f.text_area :menu %>    
+  <div class="mb-3">
+    <%= f.label :menu, class: 'form-label' %>
+    <%= f.text_area :menu, class: 'form-control' %>
   </div>
-  <div>
-    <%= f.label :alcohol %>
-    <%= f.check_box :alcohol %>
+  <div class="mb-3 form-check">
+    <%= f.check_box :alcohol, class: 'form-check-input' %>
+    <%= f.label :alcohol, class: 'form-check-label' %>
   </div>
-  <div>
-    <%= f.label :decoration %>
-    <%= f.check_box :decoration %>
+  <div class="mb-3 form-check">
+    <%= f.check_box :decoration, class: 'form-check-input' %>
+    <%= f.label :decoration, class: 'form-check-label' %>
   </div>
-  <div>
-    <%= f.label :parking %>
-    <%= f.check_box :parking %>
+  <div class="mb-3 form-check">
+    <%= f.check_box :parking, class: 'form-check-input' %>
+    <%= f.label :parking, class: 'form-check-label' %>
   </div>
-  <div>
-    <%= EventType.human_attribute_name(:location)%>
+  <div class="mb-3">
+    <%= f.label :location, EventType.human_attribute_name(:location), class: 'form-label' %>
     <% EventType.locations.each do |key, value| %>
-      <div></div>
-        <%= f.label :location, EventType.human_attribute_name("location.#{key}") %>
-        <%= f.radio_button :location, key %>
+      <div class="form-check">
+        <%= f.radio_button :location, key, class: 'form-check-input' %>
+        <%= f.label :location, EventType.human_attribute_name("location.#{key}"), value: key, class: 'form-check-label' %>
       </div>
     <% end %>
   </div>
 
-  <h2>Preços do Evento</h2>
+  <h2 class="mt-4 mb-3">Preços do Evento</h2>
   <%= f.fields_for :price do |price_f| %>
-    <div>
-      <%= price_f.label :base, Price.human_attribute_name(:base) %>
-      <%= price_f.number_field :base, step: '0.01' %>
+    <div class="mb-3">
+      <%= price_f.label :base, Price.human_attribute_name(:base), class: 'form-label' %>
+      <%= price_f.number_field :base, step: '0.01', class: 'form-control' %>
     </div>
-    <div>
-      <%= price_f.label :extra_person, Price.human_attribute_name(:extra_person) %>
-      <%= price_f.number_field :extra_person, step: '0.01' %>
+    <div class="mb-3">
+      <%= price_f.label :extra_person, Price.human_attribute_name(:extra_person), class: 'form-label' %>
+      <%= price_f.number_field :extra_person, step: '0.01', class: 'form-control' %>
     </div>
-    <div>
-      <%= price_f.label :extra_hour, Price.human_attribute_name(:extra_hour) %>
-      <%= price_f.number_field :extra_hour, step: '0.01' %>
+    <div class="mb-3">
+      <%= price_f.label :extra_hour, Price.human_attribute_name(:extra_hour), class: 'form-label' %>
+      <%= price_f.number_field :extra_hour, step: '0.01', class: 'form-control' %>
     </div>
-    <div>
-      <%= price_f.label :weekend_base, Price.human_attribute_name(:weekend_base) %>
-      <%= price_f.number_field :weekend_base, step: '0.01' %>
+    <div class="mb-3">
+      <%= price_f.label :weekend_base, Price.human_attribute_name(:weekend_base), class: 'form-label' %>
+      <%= price_f.number_field :weekend_base, step: '0.01', class: 'form-control' %>
     </div>
-    <div>
-      <%= price_f.label :weekend_extra_person, Price.human_attribute_name(:weekend_extra_person) %>
-      <%= price_f.number_field :weekend_extra_person, step: '0.01' %>
+    <div class="mb-3">
+      <%= price_f.label :weekend_extra_person, Price.human_attribute_name(:weekend_extra_person), class: 'form-label' %>
+      <%= price_f.number_field :weekend_extra_person, step: '0.01', class: 'form-control' %>
     </div>
-    <div>
-      <%= price_f.label :weekend_extra_hour, Price.human_attribute_name(:weekend_extra_hour) %>
-      <%= price_f.number_field :weekend_extra_hour, step: '0.01' %>
+    <div class="mb-3">
+      <%= price_f.label :weekend_extra_hour, Price.human_attribute_name(:weekend_extra_hour), class: 'form-label' %>
+      <%= price_f.number_field :weekend_extra_hour, step: '0.01', class: 'form-control' %>
     </div>
   <% end %>
   <div>
-    <%= f.submit 'Registrar' %>
+    <%= f.submit 'Registrar', class: 'btn btn-primary' %>
   </div>
 <% end %>

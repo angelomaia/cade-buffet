@@ -1,11 +1,16 @@
-<div>
-<h2>Cadastrar Buffet</h2>
-</div>
+<div class="container mt-3">
+  <h2>Cadastrar Buffet</h2>
 
-<% if @buffet.errors.any? %>
-  <% @buffet.errors.full_messages.each do |msg| %>
-    <li><%= msg %></li>
+  <% if @buffet.errors.any? %>
+    <div class="alert alert-danger" role="alert">
+      <strong>Please fix the following errors:</strong>
+      <ul>
+        <% @buffet.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
   <% end %>
-<% end %>
 
-<%= render 'form' %>
+  <%= render 'form' %>
+</div>

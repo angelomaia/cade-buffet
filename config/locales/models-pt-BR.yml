@@ -3,7 +3,9 @@ pt-BR:
     models:
       user: 'Cliente'
       owner: 'Dono de Buffet'
-      buffet: 'Buffet'
+      buffet: 
+        one: 'Buffet'
+        other: 'Buffets'
       event_type: 'Tipo de Evento'
       price: 'Preços'
     attributes:

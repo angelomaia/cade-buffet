@@ -1,8 +1,14 @@
-<div id="buffet list">
-  <% @buffets.each do |buffet| %>
-    <p>
-      Buffet: <%= link_to buffet.name, buffet %>
-      <%= buffet.city %> - <%= buffet.state %>
-    </p>
+<div id="buffet-list" class="container mt-3">
+  <% if @buffets.any? %>
+    <div class="list-group">
+      <% @buffets.each do |buffet| %>
+        <a href="<%= buffet_path(buffet) %>" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+          <span class="fw-bold">Buffet: <%= buffet.name %></span>
+          <span class="badge bg-secondary"><%= buffet.city %> - <%= buffet.state %></span>
+        </a>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-muted">No buffets found.</p>
   <% end %>
 </div>

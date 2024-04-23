@@ -1,16 +1,25 @@
-<h1>Editar Tipo de Evento</h1>
+<div class="container mt-4">
+  <h1>Editar Tipo de Evento</h1>
 
-<% if @event_type.errors.any? %>
-  <% @event_type.errors.full_messages.each do |msg| %>
-    <li><%= msg %></li>
+  <% if @event_type.errors.any? %>
+    <div class="alert alert-danger" role="alert">
+      <ul>
+        <% @event_type.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
   <% end %>
-<% end %>
+</div>
 
-<%= render 'form' %>
-<% if !@event_type.price %>
-  <%= link_to 'Definir Preços', event_type_prices_event_type_path %>
-<% else %>
-  <%= link_to 'Editar Preços', event_type_prices_event_type_path %>
-<% end %>
+  <%= render 'form' %>
 
-<%= link_to 'Voltar', :back %>
+<div class="container mt-4"></div>
+  <% if !@event_type.price %>
+    <%= link_to 'Definir Preços', event_type_prices_event_type_path, class: "btn btn-primary mt-3" %>
+  <% else %>
+    <%= link_to 'Editar Preços', event_type_prices_event_type_path, class: "btn btn-primary mt-3" %>
+  <% end %>
+
+  <%= link_to 'Voltar', :back, class: "btn btn-secondary mt-3" %>
+</div>

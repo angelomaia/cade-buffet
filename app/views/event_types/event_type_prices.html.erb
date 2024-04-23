@@ -1,11 +1,18 @@
-<h1>Editar Tipo de Evento</h1>
+<div class="container mt-4">
+  <h1>Editar Tipo de Evento</h1>
 
-<% if @event_type.errors.any? %>
-  <% @event_type.errors.full_messages.each do |msg| %>
-    <li><%= msg %></li>
+  <% if @event_type.errors.any? %>
+    <div class="alert alert-danger" role="alert">
+      <strong>Por favor, corrija os seguintes erros:</strong>
+      <ul>
+        <% @event_type.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
   <% end %>
-<% end %>
+
+  <%= link_to 'Voltar', :back, class: "btn btn-secondary mt-3" %>
+</div>
 
 <%= render 'price_form' %>
-
-<%= link_to 'Voltar', :back %>

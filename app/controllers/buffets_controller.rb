@@ -42,9 +42,12 @@ class BuffetsController < ApplicationController
     end
   end
 
-  def buffet_events
-    @buffet = Buffet.find(params[:id])
-    @events = @buffet.event_types
+  def buffet_search
+    @query = params["query"]
+    @buffets = Buffet.left_joins(:event_types).where("buffets.name LIKE :query OR 
+                                              buffets.city LIKE :query OR 
+                                              event_types.name LIKE :query", 
+                                              query: "%#{@query}%")
   end
   
   private

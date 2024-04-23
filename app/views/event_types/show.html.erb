@@ -1,31 +1,59 @@
-<h1><%= @event_type.name %></h1>
+<div class="container mt-3">
+  <h1><%= @event_type.name %></h1>
 
-<dl></dl>
-<dd><%= EventType.human_attribute_name(:description)%>: <%= @event_type.description %></dd>
-<dd><%= EventType.human_attribute_name(:duration)%>: <%= @event_type.duration %></dd>
-<dd><%= EventType.human_attribute_name(:min_people)%>: <%= @event_type.min_people %></dd>
-<dd><%= EventType.human_attribute_name(:max_people)%>: <%= @event_type.max_people %></dd>
-<dd><%= EventType.human_attribute_name(:menu)%>: <%= @event_type.menu %></dd>
-<dd>Extras: 
-  <% EventType.extras(@event_type.id).each do |extra| %>
-    <%= EventType.human_attribute_name(extra) %>
-  <% end%>
-</dd>
-<dd><%= EventType.human_attribute_name(:location)%>: <%= I18n.translate(@event_type.location) %></dd>
+  <dl class="row">
+    <dt class="col-sm-3"><%= EventType.human_attribute_name(:description) %>:</dt>
+    <dd class="col-sm-9"><%= @event_type.description %></dd>
 
-<% if @event_type.price != nil %>
-  <dl>
-  <dd><%= Price.human_attribute_name(:base)%>: R$ <%= @event_type.price.base %></dd>
-  <dd><%= Price.human_attribute_name(:extra_person)%>: R$ <%= @event_type.price.extra_person %></dd>
-  <dd><%= Price.human_attribute_name(:extra_hour)%>: R$ <%= @event_type.price.extra_hour %></dd>
-  <dd><%= Price.human_attribute_name(:weekend_base)%>: R$ <%= @event_type.price.weekend_base %></dd>
-  <dd><%= Price.human_attribute_name(:weekend_extra_person)%>: R$ <%= @event_type.price.weekend_extra_person %></dd>
-  <dd><%= Price.human_attribute_name(:weekend_extra_hour)%>: R$ <%= @event_type.price.weekend_extra_hour %></dd>
+    <dt class="col-sm-3"><%= EventType.human_attribute_name(:duration) %>:</dt>
+    <dd class="col-sm-9"><%= @event_type.duration %></dd>
+
+    <dt class="col-sm-3"><%= EventType.human_attribute_name(:min_people) %>:</dt>
+    <dd class="col-sm-9"><%= @event_type.min_people %></dd>
+
+    <dt class="col-sm-3"><%= EventType.human_attribute_name(:max_people) %>:</dt>
+    <dd class="col-sm-9"><%= @event_type.max_people %></dd>
+
+    <dt class="col-sm-3"><%= EventType.human_attribute_name(:menu) %>:</dt>
+    <dd class="col-sm-9"><%= @event_type.menu %></dd>
+
+    <dt class="col-sm-3">Extras:</dt>
+    <dd class="col-sm-9">
+      <% EventType.extras(@event_type.id).each do |extra| %>
+        <%= EventType.human_attribute_name(extra) %>
+      <% end %>
+    </dd>
+
+    <dt class="col-sm-3"><%= EventType.human_attribute_name(:location) %>:</dt>
+    <dd class="col-sm-9"><%= I18n.translate(@event_type.location) %></dd>
   </dl>
-<% end %>
 
-<% if @event_type.buffet.owner == current_owner %>
-  <%= link_to 'Editar Tipo de Evento', edit_event_type_path %>
-  <%= link_to 'Definir Preços', event_type_prices_event_type_path %>
-<% end %>
-<%= link_to 'Voltar', :back %>
+  <% if @event_type.price != nil %>
+    <h3>Preços</h3>
+    <dl class="row">
+      <dt class="col-sm-3"><%= Price.human_attribute_name(:base) %>:</dt>
+      <dd class="col-sm-9">R$ <%= @event_type.price.base %></dd>
+
+      <dt class="col-sm-3"><%= Price.human_attribute_name(:extra_person) %>:</dt>
+      <dd class="col-sm-9">R$ <%= @event_type.price.extra_person %></dd>
+
+      <dt class="col-sm-3"><%= Price.human_attribute_name(:extra_hour) %>:</dt>
+      <dd class="col-sm-9">R$ <%= @event_type.price.extra_hour %></dd>
+
+      <dt class="col-sm-3"><%= Price.human_attribute_name(:weekend_base) %>:</dt>
+      <dd class="col-sm-9">R$ <%= @event_type.price.weekend_base %></dd>
+
+      <dt class="col-sm-3"><%= Price.human_attribute_name(:weekend_extra_person) %>:</dt>
+      <dd class="col-sm-9">R$ <%= @event_type.price.weekend_extra_person %></dd>
+
+      <dt class="col-sm-3"><%= Price.human_attribute_name(:weekend_extra_hour) %>:</dt>
+      <dd class="col-sm-9">R$ <%= @event_type.price.weekend_extra_hour %></dd>
+    </dl>
+  <% end %>
+
+  <% if @event_type.buffet.owner == current_owner %>
+    <%= link_to 'Editar Tipo de Evento', edit_event_type_path, class: "btn btn-primary" %>
+    <%= link_to 'Definir Preços', event_type_prices_event_type_path, class: "btn btn-info" %>
+  <% end %>
+  <%= link_to 'Voltar', :back, class: "btn btn-secondary" %>
+</div>

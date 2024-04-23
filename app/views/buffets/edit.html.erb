@@ -1,13 +1,17 @@
-<div>
-<h2>Alterar Buffet</h2>
-</div>
+<div class="container mt-3">
+  <h2>Alterar Buffet</h2>
 
-<% if @buffet.errors.any? %>
-  <% @buffet.errors.full_messages.each do |msg| %>
-    <li><%= msg %></li>
+  <% if @buffet.errors.any? %>
+    <div class="alert alert-danger" role="alert">
+      <ul>
+        <% @buffet.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
   <% end %>
-<% end %>
 
-<%= render 'form' %>
+  <%= render 'form' %>
 
-<%= link_to 'Voltar', :back %>
+  <%= link_to 'Voltar', :back, class: "btn btn-secondary mt-3" %>
+</div>

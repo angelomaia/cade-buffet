@@ -1,13 +1,13 @@
-<div>
-  <h2>Entrar como Dono de Buffet ou Cliente?</h2>
-</div>
+<div class="container mt-3">
+  <h2 class="mb-4">Entrar como:</h2>
 
-<div>
-  <%= link_to Owner.model_name.human, new_owner_session_path %>
-</div>
+  <div class="mb-3">
+    <%= link_to Owner.model_name.human, new_owner_session_path, class: "btn btn-primary" %>
+  </div>
 
-<div>
-  <%= User.model_name.human %> ~ Funcionalidade ainda não implementada!
-</div>
+  <div class="mb-3">
+    <%= link_to User.model_name.human, root_path, class: "btn btn-info"  %>
+  </div>
 
-<%= link_to 'Voltar', :back %>
+  <%= link_to 'Voltar', :back, class: "btn btn-secondary" %>
+</div>

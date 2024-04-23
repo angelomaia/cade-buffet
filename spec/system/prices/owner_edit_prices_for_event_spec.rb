@@ -16,7 +16,6 @@ describe 'Owner tries to edit prices for event' do
     login_as owner, scope: :owner
     visit root_path
     click_on 'Meu Buffet'
-    click_on 'Tipos de Evento'
     click_on 'Festa de Casamento'
     click_on 'Editar Tipo de Evento'
     click_on 'Editar Preços'

@@ -1,0 +1,18 @@
+<div class="container mt-3">
+  <h1>Resultados da Busca por: <%= @query %></h1>
+  <p>
+    <%= @buffets.count %> 
+    <%= Buffet.model_name.human(count: @buffets.count) %> 
+    <%= I18n.translate(:found, count: @buffets.count) %>
+  </p>
+  
+  <% if @buffets.any? %>
+    <div class="list-group">
+      <% @buffets.each do |buffet| %>
+        <%= link_to buffet.name, buffet, class: "list-group-item list-group-item-action" %>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-muted">Nenhum resultado encontrado.</p>
+  <% end %>
+</div>

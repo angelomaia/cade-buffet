@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get 'home/choice', to: 'home#choice'
   
   resources :buffets, only: [:show, :new, :create, :edit, :update] do
-    get 'buffet_events', on: :member
+    get 'buffet_search', on: :collection
   end
   resources :event_types, only: [:show, :edit, :update, :new, :create] do
     get 'event_type_prices', on: :member

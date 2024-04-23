@@ -116,7 +116,6 @@ describe 'Owner adds event type to buffet' do
     choose('event_type[location]', option: "anywhere")
     click_on 'Registrar'
     click_on 'Meu Buffet'
-    click_on 'Tipos de Evento'
     click_on 'Festa de Casamento'
 
     expect(page).to have_content 'Festa de Casamento'
