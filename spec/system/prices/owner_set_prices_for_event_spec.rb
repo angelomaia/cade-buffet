@@ -37,7 +37,7 @@ describe 'Owner tries to set prices for event' do
     click_on 'Editar Tipo de Evento'
     click_on 'Definir Preços'
 
-    expect(page).to have_content 'Preços do Evento'
+    expect(page).to have_content 'Editar Tipo de Evento e Preços'
     expect(current_path).to eq event_type_prices_event_type_path(event.id)
     expect(page).to have_field 'Preço Base'
     expect(page).to have_field 'Valor extra por pessoa'
@@ -82,5 +82,35 @@ describe 'Owner tries to set prices for event' do
     expect(page).to have_content 'Valor extra por pessoa (FDS): R$ 150.0'
     expect(page).to have_content 'Valor extra por hora (FDS): R$ 1500.0'
     expect(current_path).to eq "/event_types/#{event.id}"
+  end
+
+  it 'and leaves all fields blank' do
+    owner = Owner.create!(email: 'angelo@email.com', password: 'password')
+    buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
+                  address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
+                  email: 'alegria@email.com', phone: '8156456456', zipcode: '1231245',   
+                  pix: true, debit: true, credit: false, cash: true, owner: owner)
+    event = EventType.create!(name: 'Festa de Casamento', duration: '240', min_people: '10',
+                              max_people: '100', description: 'Festa grande', menu: 'Macarrão com salsicha',
+                              buffet: buffet)
+    
+    login_as owner, scope: :owner
+    visit root_path
+    click_on 'Meu Buffet'
+    click_on 'Festa de Casamento'
+    click_on 'Editar Tipo de Evento'
+    click_on 'Definir Preços'
+    fill_in 'Preço Base', with: ''
+    fill_in 'Valor extra por pessoa', with: ''
+    fill_in 'Valor extra por hora', with: ''
+    fill_in 'Preço Final de Semana (FDS)', with: '' 
+    fill_in 'Valor extra por pessoa (FDS)', with: ''
+    fill_in 'Valor extra por hora (FDS)', with: ''
+    click_on 'Registrar'
+
+    expect(page).to have_content 'Não foi possível atualizar o Tipo de Evento'
+    expect(page).to have_content 'Preço Base não pode ficar em branco'
+    expect(page).to have_content 'Valor extra por pessoa não pode ficar em branco'
+    expect(page).to have_content 'Valor extra por hora não pode ficar em branco'
   end
 end

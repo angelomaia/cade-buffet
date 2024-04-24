@@ -1,5 +1,5 @@
-<div class="container mt-4">
-  <h1>Editar Tipo de Evento</h1>
+<div class="container m-3 d-flex flex-column align-items-center justify-content-center">
+  <h2>Editar Tipo de Evento e Preços</h2>
 
   <% if @event_type.errors.any? %>
     <div class="alert alert-danger" role="alert">
@@ -11,8 +11,8 @@
       </ul>
     </div>
   <% end %>
-
-  <%= link_to 'Voltar', :back, class: "btn btn-secondary mt-3" %>
 </div>
 
 <%= render 'price_form' %>
+
+<%= link_to 'Voltar', :back, class: "btn btn-secondary mb-3" %>

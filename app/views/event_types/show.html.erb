@@ -17,43 +17,61 @@
     <dt class="col-sm-3"><%= EventType.human_attribute_name(:menu) %>:</dt>
     <dd class="col-sm-9"><%= @event_type.menu %></dd>
 
-    <dt class="col-sm-3">Extras:</dt>
-    <dd class="col-sm-9">
-      <% EventType.extras(@event_type.id).each do |extra| %>
-        <%= EventType.human_attribute_name(extra) %>
-      <% end %>
-    </dd>
-
     <dt class="col-sm-3"><%= EventType.human_attribute_name(:location) %>:</dt>
     <dd class="col-sm-9"><%= I18n.translate(@event_type.location) %></dd>
+
+    <% unless EventType.extras(@event_type.id).empty? %>
+      <dt class="col-sm-3">Extras:</dt>
+      <dd class="col-sm-9">
+        <% EventType.extras(@event_type.id).each do |extra| %>
+          <%= EventType.human_attribute_name(extra) %>
+        <% end %>
+      </dd>
+    <% end %>
   </dl>
 
   <% if @event_type.price != nil %>
     <h3>Preços</h3>
     <dl class="row">
-      <dt class="col-sm-3"><%= Price.human_attribute_name(:base) %>:</dt>
-      <dd class="col-sm-9">R$ <%= @event_type.price.base %></dd>
+      <% unless @event_type.price.base == nil %>
+        <dt class="col-sm-3"><%= Price.human_attribute_name(:base) %>:</dt>
+        <dd class="col-sm-9">R$ <%= @event_type.price.base %></dd>
+      <% end %>
 
-      <dt class="col-sm-3"><%= Price.human_attribute_name(:extra_person) %>:</dt>
-      <dd class="col-sm-9">R$ <%= @event_type.price.extra_person %></dd>
+      <% unless @event_type.price.extra_person == nil %>
+        <dt class="col-sm-3"><%= Price.human_attribute_name(:extra_person) %>:</dt>
+        <dd class="col-sm-9">R$ <%= @event_type.price.extra_person %></dd>
+      <% end %>
 
-      <dt class="col-sm-3"><%= Price.human_attribute_name(:extra_hour) %>:</dt>
-      <dd class="col-sm-9">R$ <%= @event_type.price.extra_hour %></dd>
+      <% unless @event_type.price.extra_hour == nil %>
+        <dt class="col-sm-3"><%= Price.human_attribute_name(:extra_hour) %>:</dt>
+        <dd class="col-sm-9">R$ <%= @event_type.price.extra_hour %></dd>
+      <% end %>
 
-      <dt class="col-sm-3"><%= Price.human_attribute_name(:weekend_base) %>:</dt>
-      <dd class="col-sm-9">R$ <%= @event_type.price.weekend_base %></dd>
+      <% unless @event_type.price.weekend_base == nil %>
+        <dt class="col-sm-3"><%= Price.human_attribute_name(:weekend_base) %>:</dt>
+        <dd class="col-sm-9">R$ <%= @event_type.price.weekend_base %></dd>
+      <% end %>
 
-      <dt class="col-sm-3"><%= Price.human_attribute_name(:weekend_extra_person) %>:</dt>
-      <dd class="col-sm-9">R$ <%= @event_type.price.weekend_extra_person %></dd>
+      <% unless @event_type.price.weekend_extra_person == nil %>
+        <dt class="col-sm-3"><%= Price.human_attribute_name(:weekend_extra_person) %>:</dt>
+        <dd class="col-sm-9">R$ <%= @event_type.price.weekend_extra_person %></dd>
+      <% end %>
 
-      <dt class="col-sm-3"><%= Price.human_attribute_name(:weekend_extra_hour) %>:</dt>
-      <dd class="col-sm-9">R$ <%= @event_type.price.weekend_extra_hour %></dd>
+      <% unless @event_type.price.weekend_extra_hour == nil %>
+        <dt class="col-sm-3"><%= Price.human_attribute_name(:weekend_extra_hour) %>:</dt>
+        <dd class="col-sm-9">R$ <%= @event_type.price.weekend_extra_hour %></dd>
+      <% end %>
     </dl>
   <% end %>
 
   <% if @event_type.buffet.owner == current_owner %>
     <%= link_to 'Editar Tipo de Evento', edit_event_type_path, class: "btn btn-primary" %>
-    <%= link_to 'Definir Preços', event_type_prices_event_type_path, class: "btn btn-info" %>
+    <% if @event_type.price == nil %>
+      <%= link_to 'Definir Preços', event_type_prices_event_type_path, class: "btn btn-info" %>
+    <% else %>
+      <%= link_to 'Editar Preços', event_type_prices_event_type_path, class: "btn btn-info" %>
+    <% end %>
   <% end %>
   <%= link_to 'Voltar', :back, class: "btn btn-secondary" %>
 </div>

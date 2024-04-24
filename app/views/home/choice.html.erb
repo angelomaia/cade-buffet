@@ -1,13 +1,10 @@
-<div class="container mt-3">
-  <h2 class="mb-4">Entrar como:</h2>
+<div class="container mt-3 d-flex flex-column align-items-center justify-content-center">
+  <h2 class="mb-4 text-center">Entrar como:</h2>
 
-  <div class="mb-3">
-    <%= link_to Owner.model_name.human, new_owner_session_path, class: "btn btn-primary" %>
+  <div class="mb-3 d-flex justify-content-center">
+    <%= link_to Owner.model_name.human, new_owner_session_path, class: "btn btn-primary mx-2" %>
+    <%= link_to User.model_name.human, new_user_session_path, class: "btn btn-info mx-2" %>
   </div>
 
-  <div class="mb-3">
-    <%= link_to User.model_name.human, new_user_session_path, class: "btn btn-info"  %>
-  </div>
-
-  <%= link_to 'Voltar', :back, class: "btn btn-secondary" %>
+  <%= link_to 'Voltar', :back, class: "btn btn-secondary mt-4" %>
 </div>
