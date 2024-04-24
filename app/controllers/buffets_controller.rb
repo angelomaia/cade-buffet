@@ -47,7 +47,7 @@ class BuffetsController < ApplicationController
     @buffets = Buffet.left_joins(:event_types).where("buffets.name LIKE :query OR 
                                               buffets.city LIKE :query OR 
                                               event_types.name LIKE :query", 
-                                              query: "%#{@query}%")
+                                              query: "%#{@query}%").order(name: :asc)
   end
   
   private

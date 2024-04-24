@@ -8,11 +8,15 @@
   
   <% if @buffets.any? %>
     <div class="list-group">
-      <% @buffets.each do |buffet| %>
-        <%= link_to buffet.name, buffet, class: "list-group-item list-group-item-action" %>
-      <% end %>
-    </div>
-  <% else %>
-    <p class="text-muted">Nenhum resultado encontrado.</p>
-  <% end %>
+      <div id="buffets">
+        <% @buffets.each do |buffet| %>
+          <div>
+          <%= link_to buffet.name, buffet, class: "list-group-item list-group-item-action" %>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="text-muted">Nenhum resultado encontrado.</p>
+    <% end %>
+  </div>
 </div>
