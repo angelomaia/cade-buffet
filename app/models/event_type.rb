@@ -4,6 +4,7 @@ class EventType < ApplicationRecord
   accepts_nested_attributes_for :price
   
   validates :name, :description, :duration, :min_people, :max_people, :menu, presence: true
+  validates :duration, :min_people, :max_people, format: { :with => /\A[0-9]+\z/, :message => "Deve conter apenas números" }
 
   enum location: { exclusive: 0, anywhere: 1 }
 

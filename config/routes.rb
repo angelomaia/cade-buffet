@@ -2,9 +2,11 @@ Rails.application.routes.draw do
   root "home#index"
   get 'home/choice', to: 'home#choice'
 
-  devise_for :users, path: 'users'
+  devise_for :users, path: 'users', controllers: {
+    registrations: 'users/registrations'
+  }
   devise_for :owners, path: 'owners', controllers: {
-    sessions: 'owners/sessions'
+    sessions: 'owners/sessions',
   }
   
   resources :buffets, only: [:show, :new, :create, :edit, :update] do

@@ -221,6 +221,36 @@ RSpec.describe Buffet, type: :model do
 
         expect(buffet.valid?).to eq false
       end
+
+      it "false when cnpj is not numbers-only" do
+        owner = Owner.create!(email: 'angelo@email.com', password: 'password')
+        buffet = Buffet.create(name: 'Angelo', corporate_name: 'Alegria SA', cnpj: '6a5165161', 
+                  address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
+                  email: '@email.com', phone: '8156456456', zipcode: '1231213', 
+                  pix: true, debit: true, credit: false, cash: nil, owner: owner)
+
+        expect(buffet.valid?).to eq false
+      end
+
+      it "false when phone is not numbers-only" do
+        owner = Owner.create!(email: 'angelo@email.com', password: 'password')
+        buffet = Buffet.create(name: 'Angelo', corporate_name: 'Alegria SA', cnpj: '65165161', 
+                  address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
+                  email: '@email.com', phone: '81A56456456', zipcode: '1231213', 
+                  pix: true, debit: true, credit: false, cash: nil, owner: owner)
+
+        expect(buffet.valid?).to eq false
+      end
+
+      it "false when zipcode is not numbers-only" do
+        owner = Owner.create!(email: 'angelo@email.com', password: 'password')
+        buffet = Buffet.create(name: 'Angelo', corporate_name: 'Alegria SA', cnpj: '65165161', 
+                  address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
+                  email: '@email.com', phone: '8156456456', zipcode: '1231A213', 
+                  pix: true, debit: true, credit: false, cash: nil, owner: owner)
+
+        expect(buffet.valid?).to eq false
+      end
     end
   end
 end

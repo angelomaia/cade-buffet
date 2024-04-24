@@ -9,6 +9,9 @@ pt-BR:
       event_type: 'Tipo de Evento'
       price: 'Preços'
     attributes:
+      user:
+        name: 'Nome'
+        cpf: 'CPF'
       buffet:
         name: 'Nome Fantasia'
         corporate_name: 'Razão Social'
