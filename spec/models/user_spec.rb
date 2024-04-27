@@ -49,4 +49,18 @@ RSpec.describe User, type: :model do
       expect(user.valid?).not_to eq true
     end
   end
+
+  describe '#length' do
+    it 'false when cpf is more than 11 digits' do
+      user = User.create(name: 'Michelle', cpf: '123123123123', email: 'michelle.com', password: 'password')
+
+      expect(user.valid?).not_to eq true
+    end
+
+    it 'false when cpf is less than 11 digits' do
+      user = User.create(name: 'Michelle', cpf: '1231231231', email: 'michelle.com', password: 'password')
+
+      expect(user.valid?).not_to eq true
+    end
+  end
 end

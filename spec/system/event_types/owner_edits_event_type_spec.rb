@@ -5,7 +5,7 @@ describe 'Owner edits event type' do
     owner = Owner.create!(email: 'angelo@email.com', password: 'password')
     buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
-                  email: 'alegria@email.com', phone: '8156456456', zipcode: '1231245',   
+                  email: 'alegria@email.com', phone: '8156456456', zipcode: '50000123',   
                   pix: true, debit: true, credit: false, cash: true, owner: owner)
     event = EventType.create!(name: 'Festa de Casamento', duration: '240', min_people: '10',
                               max_people: '100', description: 'Festa grande', menu: 'Macarrão com salsicha',
@@ -21,12 +21,12 @@ describe 'Owner edits event type' do
     owner = Owner.create!(email: 'angelo@email.com', password: 'password')
     buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
-                  email: 'alegria@email.com', phone: '8156456456', zipcode: '1231245',   
+                  email: 'alegria@email.com', phone: '8156456456', zipcode: '50000123',   
                   pix: true, debit: true, credit: false, cash: true, owner: owner)
     owner_two = Owner.create!(email: 'owner@email.com', password: 'password')
     buffet_two = Buffet.create!(name: 'Alegria', corporate_name: 'Alegrias SA', cnpj: '651653161', 
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
-                  email: 'alegrias@email.com', phone: '8156456456', zipcode: '1231245',   
+                  email: 'alegrias@email.com', phone: '8156456456', zipcode: '50000123',   
                   pix: true, debit: true, credit: false, cash: true, owner: owner_two)
     event = EventType.create!(name: 'Festa de Casamento', duration: '240', min_people: '10',
                               max_people: '100', description: 'Festa grande', menu: 'Macarrão com salsicha',
@@ -44,7 +44,7 @@ describe 'Owner edits event type' do
     owner = Owner.create!(email: 'angelo@email.com', password: 'password')
     buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
-                  email: 'alegria@email.com', phone: '8156456456', zipcode: '1231245',   
+                  email: 'alegria@email.com', phone: '8156456456', zipcode: '50000123',   
                   pix: true, debit: true, credit: false, cash: true, owner: owner)
     event = EventType.create!(name: 'Festa de Casamento', duration: '240', min_people: '10',
                               max_people: '100', description: 'Festa grande', menu: 'Macarrão com salsicha',
@@ -75,7 +75,7 @@ describe 'Owner edits event type' do
     owner = Owner.create!(email: 'angelo@email.com', password: 'password')
     buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
-                  email: 'alegria@email.com', phone: '8156456456', zipcode: '1231245',   
+                  email: 'alegria@email.com', phone: '8156456456', zipcode: '50000123',   
                   pix: true, debit: true, credit: false, cash: true, owner: owner)
     event = EventType.create!(name: 'Festa de Casamento', duration: '240', min_people: '10',
                               max_people: '100', description: 'Festa grande', menu: 'Macarrão com salsicha',
@@ -107,7 +107,7 @@ describe 'Owner edits event type' do
     owner = Owner.create!(email: 'angelo@email.com', password: 'password')
     buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
-                  email: 'alegria@email.com', phone: '8156456456', zipcode: '1231245',   
+                  email: 'alegria@email.com', phone: '8156456456', zipcode: '50000123',   
                   pix: true, debit: true, credit: false, cash: true, owner: owner)
     event = EventType.create!(name: 'Festa de Casamento', duration: '240', min_people: '10',
                               max_people: '100', description: 'Festa grande', menu: 'Macarrão com salsicha',

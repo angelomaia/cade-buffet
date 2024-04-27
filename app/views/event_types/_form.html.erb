@@ -8,6 +8,10 @@
     <%= f.text_area :description, class: 'form-control' %>
   </div>
   <div class="mb-3">
+    <%= f.label :cover_photo, class: 'form-label' %>
+    <%= f.file_field :cover_photo, class: 'form-control' %>
+  </div>
+  <div class="mb-3">
     <%= f.label :min_people, class: 'form-label' %>
     <%= f.text_field :min_people, class: 'form-control' %>
   </div>

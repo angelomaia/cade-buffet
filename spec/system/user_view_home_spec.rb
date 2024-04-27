@@ -14,15 +14,15 @@ describe 'User visits homepage' do
     owner_three = Owner.create!(email: 'three@email.com', password: 'password')
     Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
-                  email: 'alegria@email.com', phone: '8156456456', zipcode: '1231245',   
+                  email: 'alegria@email.com', phone: '8156456456', zipcode: '50000123',   
                   pix: true, debit: true, credit: false, cash: true, owner: owner)
     Buffet.create!(name: 'Felicidade', corporate_name: 'Felicidaade SA', cnpj: '454654654', 
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Salvador', state: 'BA', 
-                  email: 'felicidade@email.com', phone: '8156456456', zipcode: '1231245',   
+                  email: 'felicidade@email.com', phone: '8156456456', zipcode: '50000123',   
                   pix: true, debit: true, credit: false, cash: true, owner: owner)
     Buffet.create!(name: 'Euforia', corporate_name: 'Euforia SA', cnpj: '321321321', 
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'São Paulo', state: 'SP', 
-                  email: 'euforia@email.com', phone: '8156456456', zipcode: '1231245',   
+                  email: 'euforia@email.com', phone: '8156456456', zipcode: '50000123',   
                   pix: true, debit: true, credit: false, cash: true, owner: owner)
 
     visit root_path
@@ -44,15 +44,15 @@ describe 'User visits homepage' do
     owner_three = Owner.create!(email: 'three@email.com', password: 'password')
     Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
-                  email: 'alegria@email.com', phone: '8156456456', zipcode: '1231245',   
+                  email: 'alegria@email.com', phone: '8156456456', zipcode: '50000123',   
                   pix: true, debit: true, credit: false, cash: true, owner: owner)
     Buffet.create!(name: 'Felicidade', corporate_name: 'Felicidaade SA', cnpj: '454654654', 
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Salvador', state: 'BA', 
-                  email: 'felicidade@email.com', phone: '8156456456', zipcode: '1231245',   
+                  email: 'felicidade@email.com', phone: '8156456456', zipcode: '50000123',   
                   pix: true, debit: true, credit: false, cash: true, owner: owner)
     Buffet.create!(name: 'Euforia', corporate_name: 'Euforia SA', cnpj: '321321321', 
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'São Paulo', state: 'SP', 
-                  email: 'euforia@email.com', phone: '8156456456', zipcode: '1231245',   
+                  email: 'euforia@email.com', phone: '8156456456', zipcode: '50000123',   
                   pix: true, debit: true, credit: false, cash: true, owner: owner)
 
     visit root_path

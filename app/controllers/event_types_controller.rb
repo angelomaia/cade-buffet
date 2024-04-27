@@ -43,7 +43,7 @@ class EventTypesController < ApplicationController
 
   def event_type_params
     params.require(:event_type).permit(
-      :name, :description,
+      :name, :description, :cover_photo,
       :min_people, :max_people,
       :duration, :menu, :alcohol,
       :decoration, :parking,

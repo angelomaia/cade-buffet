@@ -1,6 +1,7 @@
 class EventType < ApplicationRecord
   belongs_to :buffet
   has_one :price
+  has_one_attached :cover_photo
   accepts_nested_attributes_for :price
   
   validates :name, :description, :duration, :min_people, :max_people, :menu, presence: true

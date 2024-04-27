@@ -7,7 +7,7 @@ RSpec.describe Price, type: :model do
         owner = Owner.create!(email: 'testando@email.com', password: 'password')
         buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA Inc.', cnpj: '21312412', 
                       address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
-                      email: 'alegria@teste.com', phone: '8156456456', zipcode: '1231245',  
+                      email: 'alegria@teste.com', phone: '8156456456', zipcode: '50000123',  
                       pix: true, debit: true, credit: false, cash: true, owner: owner)
         event = EventType.create!(name: 'Festa', duration: '240', min_people: '10',
                                   max_people: '100', description: 'Festa grande', menu: 'Macarrão com salsicha',
@@ -22,7 +22,7 @@ RSpec.describe Price, type: :model do
         owner = Owner.create!(email: 'testando@email.com', password: 'password')
         buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA Inc.', cnpj: '21312412', 
                       address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
-                      email: 'alegria@teste.com', phone: '8156456456', zipcode: '1231245',  
+                      email: 'alegria@teste.com', phone: '8156456456', zipcode: '50000123',  
                       pix: true, debit: true, credit: false, cash: true, owner: owner)
         event = EventType.create!(name: 'Festa', duration: '240', min_people: '10',
                                   max_people: '100', description: 'Festa grande', menu: 'Macarrão com salsicha',
@@ -37,7 +37,7 @@ RSpec.describe Price, type: :model do
         owner = Owner.create!(email: 'testando@email.com', password: 'password')
         buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA Inc.', cnpj: '21312412', 
                       address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
-                      email: 'alegria@teste.com', phone: '8156456456', zipcode: '1231245',  
+                      email: 'alegria@teste.com', phone: '8156456456', zipcode: '50000123',  
                       pix: true, debit: true, credit: false, cash: true, owner: owner)
         event = EventType.create!(name: 'Festa', duration: '240', min_people: '10',
                                   max_people: '100', description: 'Festa grande', menu: 'Macarrão com salsicha',
@@ -51,7 +51,7 @@ RSpec.describe Price, type: :model do
         owner = Owner.create!(email: 'testando@email.com', password: 'password')
         buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA Inc.', cnpj: '21312412', 
                       address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
-                      email: 'alegria@teste.com', phone: '8156456456', zipcode: '1231245',  
+                      email: 'alegria@teste.com', phone: '8156456456', zipcode: '50000123',  
                       pix: true, debit: true, credit: false, cash: true, owner: owner)
         event = EventType.create!(name: 'Festa', duration: '240', min_people: '10',
                                   max_people: '100', description: 'Festa grande', menu: 'Macarrão com salsicha',
@@ -65,7 +65,7 @@ RSpec.describe Price, type: :model do
         owner = Owner.create!(email: 'testando@email.com', password: 'password')
         buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA Inc.', cnpj: '21312412', 
                       address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
-                      email: 'alegria@teste.com', phone: '8156456456', zipcode: '1231245',  
+                      email: 'alegria@teste.com', phone: '8156456456', zipcode: '50000123',  
                       pix: true, debit: true, credit: false, cash: true, owner: owner)
         event = EventType.create!(name: 'Festa', duration: '240', min_people: '10',
                                   max_people: '100', description: 'Festa grande', menu: 'Macarrão com salsicha',
@@ -79,7 +79,7 @@ RSpec.describe Price, type: :model do
         owner = Owner.create!(email: 'testando@email.com', password: 'password')
         buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA Inc.', cnpj: '21312412', 
                       address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
-                      email: 'alegria@teste.com', phone: '8156456456', zipcode: '1231245',  
+                      email: 'alegria@teste.com', phone: '8156456456', zipcode: '50000123',  
                       pix: true, debit: true, credit: false, cash: true, owner: owner)
         event = EventType.create!(name: 'Festa', duration: '240', min_people: '10',
                                   max_people: '100', description: 'Festa grande', menu: 'Macarrão com salsicha',
@@ -93,7 +93,7 @@ RSpec.describe Price, type: :model do
         owner = Owner.create!(email: 'testando@email.com', password: 'password')
         buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA Inc.', cnpj: '21312412', 
                       address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
-                      email: 'alegria@teste.com', phone: '8156456456', zipcode: '1231245',  
+                      email: 'alegria@teste.com', phone: '8156456456', zipcode: '50000123',  
                       pix: true, debit: true, credit: false, cash: true, owner: owner)
         event = EventType.create!(name: 'Festa', duration: '240', min_people: '10',
                                   max_people: '100', description: 'Festa grande', menu: 'Macarrão com salsicha',

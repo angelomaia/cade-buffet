@@ -1,0 +1,32 @@
+.card .stretched-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.card .stretched-link:hover,
+.card .stretched-link:focus {
+  text-decoration: none;
+}
+
+.card:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  transform: translateY(-2px);
+}
+
+.card-body {
+  background-color: #ffffff;
+}
+
+.card-footer {
+  background-color: #e9ecef;
+}
+
+.card .card-title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.card .card-title a:hover {
+  text-decoration: none;
+}

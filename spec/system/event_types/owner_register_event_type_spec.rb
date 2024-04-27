@@ -12,7 +12,7 @@ describe 'Owner adds event type to buffet' do
     owner = Owner.create!(email: 'angelo@email.com', password: 'password')
     buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
-                  email: 'alegria@email.com', phone: '8156456456', zipcode: '1231245',   
+                  email: 'alegria@email.com', phone: '8156456456', zipcode: '50000123',   
                   pix: true, debit: true, credit: false, cash: true, owner: owner)
     
     login_as owner, scope: :owner
@@ -38,7 +38,7 @@ describe 'Owner adds event type to buffet' do
     owner = Owner.create!(email: 'angelo@email.com', password: 'password')
     buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
-                  email: 'alegria@email.com', phone: '8156456456', zipcode: '1231245',   
+                  email: 'alegria@email.com', phone: '8156456456', zipcode: '50000123',   
                   pix: true, debit: true, credit: false, cash: true, owner: owner)
     
     login_as owner, scope: :owner
@@ -69,7 +69,7 @@ describe 'Owner adds event type to buffet' do
     owner = Owner.create!(email: 'angelo@email.com', password: 'password')
     buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
-                  email: 'alegria@email.com', phone: '8156456456', zipcode: '1231245',   
+                  email: 'alegria@email.com', phone: '8156456456', zipcode: '50000123',   
                   pix: true, debit: true, credit: false, cash: true, owner: owner)
     
     login_as owner, scope: :owner
@@ -98,7 +98,7 @@ describe 'Owner adds event type to buffet' do
     owner = Owner.create!(email: 'angelo@email.com', password: 'password')
     buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
-                  email: 'alegria@email.com', phone: '8156456456', zipcode: '1231245',   
+                  email: 'alegria@email.com', phone: '8156456456', zipcode: '50000123',   
                   pix: true, debit: true, credit: false, cash: true, owner: owner)
     
     login_as owner, scope: :owner
@@ -120,5 +120,33 @@ describe 'Owner adds event type to buffet' do
 
     expect(page).to have_content 'Festa de Casamento'
     expect(current_path).to eq "/event_types/#{EventType.last.id}"
+  end
+
+  it 'and adds a cover photo' do
+    owner = Owner.create!(email: 'angelo@email.com', password: 'password')
+    buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
+                  address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
+                  email: 'alegria@email.com', phone: '8156456456', zipcode: '50000123',   
+                  pix: true, debit: true, credit: false, cash: true, owner: owner)
+    
+    login_as owner, scope: :owner
+    visit root_path
+    click_on 'Meu Buffet'
+    click_on 'Adicionar Tipo de Evento'
+    fill_in 'Nome do Evento', with: "Festa de Casamento"
+    fill_in  'Descrição', with: "Uma festança"
+    fill_in  'Quantidade mínima de Pessoas', with: "20"
+    fill_in  'Quantidade máxima de Pessoas', with: "200"
+    fill_in  'Duração (minutos)', with: "240"
+    fill_in  'Cardápio', with: "Sushi, Strogonoff, Frios"
+    attach_file 'Foto do Evento', Rails.root.join('spec', 'support', 'wedding.jpg')
+    check  'Bebidas alcoólicas'
+    check  'Estacionamento/valet'
+    choose('event_type[location]', option: "anywhere")
+    click_on 'Registrar'
+
+    expect(current_path).to eq "/event_types/#{EventType.last.id}"
+    expect(page).to have_content 'Festa de Casamento'
+    expect(page).to have_css 'img[src*="wedding.jpg"]'
   end
 end

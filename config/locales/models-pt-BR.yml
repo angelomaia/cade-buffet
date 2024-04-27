@@ -31,6 +31,7 @@ pt-BR:
       event_type:
         name: 'Nome do Evento'
         description: 'Descrição'
+        cover_photo: 'Foto do Evento'
         min_people: 'Quantidade mínima de Pessoas'
         max_people: 'Quantidade máxima de Pessoas'
         duration: 'Duração (minutos)'
