@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     sessions: 'owners/sessions',
   }
 
-  resources :orders, only: [:new, :create, :show]
+  resources :orders, only: [:new, :create, :show, :index]
 
   resources :buffets, only: [:show, :new, :create, :edit, :update] do
     get 'buffet_search', on: :collection

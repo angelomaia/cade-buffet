@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :show]
+  before_action :authenticate_user!, only: [:new, :create, :show, :index]
   before_action :set_order_check_user, only: [:show]
   
   def new
@@ -25,6 +25,14 @@ class OrdersController < ApplicationController
   end
 
   def show; end
+
+  def index
+    @user = current_user
+    @pending_orders = Order.where(user: @user, status: 'pending')
+    @approved_orders = Order.where(user: @user, status: 'approved')
+    @confirmed_orders = Order.where(user: @user, status: 'confirmed')
+    @cancelled_orders = Order.where(user: @user, status: 'cancelled')
+  end
 
   private
 

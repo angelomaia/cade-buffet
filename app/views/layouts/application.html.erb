@@ -26,11 +26,12 @@
           <% end %>
 
           <% if user_signed_in? %>
-
+            
             <span class="d-flex align-items-center">
               <span class="navbar-text me-2">
                 <%= current_user.email %> | <%= User.model_name.human %>
               </span>
+                <%= link_to 'Meus Pedidos', orders_path, class: "btn btn-info ms-2" %>
                 <%= button_to 'Sair', destroy_user_session_path, method: :delete, class: "btn btn-danger ms-2" %>
             </span>
 
