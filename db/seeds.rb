@@ -34,7 +34,7 @@ casamento_festim = EventType.create!(name: 'Festa de Casamento', duration: '240'
                   buffet: festim)
 infantil_festim = EventType.create!(name: 'Festa Infantil', duration: '240', min_people: '10',
                   max_people: '100', description: 'Festa completa', menu: 'Sushi, mesa de frios, strogonoff',
-                  buffet: festim)
+                  location: 'anywhere', buffet: festim)
 EventType.create!(name: 'Festa de Casamento', duration: '240', min_people: '10',
                   max_people: '100', description: 'Festa completa', menu: 'Sushi, mesa de frios, strogonoff',
                   buffet: celebra)

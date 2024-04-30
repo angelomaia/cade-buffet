@@ -8,7 +8,9 @@ Rails.application.routes.draw do
   devise_for :owners, path: 'owners', controllers: {
     sessions: 'owners/sessions',
   }
-  
+
+  resources :orders, only: [:new, :create, :show]
+
   resources :buffets, only: [:show, :new, :create, :edit, :update] do
     get 'buffet_search', on: :collection
   end

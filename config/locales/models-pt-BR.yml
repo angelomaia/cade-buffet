@@ -8,6 +8,9 @@ pt-BR:
         other: 'Buffets'
       event_type: 'Tipo de Evento'
       price: 'Preços'
+      order:
+        one: 'Pedido'
+        other: 'Pedidos'
     attributes:
       user:
         name: 'Nome'
@@ -50,3 +53,21 @@ pt-BR:
         weekend_base: 'Preço Final de Semana (FDS)'
         weekend_extra_person: 'Valor extra por pessoa (FDS)'
         weekend_extra_hour: 'Valor extra por hora (FDS)'
+      order:
+        buffet_id: 'Buffet'
+        event_type_id: 'Tipo de Evento'
+        user_id: 'Cliente'
+        date: 'Data'
+        guest_quantity: 'Quantidade de Convidados'
+        details: 'Detalhes'
+        code: 'Código'
+        address: 'Endereço'
+        city: 'Cidade'
+        state: 'Estado'
+        zipcode: 'CEP'
+        status: 'Status'
+        location: 'Localização do Evento'
+      order/location:
+        buffet_address: 'Endereço do Buffet'
+        elsewhere: 'Outro local'
+

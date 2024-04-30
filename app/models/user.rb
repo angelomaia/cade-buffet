@@ -6,6 +6,7 @@ class User < ApplicationRecord
   
   validates :name, :cpf, presence: true
   validates :cpf, uniqueness: true
-  validates :cpf, format: { :with => /\A[0-9]+\z/, :message => "Deve conter apenas números" }
-  validates :cpf, length: { is: 11, :message => "Deve conter 11 dígitos" }
+  validates_cpf_format_of :cpf
+
+  has_many :orders
 end

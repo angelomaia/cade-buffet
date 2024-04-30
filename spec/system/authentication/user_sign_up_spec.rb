@@ -22,7 +22,7 @@ describe 'User signs up' do
     click_on 'Cliente'
     click_on 'Criar conta'
     fill_in 'Nome', with: 'Angelo'
-    fill_in 'CPF', with: '13465814653'
+    fill_in 'CPF', with: CPF.generate
     fill_in 'E-mail', with: 'angelo@email.com'
     fill_in 'Senha', with: 'password'
     fill_in 'Confirme sua senha', with: 'password'

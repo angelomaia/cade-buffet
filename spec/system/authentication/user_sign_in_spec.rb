@@ -12,7 +12,7 @@ describe 'User tries to authenticate' do
   end
 
   it 'and it works' do
-    user = User.create!(name: 'Angelo', cpf: '12345678910', email: 'angelo@email.com', password: 'password')
+    user = User.create!(name: 'Angelo', cpf: CPF.generate, email: 'angelo@email.com', password: 'password')
 
     visit root_path
     click_on 'Entrar'
@@ -33,7 +33,7 @@ describe 'User tries to authenticate' do
   end
 
   it 'logs in and out' do
-    user = User.create!(name: 'Angelo', cpf: '12345678910', email: 'angelo@email.com', password: 'password')
+    user = User.create!(name: 'Angelo', cpf: CPF.generate, email: 'angelo@email.com', password: 'password')
 
     visit root_path
     visit root_path

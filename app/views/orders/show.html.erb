@@ -1,0 +1,10 @@
+<h2>Pedido de <%= @order.event_type.name %> </h2>
+<dl>
+<dd>Buffet <%= @order.buffet.name %></dd>
+<dd>Código: <%= @order.code %></dd>
+<dd>Data: <%= @order.date %></dd>
+<dd>Quantidade de Convidados: <%= @order.guest_quantity %></dd>
+<dd>Detalhes: <%= @order.details %></dd>
+<dd>Localização do Evento: <%= I18n.translate(@order.location) %></dd>
+<dd>Status: <%= I18n.translate(@order.status) %></dd>
+</dl>

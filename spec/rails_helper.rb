@@ -29,10 +29,16 @@ begin
 rescue ActiveRecord::PendingMigrationError => e
   abort e.to_s.strip
 end
+
 RSpec.configure do |config|
   config.before(type: :system) do
-    driven_by(:rack_test)
+    driven_by :rack_test
   end
+
+  config.before(type: :system, js: true) do
+    driven_by :selenium_firefox_headless
+  end
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_paths = [
     Rails.root.join('spec/fixtures')
@@ -66,3 +72,20 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 end
+
+require 'capybara/rspec'
+
+# Register Firefox Selenium driver
+Capybara.register_driver :selenium_firefox do |app|
+  options = Selenium::WebDriver::Firefox::Options.new
+  Capybara::Selenium::Driver.new(app, browser: :firefox, options: options)
+end
+
+# Register headless Firefox
+Capybara.register_driver :selenium_firefox_headless do |app|
+  options = Selenium::WebDriver::Firefox::Options.new(args: ['-headless'])
+  Capybara::Selenium::Driver.new(app, browser: :firefox, options: options)
+end
+
+# Set the default driver to headless Firefox for JavaScript-enabled tests
+Capybara.javascript_driver = :selenium_firefox_headless

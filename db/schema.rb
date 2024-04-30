@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_27_120810) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_30_150138) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -78,6 +78,27 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_27_120810) do
     t.index ["buffet_id"], name: "index_event_types_on_buffet_id"
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.integer "buffet_id", null: false
+    t.integer "event_type_id", null: false
+    t.integer "user_id", null: false
+    t.date "date"
+    t.integer "guest_quantity"
+    t.string "details"
+    t.string "code"
+    t.string "address"
+    t.string "city"
+    t.string "state"
+    t.string "zipcode"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "status", default: 0
+    t.integer "location", default: 0
+    t.index ["buffet_id"], name: "index_orders_on_buffet_id"
+    t.index ["event_type_id"], name: "index_orders_on_event_type_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
   create_table "owners", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -121,5 +142,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_27_120810) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "buffets", "owners"
   add_foreign_key "event_types", "buffets"
+  add_foreign_key "orders", "buffets"
+  add_foreign_key "orders", "event_types"
+  add_foreign_key "orders", "users"
   add_foreign_key "prices", "event_types"
 end

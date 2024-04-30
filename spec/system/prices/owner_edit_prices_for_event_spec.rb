@@ -12,10 +12,9 @@ describe 'Owner tries to edit prices for event' do
                               buffet: buffet)
     price = Price.create!(base: 1000, extra_person: 100, extra_hour: 300, weekend_base: 2000,
                           weekend_extra_person: 200, weekend_extra_hour: 500, event_type: event)
-
+    
     login_as owner, scope: :owner
-    visit root_path
-    click_on 'Meu Buffet'
+    visit "/buffets/#{buffet.id}"
     click_on 'Festa de Casamento'
     click_on 'Editar Tipo de Evento'
     click_on 'Editar Preços'

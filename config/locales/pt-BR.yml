@@ -4,3 +4,9 @@ pt-BR:
   found:
     one: 'encontrado'
     other: 'encontrados'
+  buffet_address: 'Endereço do Buffet'
+  elsewhere: 'Outro local'
+  pending: 'Aguardando aprovação do Buffet'
+  approved: 'Aprovado pelo Buffet'
+  confirmed: 'Confirmado'
+  cancelled: 'Cancelado'
