@@ -1,0 +1,53 @@
+<div class="container mt-4">
+  <% if @buffet.orders.any? %>
+    <% if @pending_orders.present? %>
+      <h3 class="text-warning">Pedidos aguardando aprovação:</h3>
+      <% @pending_orders.each do |order| %>
+        <div class="card mb-3" onclick="location.href='<%= details_order_path(order) %>'" style="cursor: pointer;">
+          <div class="card-body">
+            <%= order.event_type.name %> | <%= order.date %> | Cliente: <%= order.user.name %> (<%= order.user.email %>) |
+            <%= link_to order.code, details_order_path(order), class: 'stretched-link' %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+
+    <% if @approved_orders.present? %>
+      <h3 class="text-primary">Pedidos aguardando confirmação do Cliente:</h3>
+      <% @approved_orders.each do |order| %>
+        <div class="card mb-3" onclick="location.href='<%= details_order_path(order) %>'" style="cursor: pointer;">
+          <div class="card-body">
+            <%= order.event_type.name %> | <%= order.date %> | Cliente: <%= order.user.name %> (<%= order.user.email %>) |
+            <%= link_to order.code, details_order_path(order), class: 'stretched-link' %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+
+    <% if @confirmed_orders.present? %>
+      <h3 class="text-success">Pedidos confirmados:</h3>
+      <% @confirmed_orders.each do |order| %>
+        <div class="card mb-3" onclick="location.href='<%= details_order_path(order) %>'" style="cursor: pointer;">
+          <div class="card-body">
+            <%= order.event_type.name %> | <%= order.date %> | Cliente: <%= order.user.name %> (<%= order.user.email %>) |
+            <%= link_to order.code, details_order_path(order), class: 'stretched-link' %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+
+    <% if @cancelled_orders.present? %>
+      <h3 class="text-danger">Pedidos cancelados:</h3>
+      <% @cancelled_orders.each do |order| %>
+        <div class="card mb-3" onclick="location.href='<%= details_order_path(order) %>'" style="cursor: pointer;">
+          <div class="card-body">
+            <%= order.event_type.name %> | <%= order.date %> | Cliente: <%= order.user.name %> (<%= order.user.email %>) |
+            <%= link_to order.code, details_order_path(order), class: 'stretched-link' %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  <% else %>
+    <h3>Não há pedidos cadastrados.</h3>
+  <% end %>
+</div>

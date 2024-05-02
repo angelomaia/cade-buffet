@@ -141,4 +141,64 @@ describe 'User tries to create a new order' do
     expect(page).to have_content 'Pedido criado com sucesso'
     expect(current_path).to eq "/orders/#{Order.last.id}"
   end
+
+  it 'with an address', js: true do
+    owner = Owner.create!(email: 'alegria@email.com', password: 'password')
+    buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
+                  address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
+                  email: 'alegria@email.com', phone: '8156456456', zipcode: '50000123',   
+                  pix: true, debit: true, credit: false, cash: true, owner: owner)
+    user = User.create!(name: 'Angelo', cpf: CPF.generate, email: 'angelo@email.com', password: 'password')
+    event = EventType.create!(name: 'Festa de Casamento', duration: '240', min_people: '10',
+                              max_people: '100', description: 'Festa grande', menu: 'Macarrão com salsicha',
+                              location: 'anywhere', buffet: buffet)
+
+    login_as user, scope: :user
+    visit root_path
+    click_on 'Alegria'
+    click_on 'Novo Pedido'
+    select 'Festa de Casamento', from: 'Tipo de Evento'
+    fill_in 'Data', with: 1.week.from_now
+    fill_in 'Quantidade de Convidados', with: '60'
+    fill_in 'Detalhes', with: 'Festa de casamento para 60 pessoas'
+    find('#location_elsewhere').click
+    fill_in 'Endereço', with: 'Rua da Saudade, 100'
+    fill_in 'Cidade', with: 'Recife'
+    fill_in 'Estado', with: 'PE'
+    fill_in 'CEP', with: '12345678'
+    click_on 'Criar pedido'
+
+    expect(page).to have_content 'Pedido criado com sucesso'
+    expect(current_path).to eq "/orders/#{Order.last.id}"
+  end
+
+  it 'with location elsewhere but not fill in an address', js: true do
+    owner = Owner.create!(email: 'alegria@email.com', password: 'password')
+    buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
+                  address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
+                  email: 'alegria@email.com', phone: '8156456456', zipcode: '50000123',   
+                  pix: true, debit: true, credit: false, cash: true, owner: owner)
+    user = User.create!(name: 'Angelo', cpf: CPF.generate, email: 'angelo@email.com', password: 'password')
+    event = EventType.create!(name: 'Festa de Casamento', duration: '240', min_people: '10',
+                              max_people: '100', description: 'Festa grande', menu: 'Macarrão com salsicha',
+                              location: 'anywhere', buffet: buffet)
+
+    login_as user, scope: :user
+    visit root_path
+    click_on 'Alegria'
+    click_on 'Novo Pedido'
+    select 'Festa de Casamento', from: 'Tipo de Evento'
+    fill_in 'Data', with: 1.week.from_now
+    fill_in 'Quantidade de Convidados', with: '60'
+    fill_in 'Detalhes', with: 'Festa de casamento para 60 pessoas'
+    find('#location_elsewhere').click
+    fill_in 'Endereço', with: ''
+    fill_in 'Cidade', with: ''
+    fill_in 'Estado', with: ''
+    fill_in 'CEP', with: ''
+    click_on 'Criar pedido'
+
+    expect(page).to have_content 'Não foi possível criar o pedido'
+    expect(Order.count).to eq 0
+  end
 end

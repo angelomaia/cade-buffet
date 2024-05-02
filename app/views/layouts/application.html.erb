@@ -45,6 +45,9 @@
                 <span class="navbar-text me-2">
                     <%= current_owner.email %> | <%= Owner.model_name.human %>
                 </span>
+                <% unless current_owner.buffet == nil || !current_owner.buffet.valid? %>
+                  <%= link_to 'Pedidos', owner_orders_path, class: "btn btn-info ms-2" %>
+                <% end %>
                 <%= button_to 'Sair', destroy_owner_session_path, method: :delete, class: "btn btn-danger" %>
             </span>
 

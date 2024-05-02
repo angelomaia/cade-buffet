@@ -3,7 +3,6 @@
 
   <% if @buffet.errors.any? %>
     <div class="alert alert-danger" role="alert">
-      <strong>Please fix the following errors:</strong>
       <ul>
         <% @buffet.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>

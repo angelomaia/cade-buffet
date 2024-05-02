@@ -30,3 +30,8 @@
 .card .card-title a:hover {
   text-decoration: none;
 }
+
+.buffet .invisible-link {
+  text-decoration: none;
+  color: inherit;
+}

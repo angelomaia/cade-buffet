@@ -13,4 +13,5 @@ class Buffet < ApplicationRecord
   validates :pix, :debit, :credit, :cash, inclusion: { in: [true, false] }  
 
   has_many :event_types
+  has_many :orders
 end

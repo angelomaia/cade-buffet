@@ -49,7 +49,7 @@ class BuffetsController < ApplicationController
                                               event_types.name LIKE :query", 
                                               query: "%#{@query}%").order(name: :asc).distinct
   end
-  
+
   private
 
   def buffet_params

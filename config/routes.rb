@@ -8,8 +8,12 @@ Rails.application.routes.draw do
   devise_for :owners, path: 'owners', controllers: {
     sessions: 'owners/sessions',
   }
-
-  resources :orders, only: [:new, :create, :show, :index]
+  
+  resources :orders, only: [:new, :create, :show, :index] do
+    get 'owner', on: :collection
+    get 'details', on: :member
+    get 'evaluation', on: :member
+  end
 
   resources :buffets, only: [:show, :new, :create, :edit, :update] do
     get 'buffet_search', on: :collection

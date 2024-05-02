@@ -1,13 +1,22 @@
 <div class="container mt-3 pb-5"></div>
   <div class="row justify-content-center">
+    <% if @orders.any? %>
+      <p class="notice alert alert-info" role="alert">Existem outros pedidos para a mesma data:</p>
+      <% @orders.each do |o| %>
+        <% unless o == @order %>
+          <%= link_to o.code, details_order_path(o) %>
+        <% end %>
+      <% end %>
+    <% end %>
     <h2>Pedido de <%= @order.event_type.name %> </h2>
   </div>
   <div class="row justify-content-center">
     <div class="col">
-      <div class="buffet">
-        <h4 class="col-sm-3"><%= Order.human_attribute_name(:buffet) %> <%= link_to @order.buffet.name, @order.buffet, class: "invisible-link" %></h4>
-      </div>
       <dl class="row">
+
+        <dt class="col-sm-3"><%= Order.human_attribute_name(:user_id) %>:</dt>
+        <dd class="col-sm-9"><%= @order.user.name %> (<%= @order.user.email %>)</dd>
+
         <dt class="col-sm-3"><%= Order.human_attribute_name(:status) %>:</dt>
         <% if @order.status == 'pending' %>
           <dd class="col-sm-9"><span class="text-warning"><%= I18n.translate(@order.status) %></span></dd>
@@ -36,6 +45,9 @@
 
       </dl>
     </div>
+    <% if @order.status == 'pending' %>
+      <%= link_to 'Analisar Pedido', evaluation_order_path, class: "btn btn-warning" %>
+    <% end %>
   </div>
   <%= link_to 'Voltar', :back, class: "btn btn-secondary" %>
 </div>

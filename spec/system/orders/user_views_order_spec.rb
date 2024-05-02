@@ -29,12 +29,18 @@ describe 'User views order' do
     expect(current_path).to eq "/orders/#{Order.last.id}"
     expect(page).to have_content 'Pedido de Festa de Casamento'
     expect(page).to have_content 'Buffet Alegria'
-    expect(page).to have_content 'Código: moIoiXkBAFMXr4RGhn0J'
-    expect(page).to have_content "Data: #{1.week.from_now.to_date}"
-    expect(page).to have_content "Quantidade de Convidados: 60"
-    expect(page).to have_content 'Detalhes: Festa de casamento para 60 pessoas'
-    expect(page).to have_content 'Localização do Evento: Endereço do Buffet'
-    expect(page).to have_content 'Status: Aguardando aprovação do Buffet'
+    expect(page).to have_content 'Código:'
+    expect(page).to have_content 'moIoiXkBAFMXr4RGhn0J'
+    expect(page).to have_content "Data:"
+    expect(page).to have_content "#{1.week.from_now.to_date}"
+    expect(page).to have_content "Quantidade de Convidados:"
+    expect(page).to have_content "60"
+    expect(page).to have_content 'Detalhes:'
+    expect(page).to have_content 'Festa de casamento para 60 pessoas'
+    expect(page).to have_content 'Localização do Evento:'
+    expect(page).to have_content 'Endereço do Buffet'
+    expect(page).to have_content 'Status:'
+    expect(page).to have_content 'Aguardando aprovação do Buffet'
   end
 
   it 'from My Orders page' do
