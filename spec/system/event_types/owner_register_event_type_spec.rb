@@ -34,7 +34,7 @@ describe 'Owner adds event type to buffet' do
     expect(page).to have_content 'Em qualquer local solicitado'
   end
 
-  it 'is successfull' do
+  it 'and is successfull' do
     owner = Owner.create!(email: 'angelo@email.com', password: 'password')
     buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
@@ -63,6 +63,7 @@ describe 'Owner adds event type to buffet' do
     expect(page).to have_content 'Cardápio: Sushi, Strogonoff, Frios'
     expect(page).to have_content 'Extras: Bebidas alcoólicas Estacionamento/valet'
     expect(page).to have_content 'Localização do Evento: Em qualquer local solicitado'
+    expect(page).to have_content 'Evento ainda não possui preços definidos.'      
   end
 
   it 'and leave blank fields' do

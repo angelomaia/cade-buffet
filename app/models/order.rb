@@ -2,11 +2,15 @@ class Order < ApplicationRecord
   belongs_to :buffet
   belongs_to :event_type
   belongs_to :user
+
+  has_one :order_price
+
   validates :date, :guest_quantity, presence: true
   validates :guest_quantity, numericality: true
   validate :date_is_future
   validate :address_mandatory_if_location_elsewhere
-  validate :guest_quantity_within_bounds
+  validate :max_guest_quantity
+  validate :event_type_needs_to_have_prices
 
   enum location: { buffet_address: 0, elsewhere: 1 }
   enum status: { pending: 0, approved: 1, confirmed: 2, cancelled: 9}
@@ -36,11 +40,15 @@ class Order < ApplicationRecord
     end
   end
 
-  def guest_quantity_within_bounds
-    if self.guest_quantity.present? && self.guest_quantity < self.event_type.min_people.to_i
-      self.errors.add(:guest_quantity, "deve ser maior que #{self.event_type.min_people.to_i}.")
-    elsif self.guest_quantity.present? && self.guest_quantity > self.event_type.max_people.to_i
-      self.errors.add(:guest_quantity, "deve ser menor que #{self.event_type.max_people.to_i}.")
+  def max_guest_quantity
+    if self.guest_quantity.present? && self.guest_quantity > self.event_type.max_people.to_i
+      self.errors.add(:guest_quantity, "deve ser menor ou igual a #{self.event_type.max_people.to_i}.")
+    end
+  end
+
+  def event_type_needs_to_have_prices
+    if self.event_type.price == nil
+      self.errors.add(:event_type_id, "deve ter preços definidos.")
     end
   end
 end

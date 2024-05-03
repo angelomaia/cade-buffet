@@ -1,6 +1,6 @@
 <div class="container mt-3 pb-5"></div>
   <div class="row justify-content-center">
-    <% if @orders.any? %>
+    <% if @orders.any? && @orders.count > 1 %>
       <p class="notice alert alert-info" role="alert">Existem outros pedidos para a mesma data:</p>
       <% @orders.each do |o| %>
         <% unless o == @order %>
@@ -8,6 +8,7 @@
         <% end %>
       <% end %>
     <% end %>
+    
     <h2>Pedido de <%= @order.event_type.name %> </h2>
   </div>
   <div class="row justify-content-center">
@@ -37,17 +38,59 @@
         <dt class="col-sm-3"><%= Order.human_attribute_name(:location) %>:</dt>
         <dd class="col-sm-9"><%= I18n.translate(@order.location) %></dd>
 
+        <% if @order.location == 'elsewhere' %>
+          <dl>
+            <dt class="col-sm-3"><%= Order.human_attribute_name(:address) %>:</dt>
+            <dd class="col-sm-9"><%= @order.address %>, <%= @order.city %> - <%= @order.state %>, <%= @order.zipcode %></dd>
+          </dl>
+        <% end %>
+
         <dt class="col-sm-3"><%= Order.human_attribute_name(:details) %>:</dt>
         <dd class="col-sm-9"><%= @order.details %></dd>
 
         <dt class="col-sm-3"><%= Order.human_attribute_name(:code) %>:</dt>
         <dd class="col-sm-9"><%= @order.code %></dd>
 
+        <% if @order.status == 'approved' || @order.status == 'confirmed' %>
+
+          <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:base) %>:</dt>
+          <dd class="col-sm-9"><%= @order_price.base %></dd>
+
+          <% if @order_price.discount > 0 %>
+            <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:discount) %>:</dt>
+            <dd class="col-sm-9"><%= @order_price.discount %></dd>
+          <% elsif @order_price.fee > 0 %>
+            <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:fee) %>:</dt>
+            <dd class="col-sm-9"><%= @order_price.fee %></dd>
+          <% end %>
+          
+          <% unless @order_price.base == @order_price.total %>
+            <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:description) %>:</dt>
+            <dd class="col-sm-9"><%= @order_price.description %></dd>
+
+            <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:total) %>:</dt>
+            <dd class="col-sm-9"><%= @order_price.total %></dd>
+          <% end %>
+
+          <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:payment) %>:</dt>
+          <dd class="col-sm-9"><%= I18n.t(@order_price.payment) %></dd>
+
+          <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:expiration_date) %>:</dt>
+          <dd class="col-sm-9"><%= @order_price.expiration_date %></dd>
+
+        <% end %>
+
       </dl>
     </div>
-    <% if @order.status == 'pending' %>
-      <%= link_to 'Analisar Pedido', evaluation_order_path, class: "btn btn-warning" %>
-    <% end %>
   </div>
-  <%= link_to 'Voltar', :back, class: "btn btn-secondary" %>
+  <div class="row">
+    <div class="col-auto">
+      <% if @order.status == 'pending' %>
+        <%= link_to 'Avaliar Pedido', evaluation_order_path, class: "btn btn-warning pe-3 ps-3" %>
+      <% end %>
+    </div>
+    <div class="col-auto">
+      <%= link_to 'Voltar', owner_orders_path, class: "btn btn-secondary" %>
+    </div>
+  </div>
 </div>

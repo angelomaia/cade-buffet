@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_02_122532) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_03_153659) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -78,6 +78,24 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_02_122532) do
     t.index ["buffet_id"], name: "index_event_types_on_buffet_id"
   end
 
+  create_table "order_prices", force: :cascade do |t|
+    t.integer "order_id", null: false
+    t.integer "event_type_id", null: false
+    t.integer "buffet_id", null: false
+    t.decimal "base"
+    t.decimal "discount"
+    t.decimal "fee"
+    t.decimal "total"
+    t.string "payment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "description"
+    t.date "expiration_date"
+    t.index ["buffet_id"], name: "index_order_prices_on_buffet_id"
+    t.index ["event_type_id"], name: "index_order_prices_on_event_type_id"
+    t.index ["order_id"], name: "index_order_prices_on_order_id"
+  end
+
   create_table "orders", force: :cascade do |t|
     t.integer "buffet_id", null: false
     t.integer "event_type_id", null: false
@@ -142,6 +160,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_02_122532) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "buffets", "owners"
   add_foreign_key "event_types", "buffets"
+  add_foreign_key "order_prices", "buffets"
+  add_foreign_key "order_prices", "event_types"
+  add_foreign_key "order_prices", "orders"
   add_foreign_key "orders", "buffets"
   add_foreign_key "orders", "event_types"
   add_foreign_key "orders", "users"

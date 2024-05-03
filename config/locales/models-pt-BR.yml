@@ -11,6 +11,7 @@ pt-BR:
       order:
         one: 'Pedido'
         other: 'Pedidos'
+      order_price: 'Preço do Pedido'
     attributes:
       user:
         name: 'Nome'
@@ -70,4 +71,13 @@ pt-BR:
       order/location:
         buffet_address: 'Endereço do Buffet'
         elsewhere: 'Outro local'
+      order_price:
+        base: 'Valor do Pedido'
+        discount: 'Desconto'
+        fee: 'Taxa Extra'
+        total: 'Valor Final'
+        payment: 'Método de Pagamento'
+        description: 'Descrição do Valor Final'
+        expiration_date: 'Data de Validade'
+
 

@@ -10,3 +10,7 @@ pt-BR:
   approved: 'Aprovado pelo Buffet'
   confirmed: 'Confirmado'
   cancelled: 'Cancelado'
+  pix: 'PIX'
+  debit: 'Cartão de Débito'
+  credit: 'Cartão de Crédito'
+  cash: 'Dinheiro'

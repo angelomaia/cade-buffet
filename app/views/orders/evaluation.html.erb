@@ -1,0 +1,124 @@
+<div class="container mt-3 pb-5"></div>
+  <div class="row justify-content-center">
+    <% if @orders.any? && @orders.count > 1 %>
+      <p class="notice alert alert-info" role="alert">Existem outros pedidos para a mesma data:</p>
+      <% @orders.each do |o| %>
+        <% unless o == @order %>
+          <%= link_to o.code, details_order_path(o) %>
+        <% end %>
+      <% end %>
+    <% end %>
+    <h2>Avaliando Pedido de <%= @order.event_type.name %> </h2>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col">
+      <dl class="row">
+
+        <dt class="col-sm-3"><%= Order.human_attribute_name(:user_id) %>:</dt>
+        <dd class="col-sm-9"><%= @order.user.name %> (<%= @order.user.email %>)</dd>
+
+        <dt class="col-sm-3"><%= Order.human_attribute_name(:status) %>:</dt>
+        <% if @order.status == 'pending' %>
+          <dd class="col-sm-9"><span class="text-warning"><%= I18n.translate(@order.status) %></span></dd>
+        <% elsif @order.status == 'approved' %>
+          <dd class="col-sm-9"><span class="text-primary"><%= I18n.translate(@order.status) %></span></dd>
+        <% elsif @order.status == 'confirmed' %>
+          <dd class="col-sm-9"><span class="text-success"><%= I18n.translate(@order.status) %></span></dd>
+        <% elsif @order.status == 'cancelled' %>
+          <dd class="col-sm-9"><span class="text-danger"><%= I18n.translate(@order.status) %></span></dd>
+        <% end %>
+
+        <dt class="col-sm-3"><%= Order.human_attribute_name(:date) %>:</dt>
+        <dd class="col-sm-9"><%= @order.date %></dd>
+
+        <dt class="col-sm-3"><%= Order.human_attribute_name(:guest_quantity) %>:</dt>
+        <dd class="col-sm-9"><%= @order.guest_quantity %></dd>
+
+        <dt class="col-sm-3"><%= Order.human_attribute_name(:location) %>:</dt>
+        <dd class="col-sm-9"><%= I18n.translate(@order.location) %></dd>
+
+        <dt class="col-sm-3"><%= Order.human_attribute_name(:details) %>:</dt>
+        <dd class="col-sm-9"><%= @order.details %></dd>
+
+        <dt class="col-sm-3"><%= Order.human_attribute_name(:code) %>:</dt>
+        <dd class="col-sm-9"><%= @order.code %></dd>
+
+      </dl>
+    </div>
+  <div class="col">
+    <%= form_with(model: [@order, @order_price], url: create_order_price_order_path(@order), method: :post, local: true) do |f| %>
+      <div class="form-group mb-3">
+        <%= f.label :base, class: 'form-label' %>: <span id="base_amount"><%= @order_price.base %></span>
+      </div>
+
+      <div class="form-group mb-3">
+        <%= f.label :discount, class: 'form-label', for: 'discount_field' %>
+        <%= f.number_field :discount, step: '0.01', class: 'form-control', id: 'discount_field' %>
+      </div>
+
+      <div class="form-group mb-3">
+        <%= f.label :fee, class: 'form-label', for: 'fee_field' %>
+        <%= f.number_field :fee, step: '0.01', class: 'form-control', id: 'fee_field' %>
+      </div>
+
+      <div class="form-group mb-3">
+        <%= f.label :total, class: 'form-label' %>: <span id="updated_amount">0.00</span>
+      </div>
+
+      <div class="form-group mb-3">
+        <%= f.label :description, class: 'form-label' %>
+        <%= f.text_area :description, class: 'form-control' %>
+      </div>
+
+      <div class="form-group mb-3"></div>
+        <%= f.label :payment, class: 'form-label' %>
+        <% ['pix', 'debit', 'credit', 'cash'].each do |payment_method| %>
+          <% if @order.buffet.public_send(payment_method) %>
+            <div class="form-check">
+              <%= f.radio_button :payment, payment_method, class: 'form-check-input', id: "payment_#{payment_method}" %>
+              <%= f.label :payment, Buffet.human_attribute_name(:"#{payment_method}"), value: payment_method, class: 'form-check-label', for: "payment_#{payment_method}" %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class="form-group mb-3">
+        <%= f.label :expiration_date, class: 'form-label' %>
+        <%= f.date_field :expiration_date, class: 'form-control' %>
+      </div>
+      
+      <div class="mt-4">
+        <%= f.submit 'Aprovar Pedido', class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+  </div>
+
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-8 text-center">
+        <%= link_to 'Voltar', details_order_path(@order), class: "btn btn-secondary" %>
+      </div>
+    </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var baseSpan = document.getElementById('base_amount');
+    var discountInput = document.getElementById('discount_field');
+    var feeInput = document.getElementById('fee_field');
+    var updatedAmount = document.getElementById('updated_amount');
+
+    function calculateAndUpdateTotal() {
+      var base = parseFloat(baseSpan.textContent) || 0;
+      var discount = parseFloat(discountInput.value) || 0;
+      var fee = parseFloat(feeInput.value) || 0;
+
+      var total = base - discount + fee;
+      updatedAmount.textContent = total.toFixed(2);
+    }
+
+    discountInput.addEventListener('input', calculateAndUpdateTotal);
+    feeInput.addEventListener('input', calculateAndUpdateTotal);
+
+    calculateAndUpdateTotal();
+  });
+</script>

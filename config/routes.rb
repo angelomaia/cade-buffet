@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     get 'owner', on: :collection
     get 'details', on: :member
     get 'evaluation', on: :member
+    post 'create_order_price', on: :member
   end
 
   resources :buffets, only: [:show, :new, :create, :edit, :update] do

@@ -11,6 +11,8 @@ describe 'User views order' do
     event = EventType.create!(name: 'Festa de Casamento', duration: '240', min_people: '10',
                               max_people: '100', description: 'Festa grande', menu: 'Macarrão com salsicha',
                               location: 'anywhere', buffet: buffet)
+    Price.create(base: 2000, extra_person: 50, extra_hour: 300, weekend_base: 3000, 
+                weekend_extra_person: 75, weekend_extra_hour: 450, event_type: event) 
 
     allow(SecureRandom).to receive(:alphanumeric).and_return('moIoiXkBAFMXr4RGhn0J')
 
@@ -53,6 +55,8 @@ describe 'User views order' do
     event = EventType.create!(name: 'Festa de Casamento', duration: '240', min_people: '10',
                               max_people: '100', description: 'Festa grande', menu: 'Macarrão com salsicha',
                               location: 'anywhere', buffet: buffet)
+    Price.create(base: 2000, extra_person: 50, extra_hour: 300, weekend_base: 3000, 
+                weekend_extra_person: 75, weekend_extra_hour: 450, event_type: event) 
     allow(SecureRandom).to receive(:alphanumeric).and_return('moIoiXkBAFMXr4RGhn0J')
     Order.create!(user: user, buffet: buffet, event_type: event, date: 1.week.from_now.to_date, 
                   guest_quantity: 50, details: 'Festa de Casamento pra 50 pessoas',
@@ -64,6 +68,37 @@ describe 'User views order' do
     click_on 'Meus Pedidos'
 
     expect(page).to have_content 'Pedidos aguardando aprovação do Buffet'
+    expect(page).to have_content 'Festa de Casamento'
+    expect(page).to have_content 'Buffet: Alegria'
+    expect(page).to have_content "#{1.week.from_now.to_date}"
+    expect(page).to have_link 'moIoiXkBAFMXr4RGhn0J'
+  end
+
+  it 'and it is approved by the Buffet owner' do
+    owner = Owner.create!(email: 'alegria@email.com', password: 'password')
+    buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
+                  address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
+                  email: 'alegria@email.com', phone: '8156456456', zipcode: '50000123',   
+                  pix: true, debit: true, credit: false, cash: true, owner: owner)
+    user = User.create!(name: 'Angelo', cpf: CPF.generate, email: 'angelo@email.com', password: 'password')
+    event = EventType.create!(name: 'Festa de Casamento', duration: '240', min_people: '30',
+                              max_people: '100', description: 'Festa grande', menu: 'Macarrão com salsicha',
+                              location: 'anywhere', buffet: buffet)
+    Price.create(base: 2000, extra_person: 50, extra_hour: 300, weekend_base: 3000, 
+                weekend_extra_person: 75, weekend_extra_hour: 450, event_type: event) 
+    allow(SecureRandom).to receive(:alphanumeric).and_return('moIoiXkBAFMXr4RGhn0J')
+    order = Order.create!(user: user, buffet: buffet, event_type: event, date: 1.week.from_now.to_date, 
+                  guest_quantity: 30, details: 'Festa de Casamento pra 50 pessoas',
+                  location: 'buffet_address', status: 'pending')
+    OrderPrice.create!(order: order, buffet: buffet, event_type: event, base: 2000, 
+                      payment: 'pix', expiration_date: 1.day.from_now.to_date)
+    order.approved!
+
+    login_as user, scope: :user
+    visit root_path
+    click_on 'Meus Pedidos'
+
+    expect(page).to have_content 'Pedidos aguardando sua confirmação'
     expect(page).to have_content 'Festa de Casamento'
     expect(page).to have_content 'Buffet: Alegria'
     expect(page).to have_content "#{1.week.from_now.to_date}"

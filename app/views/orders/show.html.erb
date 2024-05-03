@@ -34,6 +34,33 @@
         <dt class="col-sm-3"><%= Order.human_attribute_name(:code) %>:</dt>
         <dd class="col-sm-9"><%= @order.code %></dd>
 
+        <% if @order.status == 'approved' || @order.status == 'confirmed' %>
+
+          <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:base) %>:</dt>
+          <dd class="col-sm-9"><%= @order_price.base %></dd>
+
+          <% if @order_price.discount %>
+            <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:discount) %>:</dt>
+            <dd class="col-sm-9"><%= @order_price.discount %></dd>
+          <% elsif @order_price.fee %>
+            <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:fee) %>:</dt>
+            <dd class="col-sm-9"><%= @order_price.fee %></dd>
+          <% end %>
+
+          <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:total) %>:</dt>
+          <dd class="col-sm-9"><%= @order_price.total %></dd>
+
+          <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:description) %>:</dt>
+          <dd class="col-sm-9"><%= @order_price.description %></dd>
+
+          <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:payment) %>:</dt>
+          <dd class="col-sm-9"><%= @order_price.payment %></dd>
+
+          <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:expiration_date) %>:</dt>
+          <dd class="col-sm-9"><%= @order_price.expiration_date %></dd>
+
+        <% end %>
+        
       </dl>
     </div>
   </div>

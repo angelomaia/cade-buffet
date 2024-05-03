@@ -11,7 +11,18 @@ class Buffet < ApplicationRecord
                     uniqueness: { case_sensitive: false }
 
   validates :pix, :debit, :credit, :cash, inclusion: { in: [true, false] }  
+  validate :at_least_one_true
 
   has_many :event_types
   has_many :orders
+
+  def has_any_price?
+    event_types.joins(:price).exists?
+  end
+
+  def at_least_one_true
+    unless pix || debit || credit || cash
+      errors.add(:base, "Deve registrar pelo menos um método de pagamento.")
+    end
+  end
 end
