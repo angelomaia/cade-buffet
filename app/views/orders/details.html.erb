@@ -10,77 +10,87 @@
     <% end %>
     
     <h2>Pedido de <%= @order.event_type.name %> </h2>
-  </div>
-  <div class="row justify-content-center">
+  </div>  
+  <div class="row justify-content-center"></div>
     <div class="col">
-      <dl class="row">
+      <div class="border-card" style="width: 60rem;">
+        <div class="card-body">
+          <dl class="row">
 
-        <dt class="col-sm-3"><%= Order.human_attribute_name(:user_id) %>:</dt>
-        <dd class="col-sm-9"><%= @order.user.name %> (<%= @order.user.email %>)</dd>
+            <dt class="col-sm-3"><%= Order.human_attribute_name(:user_id) %>:</dt>
+            <dd class="col-sm-9"><%= @order.user.name %> (<%= @order.user.email %>)</dd>
 
-        <dt class="col-sm-3"><%= Order.human_attribute_name(:status) %>:</dt>
-        <% if @order.status == 'pending' %>
-          <dd class="col-sm-9"><span class="text-warning"><%= I18n.translate(@order.status) %></span></dd>
-        <% elsif @order.status == 'approved' %>
-          <dd class="col-sm-9"><span class="text-primary"><%= I18n.translate(@order.status) %></span></dd>
-        <% elsif @order.status == 'confirmed' %>
-          <dd class="col-sm-9"><span class="text-success"><%= I18n.translate(@order.status) %></span></dd>
-        <% elsif @order.status == 'cancelled' %>
-          <dd class="col-sm-9"><span class="text-danger"><%= I18n.translate(@order.status) %></span></dd>
-        <% end %>
+            <dt class="col-sm-3"><%= Order.human_attribute_name(:status) %>:</dt>
+            <% if @order.status == 'pending' %>
+              <dd class="col-sm-9"><span class="text-warning"><%= I18n.translate(@order.status) %></span></dd>
+            <% elsif @order.status == 'approved' %>
+              <dd class="col-sm-9"><span class="text-primary"><%= I18n.translate(@order.status) %></span></dd>
+            <% elsif @order.status == 'confirmed' %>
+              <dd class="col-sm-9"><span class="text-success"><%= I18n.translate(@order.status) %></span></dd>
+            <% elsif @order.status == 'cancelled' %>
+              <dd class="col-sm-9"><span class="text-danger"><%= I18n.translate(@order.status) %></span></dd>
+            <% end %>
 
-        <dt class="col-sm-3"><%= Order.human_attribute_name(:date) %>:</dt>
-        <dd class="col-sm-9"><%= @order.date %></dd>
+            <dt class="col-sm-3"><%= Order.human_attribute_name(:date) %>:</dt>
+            <dd class="col-sm-9"><%= @order.date %></dd>
 
-        <dt class="col-sm-3"><%= Order.human_attribute_name(:guest_quantity) %>:</dt>
-        <dd class="col-sm-9"><%= @order.guest_quantity %></dd>
+            <dt class="col-sm-3"><%= Order.human_attribute_name(:guest_quantity) %>:</dt>
+            <dd class="col-sm-9"><%= @order.guest_quantity %></dd>
 
-        <dt class="col-sm-3"><%= Order.human_attribute_name(:location) %>:</dt>
-        <dd class="col-sm-9"><%= I18n.translate(@order.location) %></dd>
+            <dt class="col-sm-3"><%= Order.human_attribute_name(:location) %>:</dt>
+            <dd class="col-sm-9"><%= I18n.translate(@order.location) %></dd>
 
-        <% if @order.location == 'elsewhere' %>
-          <dl>
-            <dt class="col-sm-3"><%= Order.human_attribute_name(:address) %>:</dt>
-            <dd class="col-sm-9"><%= @order.address %>, <%= @order.city %> - <%= @order.state %>, <%= @order.zipcode %></dd>
+            <% if @order.location == 'elsewhere' %>
+              <dl>
+                <dt class="col-sm-3"><%= Order.human_attribute_name(:address) %>:</dt>
+                <dd class="col-sm-9"><%= @order.address %>, <%= @order.city %> - <%= @order.state %>, <%= @order.zipcode %></dd>
+              </dl>
+            <% end %>
+
+            <dt class="col-sm-3"><%= Order.human_attribute_name(:details) %>:</dt>
+            <dd class="col-sm-9"><%= @order.details %></dd>
+
+            <dt class="col-sm-3"><%= Order.human_attribute_name(:code) %>:</dt>
+            <dd class="col-sm-9"><%= @order.code %></dd>
           </dl>
-        <% end %>
+        </div>
+      </div>
 
-        <dt class="col-sm-3"><%= Order.human_attribute_name(:details) %>:</dt>
-        <dd class="col-sm-9"><%= @order.details %></dd>
+        <div class="border-card" style="width: 60rem;">
+          <div class="card-body"></div>
+            <dl class="row">
+              <% if @order.status == 'approved' || @order.status == 'confirmed' %>
 
-        <dt class="col-sm-3"><%= Order.human_attribute_name(:code) %>:</dt>
-        <dd class="col-sm-9"><%= @order.code %></dd>
+                <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:base) %>: </dt>
+                <dd class="col-sm-9">R$ <%= @order_price.base %></dd>
 
-        <% if @order.status == 'approved' || @order.status == 'confirmed' %>
+                <% if @order_price.discount > 0 %>
+                  <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:discount) %>:</dt>
+                  <dd class="col-sm-9">R$ <%= @order_price.discount %></dd>
+                <% elsif @order_price.fee > 0 %>
+                  <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:fee) %>:</dt>
+                  <dd class="col-sm-9">R$ <%= @order_price.fee %></dd>
+                <% end %>
+                
+                <% unless @order_price.base == @order_price.total %>
+                  <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:description) %>:</dt>
+                  <dd class="col-sm-9"><%= @order_price.description %></dd>
 
-          <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:base) %>:</dt>
-          <dd class="col-sm-9"><%= @order_price.base %></dd>
+                  <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:total) %>:</dt>
+                  <dd class="col-sm-9">R$ <%= @order_price.total %></dd>
+                <% end %>
 
-          <% if @order_price.discount > 0 %>
-            <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:discount) %>:</dt>
-            <dd class="col-sm-9"><%= @order_price.discount %></dd>
-          <% elsif @order_price.fee > 0 %>
-            <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:fee) %>:</dt>
-            <dd class="col-sm-9"><%= @order_price.fee %></dd>
-          <% end %>
-          
-          <% unless @order_price.base == @order_price.total %>
-            <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:description) %>:</dt>
-            <dd class="col-sm-9"><%= @order_price.description %></dd>
+                <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:payment) %>:</dt>
+                <dd class="col-sm-9"><%= I18n.t(@order_price.payment) %></dd>
 
-            <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:total) %>:</dt>
-            <dd class="col-sm-9"><%= @order_price.total %></dd>
-          <% end %>
+                <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:expiration_date) %>:</dt>
+                <dd class="col-sm-9"><%= @order_price.expiration_date %></dd>
 
-          <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:payment) %>:</dt>
-          <dd class="col-sm-9"><%= I18n.t(@order_price.payment) %></dd>
+              <% end %>
+            </dl>
+          </div>
+        </div>
 
-          <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:expiration_date) %>:</dt>
-          <dd class="col-sm-9"><%= @order_price.expiration_date %></dd>
-
-        <% end %>
-
-      </dl>
     </div>
   </div>
   <div class="row">

@@ -103,5 +103,6 @@ describe 'User views order' do
     expect(page).to have_content 'Buffet: Alegria'
     expect(page).to have_content "#{1.week.from_now.to_date}"
     expect(page).to have_link 'moIoiXkBAFMXr4RGhn0J'
+    expect(page).to have_content "Expira em: #{1.day.from_now.to_date}"
   end
 end

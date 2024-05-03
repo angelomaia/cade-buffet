@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :show, :index]
-  before_action :set_order_check_user, only: [:show]
-  before_action :authenticate_owner!, only: [:owner, :details, :evaluation]
+  before_action :authenticate_user!, only: [:new, :create, :show, :index, :confirm]
+  before_action :set_order_check_user, only: [:show, :confirm]
+  before_action :authenticate_owner!, only: [:owner, :details, :evaluation, :create_order_price]
   before_action :set_order_check_owner, only: [:details, :evaluation]
   
   def new
@@ -38,6 +38,15 @@ class OrdersController < ApplicationController
     @approved_orders = Order.where(user: @user, status: 'approved')
     @confirmed_orders = Order.where(user: @user, status: 'confirmed')
     @cancelled_orders = Order.where(user: @user, status: 'cancelled')
+  end
+
+  def confirm
+    if @order.order_price.expiration_date >= Date.today
+      @order.confirmed!
+      redirect_to @order, notice: 'Ordem confirmada com sucesso!'
+    else
+      redirect_to @order, alert: 'Proposta expirada.'
+    end
   end
 
   def details

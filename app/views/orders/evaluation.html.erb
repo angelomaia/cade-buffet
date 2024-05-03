@@ -48,21 +48,21 @@
   <div class="col">
     <%= form_with(model: [@order, @order_price], url: create_order_price_order_path(@order), method: :post, local: true) do |f| %>
       <div class="form-group mb-3">
-        <%= f.label :base, class: 'form-label' %>: <span id="base_amount"><%= @order_price.base %></span>
+        <h5><%= f.label :base, class: 'form-label' %>: R$ <span id="base_amount"><%= @order_price.base %></span></h5>
       </div>
 
       <div class="form-group mb-3">
-        <%= f.label :discount, class: 'form-label', for: 'discount_field' %>
+        <%= f.label :discount, class: 'form-label', for: 'discount_field' %>:
         <%= f.number_field :discount, step: '0.01', class: 'form-control', id: 'discount_field' %>
       </div>
 
       <div class="form-group mb-3">
-        <%= f.label :fee, class: 'form-label', for: 'fee_field' %>
+        <%= f.label :fee, class: 'form-label', for: 'fee_field' %>:
         <%= f.number_field :fee, step: '0.01', class: 'form-control', id: 'fee_field' %>
       </div>
 
       <div class="form-group mb-3">
-        <%= f.label :total, class: 'form-label' %>: <span id="updated_amount">0.00</span>
+        <h5><%= f.label :total, class: 'form-label' %>: R$ <span id="updated_amount">0.00</span></h5>
       </div>
 
       <div class="form-group mb-3">

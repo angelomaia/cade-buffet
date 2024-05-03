@@ -1,0 +1,9 @@
+/* border_card.css */
+.border-card {
+  border: 1px solid #000000;
+  border-radius: 0.25rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  background-color: white;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+}

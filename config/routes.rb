@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     get 'details', on: :member
     get 'evaluation', on: :member
     post 'create_order_price', on: :member
+    post 'confirm', on: :member
   end
 
   resources :buffets, only: [:show, :new, :create, :edit, :update] do

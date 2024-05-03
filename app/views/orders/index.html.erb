@@ -1,10 +1,11 @@
 <div class="container mt-4">
   <% if @user.orders.any? %>
-    <% if @pending_orders.present? %>
-      <h3 class="text-warning">Pedidos aguardando aprovação do Buffet:</h3>
-      <% @pending_orders.each do |order| %>
+    <% if @approved_orders.present? %>
+      <h3 class="text-primary">Pedidos aguardando sua confirmação:</h3>
+      <% @approved_orders.each do |order| %>
         <div class="card mb-3" onclick="location.href='<%= order_path(order) %>'" style="cursor: pointer;">
           <div class="card-body">
+            <h4 class="text-warning">Expira em: <%= order.order_price.expiration_date %></h4>
             <%= order.event_type.name %> | Buffet: <%= order.buffet.name %> | <%= order.date %> |
             <%= link_to order.code, order, class: 'stretched-link' %>
           </div>
@@ -12,9 +13,9 @@
       <% end %>
     <% end %>
 
-    <% if @approved_orders.present? %>
-      <h3 class="text-primary">Pedidos aguardando sua confirmação:</h3>
-      <% @approved_orders.each do |order| %>
+    <% if @pending_orders.present? %>
+      <h3 class="text-warning">Pedidos aguardando aprovação do Buffet:</h3>
+      <% @pending_orders.each do |order| %>
         <div class="card mb-3" onclick="location.href='<%= order_path(order) %>'" style="cursor: pointer;">
           <div class="card-body">
             <%= order.event_type.name %> | Buffet: <%= order.buffet.name %> | <%= order.date %> |
