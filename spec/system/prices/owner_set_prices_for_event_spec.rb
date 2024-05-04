@@ -15,7 +15,7 @@ describe 'Owner tries to set prices for event' do
                           event_type: event)
     
     visit root_path
-    visit event_type_prices_event_type_path(event.id)
+    visit edit_event_type_path(event.id)
 
     expect(current_path).to eq "/owners/sign_in"
   end
@@ -34,11 +34,9 @@ describe 'Owner tries to set prices for event' do
     visit root_path
     click_on 'Meu Buffet'
     click_on 'Festa de Casamento'
-    click_on 'Editar Tipo de Evento'
-    click_on 'Definir Preços'
+    click_on 'Editar Tipo de Evento e Preços'
 
-    expect(page).to have_content 'Editar Tipo de Evento e Preços'
-    expect(current_path).to eq event_type_prices_event_type_path(event.id)
+    expect(current_path).to eq edit_event_type_path(event.id)
     expect(page).to have_field 'Preço Base'
     expect(page).to have_field 'Valor extra por pessoa'
     expect(page).to have_field 'Valor extra por hora'
@@ -61,8 +59,7 @@ describe 'Owner tries to set prices for event' do
     visit root_path
     click_on 'Meu Buffet'
     click_on 'Festa de Casamento'
-    click_on 'Editar Tipo de Evento'
-    click_on 'Definir Preços'
+    click_on 'Editar Tipo de Evento e Preços'
     fill_in 'Preço Base', with: '2000'
     fill_in 'Valor extra por pessoa', with: '100'
     fill_in 'Valor extra por hora', with: '1000'
@@ -98,8 +95,7 @@ describe 'Owner tries to set prices for event' do
     visit root_path
     click_on 'Meu Buffet'
     click_on 'Festa de Casamento'
-    click_on 'Editar Tipo de Evento'
-    click_on 'Definir Preços'
+    click_on 'Editar Tipo de Evento e Preços'
     fill_in 'Preço Base', with: ''
     fill_in 'Valor extra por pessoa', with: ''
     fill_in 'Valor extra por hora', with: ''

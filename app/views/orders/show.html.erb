@@ -45,40 +45,38 @@
           </div>
         </div>
 
-        <div class="border-card" style="width: 60rem;">
-          <div class="card-body">
-            <% if @order.status == 'approved' || @order.status == 'confirmed' %>
-            <h5 class="text-primary">Proposta do Buffet:</h5>
-            
-              <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:base) %>: </dt>
-              <dd class="col-sm-9">R$ <%= @order_price.base %></dd>
-
-              <% if @order_price.discount > 0 %>
-                <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:discount) %>:</dt>
-                <dd class="col-sm-9">R$ <%= @order_price.discount %></dd>
-              <% elsif @order_price.fee > 0 %>
-                <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:fee) %>:</dt>
-                <dd class="col-sm-9">R$ <%= @order_price.fee %></dd>
-              <% end %>
+        <% if @order.status == 'approved' || @order.status == 'confirmed' %>
+          <div class="border-card" style="width: 60rem;">
+            <div class="card-body">
+              <h5 class="text-primary">Proposta do Buffet:</h5>
               
-              <% unless @order_price.base == @order_price.total %>
-                <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:description) %>:</dt>
-                <dd class="col-sm-9"><%= @order_price.description %></dd>
+                <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:base) %>: </dt>
+                <dd class="col-sm-9">R$ <%= @order_price.base %></dd>
 
-                <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:total) %>:</dt>
-                <dd class="col-sm-9">R$ <%= @order_price.total %></dd>
-              <% end %>
+                <% if @order_price.discount > 0 %>
+                  <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:discount) %>:</dt>
+                  <dd class="col-sm-9">R$ <%= @order_price.discount %></dd>
+                <% elsif @order_price.fee > 0 %>
+                  <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:fee) %>:</dt>
+                  <dd class="col-sm-9">R$ <%= @order_price.fee %></dd>
+                <% end %>
+                
+                <% unless @order_price.base == @order_price.total %>
+                  <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:description) %>:</dt>
+                  <dd class="col-sm-9"><%= @order_price.description %></dd>
 
-              <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:payment) %>:</dt>
-              <dd class="col-sm-9"><%= I18n.t(@order_price.payment) %></dd>
+                  <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:total) %>:</dt>
+                  <dd class="col-sm-9">R$ <%= @order_price.total %></dd>
+                <% end %>
 
-              <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:expiration_date) %>:</dt>
-              <dd class="col-sm-9"><%= @order_price.expiration_date %></dd>
+                <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:payment) %>:</dt>
+                <dd class="col-sm-9"><%= I18n.t(@order_price.payment) %></dd>
 
-            <% end %>
+                <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:expiration_date) %>:</dt>
+                <dd class="col-sm-9"><%= @order_price.expiration_date %></dd>
+          </div>
         </div>
-      </div>
-
+        <% end %>
       </dl>
     </div>
   </div>

@@ -84,12 +84,7 @@
   <div class="row justify-content-center">
     <div class="col-12 col-md-8 text-center">
       <% if @event_type.buffet.owner == current_owner %>
-        <%= link_to 'Editar Tipo de Evento', edit_event_type_path, class: "btn btn-primary" %>
-        <% if @event_type.price == nil %>
-          <%= link_to 'Definir Preços', event_type_prices_event_type_path, class: "btn btn-info" %>
-        <% else %>
-          <%= link_to 'Editar Preços', event_type_prices_event_type_path, class: "btn btn-info" %>
-        <% end %>
+        <%= link_to 'Editar Tipo de Evento e Preços', edit_event_type_path, class: "btn btn-primary" %>
       <% end %>
       <%= link_to 'Voltar', @event_type.buffet, class: "btn btn-secondary" %>
     </div>

@@ -1,6 +1,6 @@
 class EventTypesController < ApplicationController
-  before_action :authenticate_owner!, only: [:new, :create, :edit, :update, :event_type_prices]
-  before_action :set_event_type_check_owner, only: [:edit, :update, :event_type_prices]
+  before_action :authenticate_owner!, only: [:new, :create, :edit, :update]
+  before_action :set_event_type_check_owner, only: [:edit, :update]
 
   def new
     @event_type = EventType.new
@@ -23,9 +23,12 @@ class EventTypesController < ApplicationController
   end
 
   def edit
+    @event_type.build_price if !@event_type.price
   end
 
   def update
+    @event_type.price.destroy if @event_type.price
+    @event_type.build_price
     if @event_type.update(event_type_params)
       redirect_to event_type_path(@event_type.id), notice: 'Tipo de Evento alterado com sucesso.'
     else
@@ -33,12 +36,7 @@ class EventTypesController < ApplicationController
       render 'edit'
     end
   end
-
-  def event_type_prices
-    @event_type.price.destroy if @event_type.price
-    @event_type.build_price
-  end
-
+  
   private
 
   def event_type_params

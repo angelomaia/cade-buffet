@@ -38,7 +38,7 @@
           <% elsif owner_signed_in? %>
 
             <% unless current_owner.buffet.nil? || !@buffet.valid? %>
-              <h2><%= link_to 'Meu Buffet', current_owner.buffet, class: "nav-link" %></h2>
+              <h2 class="border-card-2 text-center" style="width: 16rem;"><%= link_to 'Meu Buffet', current_owner.buffet, class: "nav-link" %></h2>
             <% end %>
 
             <span class="d-flex align-items-center">

@@ -24,7 +24,7 @@ describe 'Owner edits event type' do
                   email: 'alegria@email.com', phone: '8156456456', zipcode: '50000123',   
                   pix: true, debit: true, credit: false, cash: true, owner: owner)
     owner_two = Owner.create!(email: 'owner@email.com', password: 'password')
-    buffet_two = Buffet.create!(name: 'Alegria', corporate_name: 'Alegrias SA', cnpj: '651653161', 
+    Buffet.create!(name: 'Alegria', corporate_name: 'Alegrias SA', cnpj: '651653161', 
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
                   email: 'alegrias@email.com', phone: '8156456456', zipcode: '50000123',   
                   pix: true, debit: true, credit: false, cash: true, owner: owner_two)
@@ -88,9 +88,12 @@ describe 'Owner edits event type' do
     click_on 'Festa de Casamento'
     click_on 'Editar Tipo de Evento'
     fill_in 'Nome do Evento', with: 'Alegrilandia'
-    fill_in  'Quantidade mínima de Pessoas', with: '20'
-    fill_in  'Duração (minutos)', with: '180'
-    fill_in  'Cardápio', with:  'Macarrão com sassissinha'
+    fill_in 'Quantidade mínima de Pessoas', with: '20'
+    fill_in 'Duração (minutos)', with: '180'
+    fill_in 'Cardápio', with:  'Macarrão com sassissinha'
+    fill_in 'Preço Base', with: '2000'
+    fill_in 'Valor extra por pessoa', with: '100'
+    fill_in 'Valor extra por hora', with: '500'
     click_on 'Registrar'
 
     expect(page).to have_content 'Tipo de Evento alterado com sucesso.'
@@ -109,7 +112,7 @@ describe 'Owner edits event type' do
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
                   email: 'alegria@email.com', phone: '8156456456', zipcode: '50000123',   
                   pix: true, debit: true, credit: false, cash: true, owner: owner)
-    event = EventType.create!(name: 'Festa de Casamento', duration: '240', min_people: '10',
+    EventType.create!(name: 'Festa de Casamento', duration: '240', min_people: '10',
                               max_people: '100', description: 'Festa grande', menu: 'Macarrão com salsicha',
                               buffet: buffet)
     
