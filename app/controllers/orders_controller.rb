@@ -1,8 +1,8 @@
 class OrdersController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :show, :index, :confirm]
-  before_action :set_order_check_user, only: [:show, :confirm]
-  before_action :authenticate_owner!, only: [:owner, :details, :evaluation, :create_order_price]
-  before_action :set_order_check_owner, only: [:details, :evaluation]
+  before_action :authenticate_user!, only: [:new, :create, :show, :index, :confirm, :new_user_message]
+  before_action :set_order_check_user, only: [:show, :confirm, :new_user_message]
+  before_action :authenticate_owner!, only: [:owner, :details, :evaluation, :create_order_price, :new_buffet_message]
+  before_action :set_order_check_owner, only: [:details, :evaluation, :new_buffet_message]
   
   def new
     buffet = Buffet.find(params[:buffet_id])
@@ -16,6 +16,7 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
     @order.buffet = @order.event_type.buffet
     @order.user = current_user
+    @order.build_chat
 
     if @order.valid?
       @order.save!
@@ -30,6 +31,7 @@ class OrdersController < ApplicationController
 
   def show
     @order_price = @order.order_price unless @order.order_price.nil?
+    @chat = @order.chat
   end
 
   def index
@@ -52,6 +54,7 @@ class OrdersController < ApplicationController
   def details
     @orders = current_owner.buffet.orders.where(date: @order.date)
     @order_price = @order.order_price unless @order.order_price.nil?
+    @chat = @order.chat
   end
   
   def evaluation
@@ -62,6 +65,8 @@ class OrdersController < ApplicationController
   def create_order_price
     @order = Order.find(params[:id])
     @orders = current_owner.buffet.orders.where(date: @order.date)
+
+    @order.order_price.destroy if @order.order_price != nil
 
     @order_price = OrderPrice.new(params.require(:order_price).permit(:discount, :fee, :payment, :description, :expiration_date))
     @order_price.discount ||= 0
@@ -87,6 +92,32 @@ class OrdersController < ApplicationController
     @approved_orders = Order.where(buffet: @buffet, status: 'approved')
     @confirmed_orders = Order.where(buffet: @buffet, status: 'confirmed')
     @cancelled_orders = Order.where(buffet: @buffet, status: 'cancelled')
+  end
+
+  def new_user_message
+    @user_message = UserMessage.new(params.require(:user_message).permit(:content))
+    @user_message.user = current_user
+    @user_message.chat = @order.chat
+
+    if @user_message.valid?
+      @user_message.save!
+      redirect_to @order, notice: 'Mensagem enviada com sucesso.'
+    else
+      redirect_to @order, notice: 'Não foi possível enviar a mensagem.'
+    end
+  end
+
+  def new_buffet_message
+    @buffet_message = BuffetMessage.new(params.require(:buffet_message).permit(:content))
+    @buffet_message.buffet = current_owner.buffet
+    @buffet_message.chat = @order.chat
+
+    if @buffet_message.valid?
+      @buffet_message.save!
+      redirect_to details_order_path(@order), notice: 'Mensagem enviada com sucesso.'
+    else
+      redirect_to details_order_path(@order), notice: 'Não foi possível enviar a mensagem.'
+    end
   end
 
   private

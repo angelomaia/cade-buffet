@@ -89,3 +89,5 @@ end
 
 # Set the default driver to headless Firefox for JavaScript-enabled tests
 Capybara.javascript_driver = :selenium_firefox_headless
+
+Capybara.default_max_wait_time = 10

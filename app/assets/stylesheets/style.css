@@ -35,3 +35,21 @@
   text-decoration: none;
   color: inherit;
 }
+
+.message-user {
+  background-color: #ccffcc;
+  text-align: left;
+  color: #333;
+}
+
+.message-buffet {
+  background-color: #ccccff;
+  text-align: right;
+  color: #333;
+}
+
+.message-card {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 8px;
+}

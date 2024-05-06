@@ -15,3 +15,19 @@
   padding: 0.5rem;
   margin-bottom: 0.5rem;
 }
+
+.border-card-3 {
+  border: 1px solid #adadad;
+  border-radius: 0.25rem;
+  background-color: white;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.border-card-4 {
+  border: 1px solid #adadad;
+  border-radius: 0.25rem;
+  background-color: #adadad;
+  padding: 5px;
+  margin-bottom: 0.5rem;
+}

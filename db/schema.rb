@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_03_153659) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_05_180410) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -39,6 +39,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_03_153659) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "buffet_messages", force: :cascade do |t|
+    t.string "content"
+    t.integer "chat_id", null: false
+    t.integer "buffet_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["buffet_id"], name: "index_buffet_messages_on_buffet_id"
+    t.index ["chat_id"], name: "index_buffet_messages_on_chat_id"
+  end
+
   create_table "buffets", force: :cascade do |t|
     t.string "name"
     t.string "corporate_name"
@@ -59,6 +69,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_03_153659) do
     t.datetime "updated_at", null: false
     t.integer "owner_id", null: false
     t.index ["owner_id"], name: "index_buffets_on_owner_id"
+  end
+
+  create_table "chats", force: :cascade do |t|
+    t.integer "order_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_chats_on_order_id"
   end
 
   create_table "event_types", force: :cascade do |t|
@@ -142,6 +159,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_03_153659) do
     t.index ["event_type_id"], name: "index_prices_on_event_type_id"
   end
 
+  create_table "user_messages", force: :cascade do |t|
+    t.string "content"
+    t.integer "chat_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chat_id"], name: "index_user_messages_on_chat_id"
+    t.index ["user_id"], name: "index_user_messages_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -158,7 +185,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_03_153659) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "buffet_messages", "buffets"
+  add_foreign_key "buffet_messages", "chats"
   add_foreign_key "buffets", "owners"
+  add_foreign_key "chats", "orders"
   add_foreign_key "event_types", "buffets"
   add_foreign_key "order_prices", "buffets"
   add_foreign_key "order_prices", "event_types"
@@ -167,4 +197,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_03_153659) do
   add_foreign_key "orders", "event_types"
   add_foreign_key "orders", "users"
   add_foreign_key "prices", "event_types"
+  add_foreign_key "user_messages", "chats"
+  add_foreign_key "user_messages", "users"
 end

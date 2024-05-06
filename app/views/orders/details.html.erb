@@ -11,92 +11,126 @@
     
     <h2>Pedido de <%= @order.event_type.name %> </h2>
   </div>  
-  <div class="row justify-content-center"></div>
+  <div class="row justify-content-center">
     <div class="col">
-      <div class="border-card" style="width: 60rem;">
+       <div class="border-card">
         <div class="card-body">
           <dl class="row">
-
-            <dt class="col-sm-3"><%= Order.human_attribute_name(:user_id) %>:</dt>
-            <dd class="col-sm-9"><%= @order.user.name %> (<%= @order.user.email %>)</dd>
-
-            <dt class="col-sm-3"><%= Order.human_attribute_name(:status) %>:</dt>
+            <dt class="col-sm-5"><%= Order.human_attribute_name(:status) %>:</dt>
             <% if @order.status == 'pending' %>
-              <dd class="col-sm-9"><span class="text-warning"><%= I18n.translate(@order.status) %></span></dd>
+              <dd class="col-sm-7"><span class="text-warning"><%= I18n.translate(@order.status) %></span></dd>
             <% elsif @order.status == 'approved' %>
-              <dd class="col-sm-9"><span class="text-primary"><%= I18n.translate(@order.status) %></span></dd>
+              <dd class="col-sm-7"><span class="text-primary"><%= I18n.translate(@order.status) %></span></dd>
             <% elsif @order.status == 'confirmed' %>
-              <dd class="col-sm-9"><span class="text-success"><%= I18n.translate(@order.status) %></span></dd>
+              <dd class="col-sm-7"><strong class="text-success"><%= I18n.translate(@order.status) %></strong></dd>
             <% elsif @order.status == 'cancelled' %>
-              <dd class="col-sm-9"><span class="text-danger"><%= I18n.translate(@order.status) %></span></dd>
+              <dd class="col-sm-7"><span class="text-danger"><%= I18n.translate(@order.status) %></span></dd>
             <% end %>
 
-            <dt class="col-sm-3"><%= Order.human_attribute_name(:date) %>:</dt>
-            <dd class="col-sm-9"><%= @order.date %></dd>
+            <dt class="col-sm-5"><%= Order.human_attribute_name(:user_id) %>:</dt>
+            <dd class="col-sm-7"><%= @order.user.name %> (<%= @order.user.email %>)</dd>
 
-            <dt class="col-sm-3"><%= Order.human_attribute_name(:guest_quantity) %>:</dt>
-            <dd class="col-sm-9"><%= @order.guest_quantity %></dd>
+            <dt class="col-sm-5"><%= Order.human_attribute_name(:date) %>:</dt>
+            <dd class="col-sm-7"><%= @order.date %></dd>
 
-            <dt class="col-sm-3"><%= Order.human_attribute_name(:location) %>:</dt>
-            <dd class="col-sm-9"><%= I18n.translate(@order.location) %></dd>
+            <dt class="col-sm-5"><%= Order.human_attribute_name(:guest_quantity) %>:</dt>
+            <dd class="col-sm-7"><%= @order.guest_quantity %></dd>
+
+            <dt class="col-sm-5"><%= Order.human_attribute_name(:location) %>:</dt>
+            <dd class="col-sm-7"><%= I18n.translate(@order.location) %></dd>
 
             <% if @order.location == 'elsewhere' %>
               <dl>
-                <dt class="col-sm-3"><%= Order.human_attribute_name(:address) %>:</dt>
-                <dd class="col-sm-9"><%= @order.address %>, <%= @order.city %> - <%= @order.state %>, <%= @order.zipcode %></dd>
+                <dt class="col-sm-5"><%= Order.human_attribute_name(:address) %>:</dt>
+                <dd class="col-sm-7"><%= @order.address %>, <%= @order.city %> - <%= @order.state %>, <%= @order.zipcode %></dd>
               </dl>
             <% end %>
 
-            <dt class="col-sm-3"><%= Order.human_attribute_name(:details) %>:</dt>
-            <dd class="col-sm-9"><%= @order.details %></dd>
+            <% if !@order.details.empty? && @order.details != nil %>
+              <dt class="col-sm-5"><%= Order.human_attribute_name(:details) %>:</dt>
+              <dd class="col-sm-7"><%= @order.details %></dd>
+            <% end %>
 
-            <dt class="col-sm-3"><%= Order.human_attribute_name(:code) %>:</dt>
-            <dd class="col-sm-9"><%= @order.code %></dd>
-          </dl>
-        </div>
-      </div>
-
-        <div class="border-card" style="width: 60rem;">
-          <div class="card-body"></div>
-            <dl class="row">
-              <% if @order.status == 'approved' || @order.status == 'confirmed' %>
-
-                <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:base) %>: </dt>
-                <dd class="col-sm-9">R$ <%= @order_price.base %></dd>
-
-                <% if @order_price.discount > 0 %>
-                  <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:discount) %>:</dt>
-                  <dd class="col-sm-9">R$ <%= @order_price.discount %></dd>
-                <% elsif @order_price.fee > 0 %>
-                  <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:fee) %>:</dt>
-                  <dd class="col-sm-9">R$ <%= @order_price.fee %></dd>
-                <% end %>
-                
-                <% unless @order_price.base == @order_price.total %>
-                  <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:description) %>:</dt>
-                  <dd class="col-sm-9"><%= @order_price.description %></dd>
-
-                  <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:total) %>:</dt>
-                  <dd class="col-sm-9">R$ <%= @order_price.total %></dd>
-                <% end %>
-
-                <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:payment) %>:</dt>
-                <dd class="col-sm-9"><%= I18n.t(@order_price.payment) %></dd>
-
-                <dt class="col-sm-3"><%= OrderPrice.human_attribute_name(:expiration_date) %>:</dt>
-                <dd class="col-sm-9"><%= @order_price.expiration_date %></dd>
-
-              <% end %>
-            </dl>
+            <dt class="col-sm-5"><%= Order.human_attribute_name(:code) %>:</dt>
+            <dd class="col-sm-7"><%= @order.code %></dd>
           </div>
         </div>
 
+        <% if @order.status == 'approved' || @order.status == 'confirmed' %>
+          <div class="border-card">
+            <div class="card-body">
+              <h5 class="text-primary">Proposta do Buffet:</h5>
+              
+                <dt class="col-sm-5"><%= OrderPrice.human_attribute_name(:base) %>: </dt>
+                <dd class="col-sm-7">R$ <%= @order_price.base %></dd>
+
+                <% if @order_price.discount > 0 %>
+                  <dt class="col-sm-5"><%= OrderPrice.human_attribute_name(:discount) %>:</dt>
+                  <dd class="col-sm-7">R$ <%= @order_price.discount %></dd>
+                <% elsif @order_price.fee > 0 %>
+                  <dt class="col-sm-5"><%= OrderPrice.human_attribute_name(:fee) %>:</dt>
+                  <dd class="col-sm-7">R$ <%= @order_price.fee %></dd>
+                <% end %>
+                
+                <% unless @order_price.base == @order_price.total %>
+                  <dt class="col-sm-5"><%= OrderPrice.human_attribute_name(:description) %>:</dt>
+                  <dd class="col-sm-7"><%= @order_price.description %></dd>
+
+                  <dt class="col-sm-5"><%= OrderPrice.human_attribute_name(:total) %>:</dt>
+                  <dd class="col-sm-7">R$ <%= @order_price.total %></dd>
+                <% end %>
+
+                <dt class="col-sm-5"><%= OrderPrice.human_attribute_name(:payment) %>:</dt>
+                <dd class="col-sm-7"><%= I18n.t(@order_price.payment) %></dd>
+
+                <dt class="col-sm-5"><%= OrderPrice.human_attribute_name(:expiration_date) %>:</dt>
+                <dd class="col-sm-7"><%= @order_price.expiration_date %></dd>
+            </div>
+          </div>
+        <% end %>
+      </dl>
     </div>
-  </div>
+    <div class="col">
+      <div>
+        <h4>Converse com <%= @order.user.name %></h4>
+      </div>
+      <div class="border-card">
+        <div class="border-card-3" id="chat-box" style="height: 250px; overflow-y: scroll;">
+          <% @chat.messages.each do |message| %>
+            <div class="border-card-4 message-card <%= message.is_a?(UserMessage) ? 'message-user' : 'message-buffet' %>">
+              <div class="card-body-2">
+                <p class="card-text">
+                  <% if message.is_a?(UserMessage) %>
+                    <%= message.user.name %>: 
+                  <% elsif message.is_a?(BuffetMessage) %>
+                    Você: 
+                  <% end %>
+                  <%= message.content %>
+                </p>
+                <p class="card-text">
+                  <small class="text-muted"><%= BuffetMessage.human_attribute_name(:created_at) %>: <%= message.created_at.strftime("%d %b %Y %H:%M") %></small>
+                </p>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <%= form_with(model: [@order, BuffetMessage.new], url: new_buffet_message_order_path(@order), method: :post, local: true) do |f| %>
+          <div class="form-group mb-3">
+            <%= f.label :content, class: 'form-label' %>:
+            <%= f.text_area :content, class: 'form-control' %>
+          </div>
+          <div class="mt-4">
+            <%= f.submit 'Enviar', class: 'btn btn-primary' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
   <div class="row">
     <div class="col-auto">
       <% if @order.status == 'pending' %>
         <%= link_to 'Avaliar Pedido', evaluation_order_path, class: "btn btn-warning pe-3 ps-3" %>
+      <% elsif @order.status == 'approved' %>
+        <%= link_to 'Fazer Nova Proposta', evaluation_order_path, class: "btn btn-warning pe-3 ps-3" %>
       <% end %>
     </div>
     <div class="col-auto">
@@ -104,3 +138,12 @@
     </div>
   </div>
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const chatBox = document.getElementById("chat-box");
+  if (chatBox) {
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+});
+</script>

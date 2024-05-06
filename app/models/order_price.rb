@@ -24,8 +24,10 @@ class OrderPrice < ApplicationRecord
   end
 
   def discount_or_fee
-    if self.discount.present? && self.fee.present? && self.fee > 0 && self.discount > 0
-      self.errors.add(:base, "Deve aplicar apenas um desconto ou uma taxa extra.")
+    if self.discount.present? && self.fee.present? && (self.description == nil || self.description.empty?)
+      if self.fee > 0 || self.discount > 0
+        self.errors.add(:description, "deve explicar o desconto ou taxa extra concedidos.")
+      end
     end
   end
 end

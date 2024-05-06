@@ -4,6 +4,7 @@ class Order < ApplicationRecord
   belongs_to :user
 
   has_one :order_price
+  has_one :chat
 
   validates :date, :guest_quantity, presence: true
   validates :guest_quantity, numericality: true

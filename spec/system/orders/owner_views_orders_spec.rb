@@ -46,6 +46,7 @@ describe 'Owner views orders' do
     order = Order.create!(user: user, buffet: buffet, event_type: event, date: 1.week.from_now.to_date, 
                   guest_quantity: 50, details: 'Festa de Casamento para 50 pessoas',
                   location: 'buffet_address')
+    Chat.create!(order: order)
 
     login_as owner, scope: :owner
     visit root_path
@@ -95,6 +96,7 @@ describe 'Owner views orders' do
     Order.create!(user: ivan, buffet: buffet, event_type: event, date: 1.week.from_now.to_date, 
                   guest_quantity: 50, details: 'Festa de Casamento para 50 pessoas',
                   location: 'buffet_address')
+    Chat.create!(order: order)
 
     login_as owner, scope: :owner
     visit root_path
@@ -140,6 +142,7 @@ describe 'Owner views orders' do
                   guest_quantity: 50, details: 'Festa de Casamento para 50 pessoas',
                   location: 'elsewhere', address: 'Rua da Saudade, 100', city: 'Recife', state: 'PE',
                   zipcode: '12345123')
+    Chat.create!(order: order)
 
     login_as owner, scope: :owner
     visit root_path

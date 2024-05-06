@@ -12,6 +12,9 @@ pt-BR:
         one: 'Pedido'
         other: 'Pedidos'
       order_price: 'Preço do Pedido'
+      chat: 'Chat'
+      user_message: 'Mensagem do Cliente'
+      buffet_message: 'Mensagem do Buffet'
     attributes:
       user:
         name: 'Nome'
@@ -79,5 +82,12 @@ pt-BR:
         payment: 'Método de Pagamento'
         description: 'Descrição do Valor Final'
         expiration_date: 'Data de Validade'
+      user_message:
+        content: 'Mensagem'
+        created_at: 'Enviado em'
+      buffet_message:
+        content: 'Mensagem'
+        created_at: 'Enviado em'
+
 
 
