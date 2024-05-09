@@ -13,8 +13,7 @@ describe 'Owner evaluates pending order' do
     event = EventType.create!(name: 'Festa de Casamento', duration: '240', min_people: '30',
                               max_people: '100', description: 'Festa grande', menu: 'Macarrão com salsicha',
                               location: 'anywhere', buffet: buffet)
-    Price.create(base: 2000, extra_person: 50, extra_hour: 300, weekend_base: 3000, 
-                        weekend_extra_person: 75, weekend_extra_hour: 450, event_type: event)
+    Price.create(base: 2000, extra_person: 50, extra_hour: 300, event_type: event)
 
     allow(SecureRandom).to receive(:alphanumeric).and_return('moIoiXkBAFMXr4RGhn0J')
     order = Order.create!(user: angelo, buffet: buffet, event_type: event, date: 1.day.from_now.to_date, 
@@ -50,8 +49,7 @@ describe 'Owner evaluates pending order' do
     event = EventType.create!(name: 'Festa de Casamento', duration: '240', min_people: '30',
                               max_people: '100', description: 'Festa grande', menu: 'Macarrão com salsicha',
                               location: 'anywhere', buffet: buffet)
-    Price.create(base: 2000, extra_person: 50, extra_hour: 300, weekend_base: 3000, 
-                        weekend_extra_person: 75, weekend_extra_hour: 450, event_type: event)
+    Price.create(base: 2000, extra_person: 50, extra_hour: 300, event_type: event)
 
     allow(SecureRandom).to receive(:alphanumeric).and_return('moIoiXkBAFMXr4RGhn0J')
     order = Order.create!(user: angelo, buffet: buffet, event_type: event, date: 1.month.from_now.to_date, 
@@ -93,8 +91,7 @@ describe 'Owner evaluates pending order' do
     event = EventType.create!(name: 'Festa de Casamento', duration: '240', min_people: '30',
                               max_people: '100', description: 'Festa grande', menu: 'Macarrão com salsicha',
                               location: 'anywhere', buffet: buffet)
-    Price.create(base: 2000, extra_person: 50, extra_hour: 300, weekend_base: 3000, 
-                        weekend_extra_person: 75, weekend_extra_hour: 450, event_type: event)
+    Price.create(base: 2000, extra_person: 50, extra_hour: 300, event_type: event)
 
     allow(SecureRandom).to receive(:alphanumeric).and_return('moIoiXkBAFMXr4RGhn0J')
     order = Order.create!(user: angelo, buffet: buffet, event_type: event, date: 1.month.from_now.to_date, 
@@ -139,8 +136,7 @@ describe 'Owner evaluates pending order' do
     event = EventType.create!(name: 'Festa de Casamento', duration: '240', min_people: '30',
                               max_people: '100', description: 'Festa grande', menu: 'Macarrão com salsicha',
                               location: 'anywhere', buffet: buffet)
-    Price.create(base: 2000, extra_person: 50, extra_hour: 300, weekend_base: 3000, 
-                        weekend_extra_person: 75, weekend_extra_hour: 450, event_type: event)
+    Price.create(base: 2000, extra_person: 50, extra_hour: 300, event_type: event)
 
     allow(SecureRandom).to receive(:alphanumeric).and_return('moIoiXkBAFMXr4RGhn0J')
     order = Order.create!(user: angelo, buffet: buffet, event_type: event, date: 1.month.from_now.to_date, 
@@ -185,8 +181,7 @@ describe 'Owner evaluates pending order' do
     event = EventType.create!(name: 'Festa de Casamento', duration: '240', min_people: '30',
                               max_people: '100', description: 'Festa grande', menu: 'Macarrão com salsicha',
                               location: 'anywhere', buffet: buffet)
-    Price.create(base: 2000, extra_person: 50, extra_hour: 300, weekend_base: 3000, 
-                        weekend_extra_person: 75, weekend_extra_hour: 450, event_type: event)
+    Price.create(base: 2000, extra_person: 50, extra_hour: 300, event_type: event)
 
     allow(SecureRandom).to receive(:alphanumeric).and_return('moIoiXkBAFMXr4RGhn0J')
     order = Order.create!(user: angelo, buffet: buffet, event_type: event, date: 1.month.from_now.to_date, 
@@ -235,8 +230,7 @@ describe 'Owner evaluates pending order' do
     event = EventType.create!(name: 'Festa de Casamento', duration: '240', min_people: '30',
                               max_people: '100', description: 'Festa grande', menu: 'Macarrão com salsicha',
                               location: 'anywhere', buffet: buffet)
-    Price.create(base: 2000, extra_person: 50, extra_hour: 300, weekend_base: 3000, 
-                        weekend_extra_person: 75, weekend_extra_hour: 450, event_type: event)
+    Price.create(base: 2000, extra_person: 50, extra_hour: 300, event_type: event)
 
     allow(SecureRandom).to receive(:alphanumeric).and_return('moIoiXkBAFMXr4RGhn0J')
     order = Order.create!(user: angelo, buffet: buffet, event_type: event, date: 1.month.from_now.to_date, 

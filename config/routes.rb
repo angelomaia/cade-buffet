@@ -24,4 +24,12 @@ Rails.application.routes.draw do
   end
   
   resources :event_types, only: [:show, :edit, :update, :new, :create]
+
+  namespace :api do
+    namespace :v1 do
+      resources :buffets, only: [:index, :show] do
+        resources :event_types, only: [:index]
+      end
+    end
+  end
 end

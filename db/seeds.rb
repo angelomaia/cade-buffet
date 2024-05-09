@@ -29,9 +29,11 @@ noite_feliz = Buffet.create!(name: 'Noite Feliz', corporate_name: 'Noite Feliz E
                email: 'contato@noitefeliz.com.br', phone: '9298765432', zipcode: '52000123', 
                pix: true, debit: true, credit: true, cash: false, owner: owner_five)
 
-casamento_festim = EventType.create!(name: 'Festa de Casamento', duration: '240', min_people: '10',
+casamento_festim = EventType.create!(name: 'Festa de Casamento', duration: '240', min_people: '20',
                   max_people: '100', description: 'Festa completa', menu: 'Sushi, mesa de frios, strogonoff',
                   buffet: festim)
+Price.create!(base: 5000, extra_person: 200, extra_hour: 1500, event_type: casamento_festim)
+
 infantil_festim = EventType.create!(name: 'Festa Infantil', duration: '240', min_people: '10',
                   max_people: '100', description: 'Festa completa', menu: 'Sushi, mesa de frios, strogonoff',
                   location: 'anywhere', buffet: festim)
