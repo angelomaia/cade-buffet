@@ -30,6 +30,7 @@ Rails.application.routes.draw do
       resources :buffets, only: [:index, :show] do
         resources :event_types, only: [:index]
       end
+      get 'availability_check', to: 'event_types#availability_check'
     end
   end
 end

@@ -14,4 +14,43 @@ class Api::V1::EventTypesController < Api::V1::ApiController
     end
     render status: 200, json: events_json
   end
+
+  def availability_check
+    event = EventType.find(params[:event_type_id])
+    date = params[:date].to_date
+    guests = params[:guests].to_f
+    warnings = []
+
+    date_conflict = event.orders.where(date: date, status: ['approved', 'confirmed'])
+    
+    if date_conflict.empty?
+      if guests <= event.max_people.to_f
+        if date.saturday? && event.price.weekend? || date.sunday? && event.price.weekend?
+          base_price = event.price.weekend_base
+          extra_person_price = event.price.weekend_extra_person
+          min_people = event.min_people.to_f
+          value = base_price + (extra_person_price * (guests - min_people))
+
+          result = { 'price': value }
+        else
+          base_price = event.price.base
+          extra_person_price = event.price.extra_person
+          min_people = event.min_people.to_f
+          value = base_price + (extra_person_price * (guests - min_people))
+
+          result = { 'price': value }
+        end
+      else
+        warnings << 'Quantidade de convidados acima do limite.'
+
+        result = { 'warnings': warnings }
+      end
+    else
+      warnings << 'O Buffet já possui um evento marcado para esta data.'
+
+      result = { 'warnings': warnings }
+    end
+
+    render status: 200, json: result.as_json
+  end
 end

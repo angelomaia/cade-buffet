@@ -3,6 +3,7 @@ class OrdersController < ApplicationController
   before_action :set_order_check_user, only: [:show, :confirm, :new_user_message]
   before_action :authenticate_owner!, only: [:owner, :details, :evaluation, :create_order_price, :new_buffet_message]
   before_action :set_order_check_owner, only: [:details, :evaluation, :new_buffet_message]
+  before_action :check_expired_orders, only: [:owner, :index, :show, :details]
   
   def new
     buffet = Buffet.find(params[:buffet_id])
@@ -149,4 +150,14 @@ class OrdersController < ApplicationController
       base_price + (extra_person_price * (order.guest_quantity - min_people))
     end
   end
+
+  def check_expired_orders
+    expired_orders = Order.joins(:order_price)
+                           .where('order_prices.expiration_date <= ?', Date.today)
+
+    expired_orders.each do |expired_order|
+      expired_order.cancelled!
+    end
+  end
+  
 end
