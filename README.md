@@ -26,3 +26,72 @@
   </ul>
   <li>The app provides API endpoints that are further described below</li>
 </ul>
+
+API
+
+if you run
+```http://localhost:3000/api/v1/buffets```
+
+you will receive as response an array containing the list of all buffets registered in the app, ordered by name:
+
+```
+[
+  {
+    "id": 3,
+    "name": "Bons Momentos",
+    "corporate_name": "Bons Momentos Buffet Ltda",
+    "cnpj": "56473829100",
+    "phone": "4198526374",
+    "email": "atendimento@bonsmomentos.com.br",
+    "address": "Praça da Estação, 45",
+    "neighborhood": "Centro",
+    "city": "Recife",
+    "state": "PE",
+    "zipcode": "52000123",
+    "description": null,
+    "pix": true,
+    "debit": false,
+    "credit": true,
+    "cash": true,
+    "owner_id": 3
+  },
+  {
+    "id": 2,
+    "name": "Celebra",
+    "corporate_name": "Celebrações e Festas S.A.",
+    "cnpj": "98765432109",
+    "phone": "3197654321",
+    "email": "celebra@celebra.com.br",
+    "address": "Avenida dos Diamantes, 300",
+    "neighborhood": "Industrial",
+    "city": "Belo Horizonte",
+    "state": "MG",
+    "zipcode": "52000123",
+    "description": null,
+    "pix": false,
+    "debit": true,
+    "credit": true,
+    "cash": true,
+    "owner_id": 2
+  },
+  {
+    "id": 1,
+    "name": "Festim",
+    "corporate_name": "Festim Eventos Ltda",
+    "cnpj": "12345678901",
+    "phone": "1198765432",
+    "email": "contato@festim.com.br",
+    "address": "Rua das Camélias, 58",
+    "neighborhood": "Jardim",
+    "city": "São Paulo",
+    "state": "SP",
+    "zipcode": "52000123",
+    "description": null,
+    "pix": true,
+    "debit": true,
+    "credit": true,
+    "cash": false,
+    "owner_id": 1
+  }
+]
+```
