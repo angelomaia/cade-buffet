@@ -1,8 +1,13 @@
 class OrdersController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :show, :index, :confirm, :new_user_message]
-  before_action :set_order_check_user, only: [:show, :confirm, :new_user_message]
-  before_action :authenticate_owner!, only: [:owner, :details, :evaluation, :create_order_price, :new_buffet_message]
-  before_action :set_order_check_owner, only: [:details, :evaluation, :new_buffet_message]
+  before_action :authenticate_user!, only: [:new, :create, :show, :index, :confirm, 
+                                            :new_user_message, :user_cancel]
+  before_action :set_order_check_user, only: [:show, :confirm, :new_user_message, 
+                                              :user_cancel]
+  before_action :authenticate_owner!, only: [:owner, :details, :evaluation, 
+                                              :create_order_price, :new_buffet_message,
+                                              :owner_cancel]
+  before_action :set_order_check_owner, only: [:details, :evaluation, :new_buffet_message,
+                                              :owner_cancel]
   before_action :check_expired_orders, only: [:owner, :index, :show, :details]
   
   def new
@@ -46,10 +51,20 @@ class OrdersController < ApplicationController
   def confirm
     if @order.order_price.expiration_date >= Date.today
       @order.confirmed!
-      redirect_to @order, notice: 'Ordem confirmada com sucesso!'
+      redirect_to @order, notice: 'Pedido confirmado com sucesso!'
     else
       redirect_to @order, alert: 'Proposta expirada.'
     end
+  end
+
+  def user_cancel
+    @order.cancelled!
+    redirect_to @order, notice: 'Pedido cancelado com sucesso!'
+  end
+
+  def owner_cancel
+    @order.cancelled!
+    redirect_to details_order_path(@order), notice: 'Pedido cancelado com sucesso!'
   end
 
   def details

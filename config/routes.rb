@@ -15,6 +15,8 @@ Rails.application.routes.draw do
     get 'evaluation', on: :member
     post 'create_order_price', on: :member
     post 'confirm', on: :member
+    post 'user_cancel', on: :member
+    post 'owner_cancel', on: :member
     post 'new_user_message', on: :member
     post 'new_buffet_message', on: :member
   end

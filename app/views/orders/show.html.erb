@@ -81,49 +81,57 @@
         <% end %>
       </dl>
     </div>
-    <div class="col">
-      <div class="buffet">
-        <h4>Converse com o <%= Order.human_attribute_name(:buffet) %> <%= link_to @order.buffet.name, @order.buffet, class: "invisible-link" %></h4>
-      </div>
-      <div class="border-card">
-        <div class="border-card-3" id="chat-box" style="height: 250px; overflow-y: scroll;">
-          <% @chat.messages.each do |message| %>
-            <div class="border-card-4 message-card <%= message.is_a?(UserMessage) ? 'message-user' : 'message-buffet' %>">
-              <div class="card-body-2">
-                <p class="card-text">
-                  <% if message.is_a?(UserMessage) %>
-                    Você: 
-                  <% elsif message.is_a?(BuffetMessage) %>
-                    Buffet <%= message.buffet.name %>: 
-                  <% end %>
-                  <%= message.content %>
-                </p>
-                <p class="card-text">
-                  <small class="text-muted"><%= UserMessage.human_attribute_name(:created_at) %>: <%= message.created_at.strftime("%d %b %Y %H:%M") %></small>
-                </p>
+    <% unless @order.status == 'cancelled' %>
+      <div class="col">
+        <div class="buffet">
+          <h4>Converse com o <%= Order.human_attribute_name(:buffet) %> <%= link_to @order.buffet.name, @order.buffet, class: "invisible-link" %></h4>
+        </div>
+        <div class="border-card">
+          <div class="border-card-3" id="chat-box" style="height: 250px; overflow-y: scroll;">
+            <% @chat.messages.each do |message| %>
+              <div class="border-card-4 message-card <%= message.is_a?(UserMessage) ? 'message-user' : 'message-buffet' %>">
+                <div class="card-body-2">
+                  <p class="card-text">
+                    <% if message.is_a?(UserMessage) %>
+                      Você: 
+                    <% elsif message.is_a?(BuffetMessage) %>
+                      Buffet <%= message.buffet.name %>: 
+                    <% end %>
+                    <%= message.content %>
+                  </p>
+                  <p class="card-text">
+                    <small class="text-muted"><%= UserMessage.human_attribute_name(:created_at) %>: <%= message.created_at.strftime("%d %b %Y %H:%M") %></small>
+                  </p>
+                </div>
               </div>
+            <% end %>
+          </div>
+          <%= form_with(model: [@order, UserMessage.new], url: new_user_message_order_path(@order), method: :post, local: true) do |f| %>
+            <div class="form-group mb-3">
+              <%= f.label :content, class: 'form-label' %>:
+              <%= f.text_area :content, class: 'form-control' %>
+            </div>
+            <div class="mt-4">
+              <%= f.submit 'Enviar', class: 'btn btn-primary' %>
             </div>
           <% end %>
         </div>
-        <%= form_with(model: [@order, UserMessage.new], url: new_user_message_order_path(@order), method: :post, local: true) do |f| %>
-          <div class="form-group mb-3">
-            <%= f.label :content, class: 'form-label' %>:
-            <%= f.text_area :content, class: 'form-control' %>
-          </div>
-          <div class="mt-4">
-            <%= f.submit 'Enviar', class: 'btn btn-primary' %>
-          </div>
+      </div>
+    <% end %>
+    <div class="row">
+      <div class="col-auto">
+        <% if @order.status == 'approved' && @order.order_price.expiration_date >= Date.today %>
+          <%= button_to 'Confirmar Pedido', confirm_order_path, method: :post, class: "btn btn-success pe-3 ps-3" %>
         <% end %>
       </div>
-    </div>
-    <div class="row">
-    <div class="col-auto">
-      <% if @order.status == 'approved' && @order.order_price.expiration_date >= Date.today %>
-        <%= button_to 'Confirmar Pedido', confirm_order_path, method: :post, class: "btn btn-success pe-3 ps-3" %>
-      <% end %>
-    </div>
-    <div class="col-auto">
-      <%= link_to 'Voltar', orders_path, class: "btn btn-secondary" %>
+      <div class="col-auto">
+        <% if @order.status != 'cancelled' && @order.status != 'confirmed'  %>
+          <%= button_to 'Cancelar Pedido', user_cancel_order_path, method: :post, class: "btn btn-danger pe-3 ps-3", id: "cancel-order-btn" %>
+        <% end %>
+      </div>
+      <div class="col-auto">
+        <%= link_to 'Voltar', orders_path, class: "btn btn-secondary" %>
+      </div>
     </div>
   </div>
 </div>
@@ -133,6 +141,15 @@ document.addEventListener("DOMContentLoaded", function() {
   const chatBox = document.getElementById("chat-box");
   if (chatBox) {
     chatBox.scrollTop = chatBox.scrollHeight;
+  }
+
+  const cancelButton = document.getElementById("cancel-order-btn");
+  if (cancelButton) {
+    cancelButton.addEventListener('click', function(event) {
+      if (!confirm('Tem certeza?')) {
+        event.preventDefault();
+      }
+    });
   }
 });
 </script>

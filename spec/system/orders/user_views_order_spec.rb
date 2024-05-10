@@ -43,6 +43,7 @@ describe 'User views order' do
     expect(page).to have_content 'Endereço do Buffet'
     expect(page).to have_content 'Status:'
     expect(page).to have_content 'Aguardando aprovação do Buffet'
+    expect(page).to have_button 'Cancelar Pedido'
   end
 
   it 'from My Orders page' do
