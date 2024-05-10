@@ -144,7 +144,10 @@ This path returns a list of details from the Buffet with ID == 1:
 ```
 <br>
 The Event types associated with a Buffet can also be retrieved:<br>
-```http://localhost:3000/api/v1/buffets/1/event_types```
+
+```
+http://localhost:3000/api/v1/buffets/1/event_types
+```
 
 This path returns an array containing all Event Types associated with the Buffet with ID == 1:<br>
 ```
@@ -228,7 +231,7 @@ If the date is available (that is, the Buffet has no Event approved OR confirmed
 }
 ```
 
-If the data is unavailable, the response should be a warnings array containing one string:
+If the date is unavailable, the response should be a warnings array containing one string:
 ```
 {
   "warnings": [
