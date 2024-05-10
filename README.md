@@ -210,5 +210,41 @@ Attributes:<br>
 ‎ ‎ ‎ ```price.weekend_extra_person``` <i>float</i> : weekend additional value per extra person on the min_people quantity<br>
 ‎ ‎ ‎ ```price.weekend_extra_hour``` <i>float</i> : weekend additional value per extra hour on the Event duration<br>
 ‎ ‎ ‎ ```price.event_type_id``` <i>integer</i> : the ID of the EventType which the Price belongs to<br>
+<br>
+An endpoint to check the availability of an event is also provided:
+```
+http://localhost:3000/api/v1/availability_check
+```
+
+However, three params need to be passed to the URL: a Date (date), the guest quantity (guests), and the ID of the EventType object (event_type_id):
+```
+http://localhost:3000/api/v1/availability_check?date=2024-12-12&guests=50&event_type_id=1
+```
+
+If the date is available (that is, the Buffet has no Event approved OR confirmed for the date AND the guest quantity is equal or less the maximum number of people that the Event can serve), the response should be the expected price of the event:
+```
+{
+  "price": 11000
+}
+```
+
+If the data is unavailable, the response should be a warnings array containing one string:
+```
+{
+  "warnings": [
+    "O Buffet já possui um evento marcado para esta data."
+  ]
+}
+```
+
+If the guest quantity is higher than the max_people attribute of the EventType object, the response should be a warnings array containing one string:
+```
+{
+  "warnings": [
+    "Quantidade de convidados acima do limite."
+  ]
+}
+```
+
 
 
