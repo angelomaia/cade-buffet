@@ -1,4 +1,6 @@
-![Badge](https://img.shields.io/static/v1?label=Rails&message=framework&color=red&style=for-the-badge&logo=rubyonrails)
+![Badge](https://img.shields.io/static/v1?label=Ruby&message=back-end&color=red&style=for-the-badge&logo=ruby)
+![Badge](https://img.shields.io/static/v1?label=Rails&message=framework&color=orange&style=for-the-badge&logo=rubyonrails)
+![Badge](https://img.shields.io/static/v1?label=Bootstrap&message=front-end&color=blue&style=for-the-badge&logo=bootstrap)
 
 <h1>Cadê Buffet?</h1>
 <p align="justify"><i>Cadê Buffet?</i> is an application that aims to connect clients to companies that provide Buffet services.</p>
@@ -30,7 +32,9 @@
 <h2>API Documentation</h2>
 
 The main API endpoint is a list of all Buffets registered in the app, and can be accessed by:<br>
-```http://localhost:3000/api/v1/buffets```
+```
+http://localhost:3000/api/v1/buffets
+```
 
 This path returns an array containing the list of all Buffets registered in the app ordered by name:
 
@@ -95,26 +99,28 @@ This path returns an array containing the list of all Buffets registered in the 
   }
 ]
 ```
-Attributes:
-```id``` <i>integer</i> : the ID of the Buffet object in the Database
-```name``` <i>string</i> : the Name of the Buffet
-```corporate_name``` <i>string</i> : the legal name of the Buffet
-```cnpj``` <i>string</i> : the registration number of the Buffet
-```phone``` <i>string</i> : the phone of the Buffet
-```email``` <i>string</i> : the email of the Buffet
-```address``` <i>string</i> : the street address of where the Buffet is located
-```city``` <i>string</i> : the city in which the Buffet is located
-```state``` <i>string</i> : the state in which the Buffet is located
-```zipcode``` <i>string</i> : the zipcode of the location
-```description``` <i>string</i> : a brief description of the Buffet
-```pix``` <i>boolean</i> : defines whether the Buffet accepts PIX as the payment method
-```debit``` <i>boolean</i> : defines whether the Buffet accepts debit card as the payment method
-```credit``` <i>boolean</i> : defines whether the Buffet accepts credit card as the payment method
-```cash``` <i>boolean</i> : defines whether the Buffet accepts cash as the payment method
-```owner_id``` <i>integer</i> : the ID of the owner (devise model object) which the Buffet belongs to
+Attributes:<br>
+```id``` <i>integer</i> : the ID of the Buffet object in the Database<br>
+```name``` <i>string</i> : the Name of the Buffet<br>
+```corporate_name``` <i>string</i> : the legal name of the Buffet<br>
+```cnpj``` <i>string</i> : the registration number of the Buffet<br>
+```phone``` <i>string</i> : the phone of the Buffet<br>
+```email``` <i>string</i> : the email of the Buffet<br>
+```address``` <i>string</i> : the street address of where the Buffet is located<br>
+```city``` <i>string</i> : the city in which the Buffet is located<br>
+```state``` <i>string</i> : the state in which the Buffet is located<br>
+```zipcode``` <i>string</i> : the zipcode of the location<br>
+```description``` <i>string</i> : a brief description of the Buffet<br>
+```pix``` <i>boolean</i> : defines whether the Buffet accepts PIX as the payment method<br>
+```debit``` <i>boolean</i> : defines whether the Buffet accepts debit card as the payment method<br>
+```credit``` <i>boolean</i> : defines whether the Buffet accepts credit card as the payment method<br>
+```cash``` <i>boolean</i> : defines whether the Buffet accepts cash as the payment method<br>
+```owner_id``` <i>integer</i> : the ID of the owner (devise model object) which the Buffet belongs to<br>
 <br>
 Details of a Buffet can also be accessed by ID:<br>
-```http://localhost:3000/api/v1/buffets/1```
+```
+http://localhost:3000/api/v1/buffets/1
+```
 
 This path returns a list of details from the Buffet with ID == 1:
 ```
@@ -183,27 +189,26 @@ This path returns an array containing all Event Types associated with the Buffet
   }
 ]
 ```
-Attributes:
-```id``` <i>integer</i> : the ID of the EventType object in the Database
-```name``` <i>string</i> : the Name of the Event
-```description``` <i>string</i> : a brief description of the Event
-```min_people``` <i>string</i> : the minimum number of people, used to set the base price of the Event
-```max_people``` <i>string</i> : the maximum number of people that the Event can provide for
-```duration``` <i>string</i> : the duration of the Event in minutes
-```menu``` <i>string</i> : a freely described menu for the Event
-```alcohol``` <i>boolean</i> : defines whether the Event provides alcoholic beverages
-```decoration``` <i>boolean</i> : defines whether the Event provides decoration service
-```parking``` <i>boolean</i> : defines whether the Event provide parking or valet services
-```buffet_id``` <i>integer</i> : the ID of the Buffet which the Event belongs to
-```price``` <i>Child Object</i> : an object that belongs_to the EventType, which has_one Price
-<ul>
-<li> ```price.id``` <i>integer</i> : the ID of the EventType object in the Database </li>
-<li> ```price.base``` <i>float</i> : the base Price for the event, based on the duration and the min_people </li>
-<li> ```price.extra_person``` <i>float</i> : additional value per extra person on the min_people quantity </li>
-<li> ```price.extra_hour``` <i>float</i> : additional value per extra hour on the Event duration </li>
-<li> ```price.weekend_base``` <i>float</i> : base price for weekends </li>
-<li> ```price.weekend_extra_person``` <i>float</i> : weekend additional value per extra person on the min_people quantity </li>
-<li> ```price.weekend_extra_hour``` <i>float</i> : weekend additional value per extra hour on the Event duration </li>
-<li> ```price.event_type_id``` <i>integer</i> : the ID of the EventType which the Price belongs to </li>
-</ul>
-<br>
+Attributes:<br>
+```id``` <i>integer</i> : the ID of the EventType object in the Database<br>
+```name``` <i>string</i> : the Name of the Event<br>
+```description``` <i>string</i> : a brief description of the Event<br>
+```min_people``` <i>string</i> : the minimum number of people, used to set the base price of the Event<br>
+```max_people``` <i>string</i> : the maximum number of people that the Event can provide for<br>
+```duration``` <i>string</i> : the duration of the Event in minutes<br>
+```menu``` <i>string</i> : a freely described menu for the Event<br>
+```alcohol``` <i>boolean</i> : defines whether the Event provides alcoholic beverages<br>
+```decoration``` <i>boolean</i> : defines whether the Event provides decoration service<br>
+```parking``` <i>boolean</i> : defines whether the Event provide parking or valet services<br>
+```buffet_id``` <i>integer</i> : the ID of the Buffet which the Event belongs to<br>
+```price``` <i>Child Object</i> : an object that belongs_to the EventType, which has_one Price<br>
+‎ ‎ ‎ ```price.id``` <i>integer</i> : the ID of the EventType object in the Database<br>
+‎ ‎ ‎ ```price.base``` <i>float</i> : the base Price for the event, based on the duration and the min_people<br>
+‎ ‎ ‎ ```price.extra_person``` <i>float</i> : additional value per extra person on the min_people quantity<br>
+‎ ‎ ‎ ```price.extra_hour``` <i>float</i> : additional value per extra hour on the Event duration<br>
+‎ ‎ ‎ ```price.weekend_base``` <i>float</i> : base price for weekends<br>
+‎ ‎ ‎ ```price.weekend_extra_person``` <i>float</i> : weekend additional value per extra person on the min_people quantity<br>
+‎ ‎ ‎ ```price.weekend_extra_hour``` <i>float</i> : weekend additional value per extra hour on the Event duration<br>
+‎ ‎ ‎ ```price.event_type_id``` <i>integer</i> : the ID of the EventType which the Price belongs to<br>
+
+
