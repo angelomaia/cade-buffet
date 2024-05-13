@@ -83,6 +83,9 @@
 
   <div class="row justify-content-center">
     <div class="col-12 col-md-8 text-center">
+      <% if !owner_signed_in? %>
+        <%= link_to 'Novo Pedido', new_order_path(buffet_id: @event_type.buffet.id, preset_event: @event_type), class: "btn btn-success" %>
+      <% end %>
       <% if @event_type.buffet.owner == current_owner %>
         <%= link_to 'Editar Tipo de Evento e Preços', edit_event_type_path, class: "btn btn-primary" %>
       <% end %>

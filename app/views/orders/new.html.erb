@@ -14,7 +14,7 @@
   <%= form_with(model: @order) do |f| %>
     <div class="mb-3">
       <%= f.label :event_type_id, class: 'form-label', for: 'event_type_select' %>
-      <%= f.collection_select :event_type_id, @event_types, :id, :name, {}, { id: 'event_type_select', class: 'form-select' } %>
+      <%= f.collection_select :event_type_id, @event_types, :id, :name, { selected: @preset_event }, { id: 'event_type_select', class: 'form-select' } %>
     </div>
     <div class="mb-3">
       <%= f.label :date, class: 'form-label' %>
@@ -63,6 +63,11 @@
       <%= f.submit 'Criar pedido', class: 'btn btn-primary' %>
     </div>
   <% end %>
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 text-center">
+      <%= link_to 'Voltar', :back, class: "btn btn-secondary" %>
+    </div>
+  </div>
 </div>
 
 <script>

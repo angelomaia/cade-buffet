@@ -14,6 +14,7 @@ class OrdersController < ApplicationController
     buffet = Buffet.find(params[:buffet_id])
     @event_types = buffet.event_types
     @order = Order.new
+    @preset_event = params[:preset_event]
   end
 
   def create

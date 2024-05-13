@@ -120,6 +120,7 @@ describe 'Owner adds event type to buffet' do
     click_on 'Festa de Casamento'
 
     expect(page).to have_content 'Festa de Casamento'
+    expect(page).not_to have_link 'Novo Pedido'
     expect(current_path).to eq "/event_types/#{EventType.last.id}"
   end
 

@@ -15,8 +15,10 @@ describe 'User tries to create a new order' do
 
     visit root_path
     click_on 'Alegria'
+    click_on 'Novo Pedido'
 
-    expect(page).not_to have_link 'Novo Pedido'
+    expect(current_path).not_to eq new_order_path
+    expect(current_path).to eq new_user_session_path
   end
 
   it 'is not authenticated and tries to force the url' do
@@ -38,7 +40,7 @@ describe 'User tries to create a new order' do
 
   it 'and the Buffet has no events' do
     owner = Owner.create!(email: 'alegria@email.com', password: 'password')
-    buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
+    Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
                   email: 'alegria@email.com', phone: '8156456456', zipcode: '50000123',   
                   pix: true, debit: true, credit: false, cash: true, owner: owner)
@@ -57,7 +59,7 @@ describe 'User tries to create a new order' do
                   email: 'alegria@email.com', phone: '8156456456', zipcode: '50000123',   
                   pix: true, debit: true, credit: false, cash: true, owner: owner)
     user = User.create!(name: 'Angelo', cpf: CPF.generate, email: 'angelo@email.com', password: 'password')
-    event = EventType.create!(name: 'Festa de Casamento', duration: '240', min_people: '10',
+    EventType.create!(name: 'Festa de Casamento', duration: '240', min_people: '10',
                               max_people: '100', description: 'Festa grande', menu: 'Macarrão com salsicha',
                               location: 'anywhere', buffet: buffet)
 
