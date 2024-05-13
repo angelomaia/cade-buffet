@@ -2,9 +2,19 @@
 ![Badge](https://img.shields.io/static/v1?label=Rails&message=framework&color=orange&style=for-the-badge&logo=rubyonrails)
 ![Badge](https://img.shields.io/static/v1?label=Bootstrap&message=front-end&color=blue&style=for-the-badge&logo=bootstrap)
 
-<h1>Cadê Buffet?</h1>
+# Cadê Buffet?
 <p align="justify"><i>Cadê Buffet?</i> is an application that aims to connect clients to companies that provide Buffet services.</p>
-<h2>Features</h2>
+
+## Table of Contents
+
+- [App Features](#app-features)
+- [API Documentation](#api-documentation)
+	- [Buffets API endpoint](#buffets-api-endpoint)
+	- [Buffet details API endpoint](#buffet-details-api-endpoint)
+	- [Event types API endpoint](#event-types-api-endpoint)
+	- [Availability check API endpoint](#availability-check-api-endpoint)
+
+## App Features
 <ul>
   <li>Authentication using Devise</li>
   <ul>
@@ -29,7 +39,9 @@
   <li>The app provides API endpoints that are further described below</li>
 </ul>
 
-<h2>API Documentation</h2>
+## API Documentation
+
+### Buffets API endpoint
 
 The main API endpoint is a list of all Buffets registered in the app, and can be accessed by:<br>
 ```
@@ -117,6 +129,9 @@ Attributes:<br>
 ```cash``` <i>boolean</i> : defines whether the Buffet accepts cash as the payment method<br>
 ```owner_id``` <i>integer</i> : the ID of the owner (devise model object) which the Buffet belongs to<br>
 <br>
+
+### Buffet details API endpoint
+
 Details of a Buffet can also be accessed by ID:<br>
 ```
 http://localhost:3000/api/v1/buffets/1
@@ -143,6 +158,9 @@ This path returns a list of details from the Buffet with ID == 1:
 }
 ```
 <br>
+
+### Event Types API endpoint
+
 The Event types associated with a Buffet can also be retrieved:<br>
 
 ```
@@ -214,6 +232,8 @@ Attributes:<br>
 ‎ ‎ ‎ ```price.weekend_extra_hour``` <i>float</i> : weekend additional value per extra hour on the Event duration<br>
 ‎ ‎ ‎ ```price.event_type_id``` <i>integer</i> : the ID of the EventType which the Price belongs to<br>
 <br>
+### Availability check API endpoint
+
 An endpoint to check the availability of an event is also provided:
 ```
 http://localhost:3000/api/v1/availability_check
