@@ -21,6 +21,8 @@ class Api::V1::EventTypesController < Api::V1::ApiController
     guests = params[:guests].to_f
     warnings = []
 
+    future_date = true if date > Date.today
+
     date_conflict = event.orders.where(date: date, status: ['approved', 'confirmed'])
     
     if date_conflict.empty?
@@ -50,6 +52,8 @@ class Api::V1::EventTypesController < Api::V1::ApiController
 
       result = { 'warnings': warnings }
     end
+    
+    result = { 'warnings': ['A data do evento deve ser no futuro.'] } if future_date != true
 
     render status: 200, json: result.as_json
   end

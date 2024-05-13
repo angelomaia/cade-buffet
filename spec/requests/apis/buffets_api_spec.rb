@@ -210,6 +210,25 @@ describe 'Buffets API' do
       expect(json_response['warnings']).to include 'Quantidade de convidados acima do limite.'
     end
 
+    it 'fail, date is in the past' do
+      owner = Owner.create!(email: 'angelo@email.com', password: 'password')
+      buffet = Buffet.create!(name: 'Felicidade', corporate_name: 'Felicidade SA', cnpj: '1231534', 
+                    address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
+                    email: 'felicidade@email.com', phone: '8156456456', zipcode: '50000123',   
+                    pix: true, debit: true, credit: false, cash: true, owner: owner)
+      event = EventType.create!(name: 'Festa de Casamento', duration: '240', min_people: '30',
+                        max_people: '100', description: 'Festa completa', menu: 'Sushi, mesa de frios, strogonoff',
+                        buffet: buffet)
+      Price.create(base: 2000, extra_person: 50, extra_hour: 300, event_type: event)
+
+      get '/api/v1/availability_check', params: {event_type_id: event.id, date: 1.week.ago.to_date, guests: 50}
+
+      expect(response.status).to eq 200
+      expect(response.content_type).to include 'application/json'
+      json_response = JSON.parse(response.body)
+      expect(json_response['warnings']).to include 'A data do evento deve ser no futuro.'
+    end
+
     it 'fail, order approved for the date' do
       owner = Owner.create!(email: 'angelo@email.com', password: 'password')
       buffet = Buffet.create!(name: 'Felicidade', corporate_name: 'Felicidade SA', cnpj: '1231534', 
