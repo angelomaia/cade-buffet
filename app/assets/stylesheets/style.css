@@ -53,3 +53,8 @@
   padding: 10px;
   border-radius: 8px;
 }
+
+.btn-margin {
+  margin-right: 5px;
+  margin-top: 5px;
+}

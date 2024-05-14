@@ -12,6 +12,11 @@ class OrdersController < ApplicationController
   
   def new
     buffet = Buffet.find(params[:buffet_id])
+
+    if buffet.deactivated?
+      redirect_to root_path, notice: 'O Buffet está desativado.'
+    end
+
     @event_types = buffet.event_types
     @order = Order.new
     @preset_event = params[:preset_event]
@@ -22,6 +27,11 @@ class OrdersController < ApplicationController
                                                 :location, :address, :city, :state, :zipcode)
     @order = Order.new(order_params)
     @order.buffet = @order.event_type.buffet
+
+    if @order.buffet.deactivated?
+      redirect_to root_path, notice: 'O Buffet está desativado.'
+    end
+
     @order.user = current_user
     @order.build_chat
 

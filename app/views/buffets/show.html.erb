@@ -11,6 +11,23 @@
   <div class="row justify-content-center">
     <div class="col-md-8">
       <dl class="row">
+        <% if @buffet.owner == current_owner %>
+          <div class="text-center mb-3">
+              <% if @buffet.active? %>
+                <%= button_to 'Desativar Buffet', deactivate_buffet_path, method: :post, class: "btn btn-danger btn-margin" %>
+              <% else %>
+                <%= button_to 'Ativar Buffet', activate_buffet_path, method: :post, class: "btn btn-success btn-margin" %>
+              <% end %>
+          </div>
+          <% status_class = case @buffet.status %>
+            <% when 'active' then 'text-success' %>
+            <% when 'deactivated' then 'text-danger' %>
+            <% else '' %>
+          <% end %>
+          <dt class="col-sm-3 text-sm-right">Status:</dt>
+          <dd class="col-sm-9 text-sm-left <%= status_class %>"><strong><%= I18n.t(@buffet.status) %></strong></dd>
+        <% end %>
+
         <dt class="col-sm-3 text-sm-right">Localização:</dt>
         <dd class="col-sm-9 text-sm-left">
           <%= @buffet.address %>, <%= @buffet.neighborhood %>, <%= @buffet.city %> - <%= @buffet.state %>, <%= @buffet.zipcode %>
@@ -40,14 +57,16 @@
     </div>
   </div>
 
-  <% if @buffet.owner == current_owner %>
-    <div class="text-center mt-3">
-      <%= link_to 'Editar Buffet', edit_buffet_path, class: "btn btn-warning" %>
+  <div class="row">
+    <div class="col">
+      <% if @buffet.owner == current_owner %>
+        <div class="text-center mt-3">
+            <%= link_to 'Editar Buffet', edit_buffet_path, class: "btn btn-warning btn-margin" %>
+            <%= link_to 'Adicionar Tipo de Evento', new_event_type_path, class: "btn btn-info btn-margin" %>
+        </div>
+      <% end %>
     </div>
-    <div class="text-center mt-3">
-      <%= link_to 'Adicionar Tipo de Evento', new_event_type_path, class: "btn btn-info" %>
-    </div>
-  <% end %>
+  </div>
 </div>
 
 <div class="container mt-3">

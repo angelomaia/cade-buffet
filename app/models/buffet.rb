@@ -13,6 +13,8 @@ class Buffet < ApplicationRecord
   validates :pix, :debit, :credit, :cash, inclusion: { in: [true, false] }  
   validate :at_least_one_true
 
+  enum status: { deactivated: 0, active: 1 }
+
   has_many :event_types
   has_many :orders
 

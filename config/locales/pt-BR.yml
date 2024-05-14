@@ -14,3 +14,5 @@ pt-BR:
   debit: 'Cartão de Débito'
   credit: 'Cartão de Crédito'
   cash: 'Dinheiro'
+  deactivated: 'Desativado'
+  active: 'Ativo'

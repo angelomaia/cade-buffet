@@ -24,6 +24,35 @@ describe 'Buffets API' do
       expect(json_response[1]['name']).to include 'Felicidade'
     end
 
+    it 'list all buffets ordered by name, except deactivated ones' do
+      owner = Owner.create!(email: 'angelo@email.com', password: 'password')
+      other_owner = Owner.create!(email: 'other_owner@email.com', password: 'password')
+      third_owner = Owner.create!(email: 'third@email.com', password: 'password')
+      Buffet.create!(name: 'Felicidade', corporate_name: 'Felicidade SA', cnpj: '1231534', 
+                    address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
+                    email: 'felicidade@email.com', phone: '8156456456', zipcode: '50000123',   
+                    pix: true, debit: true, credit: false, cash: true, owner: owner)
+      buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
+                    address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
+                    email: 'alegria@email.com', phone: '8156456456', zipcode: '50000123',  
+                    pix: true, debit: true, credit: false, cash: true, owner: other_owner)
+      Buffet.create!(name: 'Euforia', corporate_name: 'Euforia SA', cnpj: '65123161', 
+                    address: 'Rua da Euforia, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
+                    email: 'euforia@email.com', phone: '8156456456', zipcode: '50000123',  
+                    pix: true, debit: true, credit: false, cash: true, owner: third_owner)
+      buffet.deactivated!
+
+      get '/api/v1/buffets'
+
+      expect(response.status).to eq 200
+      expect(response.content_type).to include 'application/json'
+      json_response = JSON.parse(response.body)
+      expect(json_response.length).to eq 2
+      expect(json_response[0]['name']).not_to include 'Alegria'
+      expect(json_response[0]['name']).to include 'Euforia'
+      expect(json_response[1]['name']).to include 'Felicidade'
+    end
+
     it 'return empty if there is no buffets' do
 
       get '/api/v1/buffets'

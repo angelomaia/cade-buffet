@@ -1,7 +1,8 @@
 class BuffetsController < ApplicationController
   before_action :authenticate_owner!, only: [:new, :create, :edit, :update]
-  before_action :set_buffet_check_owner, only: [:edit, :update]
+  before_action :set_buffet_check_owner, only: [:edit, :update, :deactivate]
   skip_before_action :redirect_owner_to_buffet_creation, only: [:new, :create]
+  before_action :buffet_deactivated?, only: [:show]
 
   def new
     if current_owner.buffet == nil
@@ -42,12 +43,24 @@ class BuffetsController < ApplicationController
     end
   end
 
+  def deactivate
+    @buffet.deactivated!
+    redirect_to @buffet, notice: 'Buffet desativado com sucesso!'
+  end
+
+  def activate
+    @buffet.active!
+    redirect_to @buffet, notice: 'Buffet ativado com sucesso!'
+  end
+
   def buffet_search
     @query = params["query"]
-    @buffets = Buffet.left_joins(:event_types).where("buffets.name LIKE :query OR 
-                                              buffets.city LIKE :query OR 
-                                              event_types.name LIKE :query", 
-                                              query: "%#{@query}%").order(name: :asc).distinct
+    buffets = Buffet.left_joins(:event_types).where("buffets.name LIKE :query OR 
+                                                      buffets.city LIKE :query OR 
+                                                      event_types.name LIKE :query", 
+                                                      query: "%#{@query}%").order(name: :asc).distinct
+
+    @buffets = buffets.reject { |buffet| buffet.status == 'deactivated' }
   end
 
   private
@@ -66,6 +79,14 @@ class BuffetsController < ApplicationController
     @buffet = Buffet.find(params[:id])
     if @buffet.owner != current_owner
       return redirect_to root_path, alert: 'Você não pode editar este Buffet.'
+    end
+  end
+
+  def buffet_deactivated?
+    @buffet = Buffet.find(params[:id])
+    if @buffet.status == 'deactivated' && @buffet.owner != current_owner
+      flash[:alert] = "Esse Buffet está desativado."
+      redirect_to root_path
     end
   end
 end
