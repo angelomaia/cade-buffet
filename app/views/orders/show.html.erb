@@ -1,4 +1,4 @@
-<div class="container mt-3 pb-5"></div>
+<div class="border-card-7">
   <div class="row justify-content-center">
     <h2>Pedido de <%= @order.event_type.name %> </h2>
   </div>
@@ -89,7 +89,7 @@
         <div class="border-card">
           <div class="border-card-3" id="chat-box" style="height: 250px; overflow-y: scroll;">
             <% @chat.messages.each do |message| %>
-              <div class="border-card-4 message-card <%= message.is_a?(UserMessage) ? 'message-user' : 'message-buffet' %>">
+              <div class="border-card-4 message-card <%= message.is_a?(UserMessage) ? 'message-user' : 'message-buffet' %> <%= message.is_a?(UserMessage) ? 'message-user-color' : 'message-buffet-color' %>">
                 <div class="card-body-2">
                   <p class="card-text">
                     <% if message.is_a?(UserMessage) %>

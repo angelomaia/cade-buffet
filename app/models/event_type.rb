@@ -10,6 +10,7 @@ class EventType < ApplicationRecord
   validates :duration, :min_people, :max_people, format: { :with => /\A[0-9]+\z/, :message => "Deve conter apenas números" }
 
   enum location: { exclusive: 0, anywhere: 1 }
+  enum status: { deactivated: 0, active: 1 }
 
   def self.extras(event_type_id)
     event_type = EventType.find(event_type_id)

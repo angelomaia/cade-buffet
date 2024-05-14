@@ -1,17 +1,20 @@
-<div class="container mt-3">
-  <h2>Alterar Buffet</h2>
+<div class="border-card-7" style="padding: 10px;">
+  <div class="container mt-3" style="width: 600px;">
+    <h2 class="text-center">Alterar Buffet</h2>
 
-  <% if @buffet.errors.any? %>
-    <div class="alert alert-danger" role="alert">
-      <ul>
-        <% @buffet.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
+    <% if @buffet.errors.any? %>
+      <div class="alert alert-danger" role="alert">
+        <ul>
+          <% @buffet.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%= render 'form' %>
+    <div class="mb-3 text-center">
+      <%= link_to 'Voltar', :back, class: "btn btn-secondary mt-3" %>
     </div>
-  <% end %>
-
-  <%= render 'form' %>
-
-  <%= link_to 'Voltar', :back, class: "btn btn-secondary mt-3" %>
+  </div>
 </div>

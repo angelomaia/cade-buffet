@@ -5,7 +5,9 @@
       <% @pending_orders.each do |order| %>
         <div class="card mb-3" onclick="location.href='<%= details_order_path(order) %>'" style="cursor: pointer;">
           <div class="card-body">
-            <%= order.event_type.name %> | <%= order.date %> | Cliente: <%= order.user.name %> (<%= order.user.email %>) |
+            <h5><%= order.event_type.name %></h5> 
+            <span><%= order.date %> </span><br>
+            <span>Cliente: <%= order.user.name %> (<%= order.user.email %>)</span>
             <%= link_to order.code, details_order_path(order), class: 'stretched-link' %>
           </div>
         </div>
@@ -17,7 +19,9 @@
       <% @approved_orders.each do |order| %>
         <div class="card mb-3" onclick="location.href='<%= details_order_path(order) %>'" style="cursor: pointer;">
           <div class="card-body">
-            <%= order.event_type.name %> | <%= order.date %> | Cliente: <%= order.user.name %> (<%= order.user.email %>) |
+            <h5><%= order.event_type.name %></h5> 
+            <span><%= order.date %> </span><br>
+            <span>Cliente: <%= order.user.name %> (<%= order.user.email %>)</span>
             <%= link_to order.code, details_order_path(order), class: 'stretched-link' %>
           </div>
         </div>
@@ -29,7 +33,9 @@
       <% @confirmed_orders.each do |order| %>
         <div class="card mb-3" onclick="location.href='<%= details_order_path(order) %>'" style="cursor: pointer;">
           <div class="card-body">
-            <%= order.event_type.name %> | <%= order.date %> | Cliente: <%= order.user.name %> (<%= order.user.email %>) |
+            <h5><%= order.event_type.name %></h5> 
+            <span><%= order.date %> </span><br>
+            <span>Cliente: <%= order.user.name %> (<%= order.user.email %>)</span>
             <%= link_to order.code, details_order_path(order), class: 'stretched-link' %>
           </div>
         </div>
@@ -41,7 +47,9 @@
       <% @cancelled_orders.each do |order| %>
         <div class="card mb-3" onclick="location.href='<%= details_order_path(order) %>'" style="cursor: pointer;">
           <div class="card-body">
-            <%= order.event_type.name %> | <%= order.date %> | Cliente: <%= order.user.name %> (<%= order.user.email %>) |
+            <h5><%= order.event_type.name %></h5> 
+            <span><%= order.date %> </span><br>
+            <span>Cliente: <%= order.user.name %> (<%= order.user.email %>)</span>
             <%= link_to order.code, details_order_path(order), class: 'stretched-link' %>
           </div>
         </div>

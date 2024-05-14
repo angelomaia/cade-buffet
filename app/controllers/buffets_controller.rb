@@ -1,6 +1,6 @@
 class BuffetsController < ApplicationController
   before_action :authenticate_owner!, only: [:new, :create, :edit, :update]
-  before_action :set_buffet_check_owner, only: [:edit, :update, :deactivate]
+  before_action :set_buffet_check_owner, only: [:edit, :update, :deactivate, :activate]
   skip_before_action :redirect_owner_to_buffet_creation, only: [:new, :create]
   before_action :buffet_deactivated?, only: [:show]
 
@@ -60,7 +60,23 @@ class BuffetsController < ApplicationController
                                                       event_types.name LIKE :query", 
                                                       query: "%#{@query}%").order(name: :asc).distinct
 
-    @buffets = buffets.reject { |buffet| buffet.status == 'deactivated' }
+    buffets_to_remove = buffets.select do |buffet|
+      event_types = buffet.event_types
+      event_type_names = event_types.pluck(:name)
+      event_type_deactivated = event_types.any? { |event_type| event_type.status == 'deactivated' }
+      
+      query_matched_only_with_deactivated = event_type_names.any? { |name| name.downcase.include?(@query.downcase) } && 
+                                            event_type_names.count == 1 && 
+                                            event_type_deactivated
+      
+      query_matched_only_with_deactivated
+    end
+    
+    buffets -= buffets_to_remove
+
+    buffets = buffets.reject { |buffet| buffet.status == 'deactivated' }
+    
+    @buffets = buffets
   end
 
   private

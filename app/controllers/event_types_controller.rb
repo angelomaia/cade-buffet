@@ -1,6 +1,7 @@
 class EventTypesController < ApplicationController
   before_action :authenticate_owner!, only: [:new, :create, :edit, :update, :set_price]
-  before_action :set_event_type_check_owner, only: [:edit, :update, :set_price]
+  before_action :set_event_type_check_owner, only: [:edit, :update, :set_price, :deactivate, :activate]
+  before_action :event_type_deactivated?, only: [:show]
 
   def new
     @event_type = EventType.new
@@ -39,6 +40,16 @@ class EventTypesController < ApplicationController
     end
   end
   
+  def deactivate
+    @event_type.deactivated!
+    redirect_to @event_type, notice: 'Tipo de Evento desativado com sucesso!'
+  end
+  
+  def activate
+    @event_type.active!
+    redirect_to @event_type, notice: 'Tipo de Evento ativado com sucesso!'
+  end
+
   def delete_photo
     @event_type = EventType.find(params[:event_type_id])
     photo = @event_type.gallery_photos.find(params[:photo_id])
@@ -78,6 +89,14 @@ class EventTypesController < ApplicationController
     @event_type = EventType.find(params[:id])
     if @event_type.buffet != current_owner.buffet
       return redirect_to root_path, alert: 'Você não pode editar este Tipo de Evento.'
+    end
+  end
+
+  def event_type_deactivated?
+    @event_type = EventType.find(params[:id])
+    if @event_type.status == 'deactivated' && @event_type.buffet.owner != current_owner
+      flash[:alert] = "Esse Tipo de Evento está desativado."
+      redirect_to root_path
     end
   end
 end

@@ -6,7 +6,9 @@
         <div class="card mb-3" onclick="location.href='<%= order_path(order) %>'" style="cursor: pointer;">
           <div class="card-body">
             <h4 class="text-warning">Expira em: <%= order.order_price.expiration_date %></h4>
-            <%= order.event_type.name %> | Buffet: <%= order.buffet.name %> | <%= order.date %> |
+            <h5>Buffet: <%= order.buffet.name %></h5>
+            <h6><%= order.event_type.name %></h6>
+            <span><%= order.date %></span>
             <%= link_to order.code, order, class: 'stretched-link' %>
           </div>
         </div>
@@ -18,7 +20,9 @@
       <% @pending_orders.each do |order| %>
         <div class="card mb-3" onclick="location.href='<%= order_path(order) %>'" style="cursor: pointer;">
           <div class="card-body">
-            <%= order.event_type.name %> | Buffet: <%= order.buffet.name %> | <%= order.date %> |
+            <h5>Buffet: <%= order.buffet.name %></h5>
+            <h6><%= order.event_type.name %></h6>
+            <span><%= order.date %></span>
             <%= link_to order.code, order, class: 'stretched-link' %>
           </div>
         </div>
@@ -30,7 +34,9 @@
       <% @confirmed_orders.each do |order| %>
         <div class="card mb-3" onclick="location.href='<%= order_path(order) %>'" style="cursor: pointer;">
           <div class="card-body">
-            <%= order.event_type.name %> | Buffet: <%= order.buffet.name %> | <%= order.date %> |
+            <h5>Buffet: <%= order.buffet.name %></h5>
+            <h6><%= order.event_type.name %></h6>
+            <span><%= order.date %></span>
             <%= link_to order.code, order, class: 'stretched-link' %>
           </div>
         </div>
@@ -42,7 +48,9 @@
       <% @cancelled_orders.each do |order| %>
         <div class="card mb-3" onclick="location.href='<%= order_path(order) %>'" style="cursor: pointer;">
           <div class="card-body">
-            <%= order.event_type.name %> | Buffet: <%= order.buffet.name %> | <%= order.date %> |
+            <h5>Buffet: <%= order.buffet.name %></h5>
+            <h6><%= order.event_type.name %></h6>
+            <span><%= order.date %></span>
             <%= link_to order.code, order, class: 'stretched-link' %>
           </div>
         </div>

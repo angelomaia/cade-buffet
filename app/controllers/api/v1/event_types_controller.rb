@@ -2,6 +2,7 @@ class Api::V1::EventTypesController < Api::V1::ApiController
   def index
     buffet = Buffet.find(params[:buffet_id])
     events = buffet.event_types.includes(:price)
+    events = events.reject { |events| events.status == 'deactivated' }
 
     events_json = events.map do |event_type|
       json_data = event_type.as_json(except: [:created_at, :updated_at])

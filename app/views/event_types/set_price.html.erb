@@ -1,52 +1,54 @@
-<div class="container mt-4 text-center">
-  <h2>Definir Preços</h2>
+<div class="border-card-7" style="padding: 10px;">
+  <div class="container mt-4 text-center">
+    <h2>Definir Preços</h2>
 
-  <% if @event_type.errors.any? %>
-    <div class="alert alert-danger" role="alert">
-      <ul>
-        <% @event_type.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+    <% if @event_type.errors.any? %>
+      <div class="alert alert-danger" role="alert">
+        <ul>
+          <% @event_type.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
 
-  </div><%= form_with(model: @event_type) do |f| %>
+    </div><%= form_with(model: @event_type) do |f| %>
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <%= f.fields_for :price do |price_f| %>
+            <div class="mb-3">
+              <%= price_f.label :base, Price.human_attribute_name(:base), class: 'form-label' %>
+              <%= price_f.number_field :base, step: '0.01', class: 'form-control' %>
+            </div>
+            <div class="mb-3">
+              <%= price_f.label :extra_person, Price.human_attribute_name(:extra_person), class: 'form-label' %>
+              <%= price_f.number_field :extra_person, step: '0.01', class: 'form-control' %>
+            </div>
+            <div class="mb-3">
+              <%= price_f.label :extra_hour, Price.human_attribute_name(:extra_hour), class: 'form-label' %>
+              <%= price_f.number_field :extra_hour, step: '0.01', class: 'form-control' %>
+            </div>
+            <div class="mb-3">
+              <%= price_f.label :weekend_base, Price.human_attribute_name(:weekend_base), class: 'form-label' %>
+              <%= price_f.number_field :weekend_base, step: '0.01', class: 'form-control' %>
+            </div>
+            <div class="mb-3">
+              <%= price_f.label :weekend_extra_person, Price.human_attribute_name(:weekend_extra_person), class: 'form-label' %>
+              <%= price_f.number_field :weekend_extra_person, step: '0.01', class: 'form-control' %>
+            </div>
+            <div class="mb-3">
+              <%= price_f.label :weekend_extra_hour, Price.human_attribute_name(:weekend_extra_hour), class: 'form-label' %>
+              <%= price_f.number_field :weekend_extra_hour, step: '0.01', class: 'form-control' %>
+            </div>
+          <% end %>
+        </div>
+      </div>
     <div class="row justify-content-center">
-      <div class="col-md-6">
-        <%= f.fields_for :price do |price_f| %>
-          <div class="mb-3">
-            <%= price_f.label :base, Price.human_attribute_name(:base), class: 'form-label' %>
-            <%= price_f.number_field :base, step: '0.01', class: 'form-control' %>
-          </div>
-          <div class="mb-3">
-            <%= price_f.label :extra_person, Price.human_attribute_name(:extra_person), class: 'form-label' %>
-            <%= price_f.number_field :extra_person, step: '0.01', class: 'form-control' %>
-          </div>
-          <div class="mb-3">
-            <%= price_f.label :extra_hour, Price.human_attribute_name(:extra_hour), class: 'form-label' %>
-            <%= price_f.number_field :extra_hour, step: '0.01', class: 'form-control' %>
-          </div>
-          <div class="mb-3">
-            <%= price_f.label :weekend_base, Price.human_attribute_name(:weekend_base), class: 'form-label' %>
-            <%= price_f.number_field :weekend_base, step: '0.01', class: 'form-control' %>
-          </div>
-          <div class="mb-3">
-            <%= price_f.label :weekend_extra_person, Price.human_attribute_name(:weekend_extra_person), class: 'form-label' %>
-            <%= price_f.number_field :weekend_extra_person, step: '0.01', class: 'form-control' %>
-          </div>
-          <div class="mb-3">
-            <%= price_f.label :weekend_extra_hour, Price.human_attribute_name(:weekend_extra_hour), class: 'form-label' %>
-            <%= price_f.number_field :weekend_extra_hour, step: '0.01', class: 'form-control' %>
-          </div>
-        <% end %>
+      <div class="col text-center">
+        <%= f.submit 'Registrar', class: 'btn btn-primary mt-4' %>
+        <%= link_to 'Voltar', :back, class: 'btn btn-secondary mt-4' %>
       </div>
     </div>
-  <div class="row justify-content-center">
-    <div class="col text-center">
-      <%= f.submit 'Registrar', class: 'btn btn-primary mt-4' %>
-      <%= link_to 'Voltar', :back, class: 'btn btn-secondary mt-4' %>
-    </div>
+    <% end %>
   </div>
-  <% end %>
 </div>

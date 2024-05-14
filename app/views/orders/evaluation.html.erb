@@ -1,15 +1,17 @@
-<div class="container mt-3 pb-5"></div>
   <div class="row justify-content-center">
     <% if @orders.any? && @orders.count > 1 %>
-      <p class="notice alert alert-info" role="alert">Existem outros pedidos para a mesma data:</p>
+      <p class="notice alert alert-info" role="alert">Existem outros pedidos para a mesma data:
       <% @orders.each do |o| %>
         <% unless o == @order %>
+          <br>
           <%= link_to o.code, details_order_path(o) %>
         <% end %>
-      <% end %>
+      <% end %></p>
     <% end %>
-    <h2>Avaliando Pedido de <%= @order.event_type.name %> </h2>
   </div>
+<div class="border-card-7">
+  <h2>Avaliando Pedido de <%= @order.event_type.name %> </h2>
+  <br>
   <div class="row justify-content-center">
     <div class="col">
       <dl class="row">
@@ -92,12 +94,12 @@
       </div>
     <% end %>
   </div>
+</div>
 
-    <div class="row justify-content-center">
-      <div class="col-12 col-md-8 text-center">
-        <%= link_to 'Voltar', details_order_path(@order), class: "btn btn-secondary" %>
-      </div>
-    </div>
+<div class="row justify-content-center">
+  <div class="col-12 col-md-8 text-center">
+    <%= link_to 'Voltar', details_order_path(@order), class: "btn btn-secondary" %>
+  </div>
 </div>
 
 <script>

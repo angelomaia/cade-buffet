@@ -1,22 +1,24 @@
-<div class="container mt-3">
-  <h2>Resultados da Busca por: <%= @query %></h2>
-  <p>
-    <%= @buffets.count %> 
-    <%= Buffet.model_name.human(count: @buffets.count) %> 
-    <%= I18n.translate(:found, count: @buffets.count) %>
-  </p>
-  
-  <% if @buffets.any? %>
-    <div class="list-group">
-      <div id="buffets">
-        <% @buffets.each do |buffet| %>
-          <div>
-          <%= link_to buffet.name, buffet, class: "list-group-item list-group-item-action" %>
-          </div>
-        <% end %>
-      </div>
-    <% else %>
-      <p class="text-muted">Nenhum resultado encontrado.</p>
-    <% end %>
+<div class="border-card-7" style="padding: 10px;">
+  <div class="container mt-3" style="width: 600px;">
+    <h2>Resultados da Busca por: <%= @query %></h2>
+    <p class="text-center">
+      <%= @buffets.count %> 
+      <%= Buffet.model_name.human(count: @buffets.count) %> 
+      <%= I18n.translate(:found, count: @buffets.count) %>
+    </p>
+    
+    <% if @buffets.any? %>
+      <div class="list-group">
+        <div id="buffets">
+          <% @buffets.each do |buffet| %>
+            <div class="text-center">
+              <%= link_to buffet.name, buffet, class: "list-group-item list-group-item-action" %>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="text-muted">Nenhum resultado encontrado.</p>
+      <% end %>
+    </div>
   </div>
 </div>

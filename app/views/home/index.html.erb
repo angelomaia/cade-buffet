@@ -1,23 +1,25 @@
 <div id="buffet-list" class="container mt-3 text-center" style="max-width: 900px;">
-  <% if @buffets.any? %>
-    <h2 class="mb-4">Buffets</h2>
-    <div class="row">
-      <% @buffets.each do |buffet| %>
-        <div class="col-md-4 mb-3">
-          <div class="card h-100">
-            <div class="card-body">
-              <%= link_to buffet_path(buffet), class: "stretched-link" do %>
-                <h5 class="card-title"><%= buffet.name %></h5>
-              <% end %>
-            </div>
-            <div class="card-footer">
-              <small class="text-muted"><%= buffet.city %> - <%= buffet.state %></small>
+  <div class="border-card-7">
+    <% if @buffets.any? %>
+      <h2 class="mb-4">Buffets</h2>
+      <div class="row">
+        <% @buffets.each do |buffet| %>
+          <div class="col-md-4 mb-3">
+            <div class="card h-100">
+              <div class="card-body">
+                <%= link_to buffet_path(buffet), class: "stretched-link" do %>
+                  <h5 class="card-title"><%= buffet.name %></h5>
+                <% end %>
+              </div>
+              <div class="card-footer">
+                <small class="text-muted"><%= buffet.city %> - <%= buffet.state %></small>
+              </div>
             </div>
           </div>
-        </div>
-      <% end %>
-    </div>
-  <% else %>
-    <p class="text-muted">Não foram encontrados Buffets.</p>
-  <% end %>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="text-muted">Não foram encontrados Buffets.</p>
+    <% end %>
+  </div>
 </div>

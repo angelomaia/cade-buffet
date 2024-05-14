@@ -10,53 +10,57 @@
   
   <div class="row justify-content-center">
     <div class="col-md-8">
-      <dl class="row">
-        <% if @buffet.owner == current_owner %>
-          <div class="text-center mb-3">
-              <% if @buffet.active? %>
-                <%= button_to 'Desativar Buffet', deactivate_buffet_path, method: :post, class: "btn btn-danger btn-margin" %>
-              <% else %>
-                <%= button_to 'Ativar Buffet', activate_buffet_path, method: :post, class: "btn btn-success btn-margin" %>
-              <% end %>
-          </div>
-          <% status_class = case @buffet.status %>
-            <% when 'active' then 'text-success' %>
-            <% when 'deactivated' then 'text-danger' %>
-            <% else '' %>
+      <div class="border-card-7">
+        <dl class="row">
+          <% if @buffet.owner == current_owner %>
+            <div class="text-center mb-3">
+                <% if @buffet.active? %>
+                  <%= button_to 'Desativar Buffet', deactivate_buffet_path, method: :post, class: "btn btn-danger btn-margin" %>
+                <% else %>
+                  <%= button_to 'Ativar Buffet', activate_buffet_path, method: :post, class: "btn btn-success btn-margin" %>
+                <% end %>
+            </div>
+            <% status_class = case @buffet.status %>
+              <% when 'active' then 'text-success' %>
+              <% when 'deactivated' then 'text-danger' %>
+              <% else '' %>
+            <% end %>
+            <dt class="col-sm-3 text-sm-right">Status:</dt>
+            <dd class="col-sm-9 text-sm-left <%= status_class %>"><strong><%= I18n.t(@buffet.status) %></strong></dd>
           <% end %>
-          <dt class="col-sm-3 text-sm-right">Status:</dt>
-          <dd class="col-sm-9 text-sm-left <%= status_class %>"><strong><%= I18n.t(@buffet.status) %></strong></dd>
-        <% end %>
 
-        <dt class="col-sm-3 text-sm-right">Localização:</dt>
-        <dd class="col-sm-9 text-sm-left">
-          <%= @buffet.address %>, <%= @buffet.neighborhood %>, <%= @buffet.city %> - <%= @buffet.state %>, <%= @buffet.zipcode %>
-        </dd>
-
-        <% payment_methods = [] %>
-        <% payment_methods << Buffet.human_attribute_name(:pix) if @buffet.pix %>
-        <% payment_methods << Buffet.human_attribute_name(:debit) if @buffet.debit %>
-        <% payment_methods << Buffet.human_attribute_name(:credit) if @buffet.credit %>
-        <% payment_methods << Buffet.human_attribute_name(:cash) if @buffet.cash %>
-        <% if payment_methods.any? %>
-          <dt class="col-sm-3 text-sm-right">Métodos de Pagamento:</dt>
+          <dt class="col-sm-3 text-sm-right">Localização:</dt>
           <dd class="col-sm-9 text-sm-left">
-            <%= payment_methods.join(', ') %>
+            <%= @buffet.address %>, <%= @buffet.neighborhood %>, <%= @buffet.city %> - <%= @buffet.state %>, <%= @buffet.zipcode %>
           </dd>
-        <% end %>
-        
-        <dt class="col-sm-3 text-sm-right">E-mail:</dt>
-        <dd class="col-sm-9 text-sm-left"><%= @buffet.email %></dd>
-        
-        <dt class="col-sm-3 text-sm-right">Telefone:</dt>
-        <dd class="col-sm-9 text-sm-left"><%= @buffet.phone %></dd>
-        
-        <dt class="col-sm-3 text-sm-right">CNPJ:</dt>
-        <dd class="col-sm-9 text-sm-left"><%= @buffet.cnpj %></dd>
-      </dl>
+
+          <% payment_methods = [] %>
+          <% payment_methods << Buffet.human_attribute_name(:pix) if @buffet.pix %>
+          <% payment_methods << Buffet.human_attribute_name(:debit) if @buffet.debit %>
+          <% payment_methods << Buffet.human_attribute_name(:credit) if @buffet.credit %>
+          <% payment_methods << Buffet.human_attribute_name(:cash) if @buffet.cash %>
+          <% if payment_methods.any? %>
+            <dt class="col-sm-3 text-sm-right">Métodos de Pagamento:</dt>
+            <dd class="col-sm-9 text-sm-left">
+              <%= payment_methods.join(', ') %>
+            </dd>
+          <% end %>
+          
+          <dt class="col-sm-3 text-sm-right">E-mail:</dt>
+          <dd class="col-sm-9 text-sm-left"><%= @buffet.email %></dd>
+          
+          <dt class="col-sm-3 text-sm-right">Telefone:</dt>
+          <dd class="col-sm-9 text-sm-left"><%= @buffet.phone %></dd>
+          
+          <dt class="col-sm-3 text-sm-right">CNPJ:</dt>
+          <dd class="col-sm-9 text-sm-left"><%= @buffet.cnpj %></dd>
+        </dl>
+      </div>
     </div>
   </div>
+</div>
 
+<div class="border-card-5">
   <div class="row">
     <div class="col">
       <% if @buffet.owner == current_owner %>
@@ -67,44 +71,46 @@
       <% end %>
     </div>
   </div>
-</div>
 
-<div class="container mt-3">
-  <h3 class="text-center">Tipos de eventos do Buffet <%= @buffet.name %></h3>
-  
-  <% if @buffet.event_types.empty? %>
-    <div class="alert alert-warning" role="alert">
-      Ainda não há Tipos de Eventos cadastrados para este Buffet.
-    </div>
-  <% else %>
-    <div class="container mt-3">
-      <div class="row justify-content-center">
-        <% @buffet.event_types.each_with_index do |event, index| %>
-          <% if index % 4 == 0 && index != 0 %>
-            </div><div class="row justify-content-center">
-          <% end %>
-
-          <div class="col-md-3 mb-4">
-            <div class="card h-100">
-              <% if event.cover_photo.attached? %>
-                <%= image_tag event.cover_photo, class: "card-img-top" %>
-              <% end %>
-              <div class="card-body">
-                <%= link_to event.name, event, class: "stretched-link card-title h5" %>
-              </div>
-            </div>
-          </div>
-        <% end %>
+  <div class="container mt-3">
+    <h3 class="text-center">Tipos de eventos do Buffet <%= @buffet.name %></h3>
+    
+    <% if @buffet.event_types.empty? %>
+      <div class="alert alert-warning" role="alert">
+        Ainda não há Tipos de Eventos cadastrados para este Buffet.
       </div>
-    </div>
-    <% if !owner_signed_in? && @buffet.has_any_price? %>
-    <div class="mt-3 mb-4 text-center">
-      <%= link_to 'Novo Pedido', new_order_path(buffet_id: @buffet.id), class: "btn btn-success" %>
-    </div>
-    <% elsif !owner_signed_in? && !@buffet.has_any_price? %>
-      <strong class="text-warning">Eventos do Buffet ainda não possuem preços definidos.</strong>
+    <% else %>
+      <div class="container mt-3">
+        <div class="row justify-content-center">
+          <% @buffet.event_types.each_with_index do |event, index| %>
+            <% if index % 4 == 0 && index != 0 %>
+              </div><div class="row justify-content-center">
+            <% end %>
+            <% unless event.deactivated? && event.buffet.owner != current_owner %>
+              <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                  <% if event.cover_photo.attached? %>
+                    <%= image_tag event.cover_photo, class: "card-img-top" %>
+                  <% end %>
+                  <div class="card-body">
+                    <%= link_to event.name, event, class: "stretched-link card-title h5" %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+      <% if !owner_signed_in? && @buffet.has_any_price? %>
+      <div class="mt-3 mb-4 text-center">
+        <%= link_to 'Novo Pedido', new_order_path(buffet_id: @buffet.id), class: "btn btn-success" %>
+      </div>
+      <% elsif !owner_signed_in? && !@buffet.has_any_price? %>
+        <strong class="text-warning">Eventos do Buffet ainda não possuem preços definidos.</strong>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
+</div>
   <div class="mt-3 mb-4 text-center">
     <%= link_to 'Voltar', :back, class: "btn btn-secondary" %>
   </div>

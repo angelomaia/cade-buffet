@@ -54,20 +54,10 @@ describe 'Owner deactivates Buffet' do
 
   it 'and then activate it' do
     owner = Owner.create!(email: 'angelo@email.com', password: 'password')
-    owner_two = Owner.create!(email: 'two@email.com', password: 'password')
-    owner_three = Owner.create!(email: 'three@email.com', password: 'password')
     buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
                   email: 'alegria@email.com', phone: '8156456456', zipcode: '50000123',   
                   pix: true, debit: true, credit: false, cash: true, owner: owner)
-    Buffet.create!(name: 'Felicidade', corporate_name: 'Felicidaade SA', cnpj: '454654654', 
-                  address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Salvador', state: 'BA', 
-                  email: 'felicidade@email.com', phone: '8156456456', zipcode: '50000123',   
-                  pix: true, debit: true, credit: false, cash: true, owner: owner_two)
-    Buffet.create!(name: 'Euforia', corporate_name: 'Euforia SA', cnpj: '321321321', 
-                  address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'São Paulo', state: 'SP', 
-                  email: 'euforia@email.com', phone: '8156456456', zipcode: '50000123',   
-                  pix: true, debit: true, credit: false, cash: true, owner: owner_three)
     
     login_as owner, scope: :owner
     visit root_path

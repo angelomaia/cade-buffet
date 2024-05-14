@@ -145,7 +145,7 @@ describe 'Buffets API' do
       Price.create!(base: 5000, extra_person: 200, extra_hour: 1500, event_type: event)
       EventType.create!(name: 'Festa Infantil', duration: '240', min_people: '10',
                         max_people: '100', description: 'Festa completa', menu: 'Sushi, mesa de frios, strogonoff',
-                        buffet: buffet)
+                        buffet: buffet)                 
 
       get "/api/v1/buffets/#{buffet.id}/event_types"
 
@@ -158,6 +158,38 @@ describe 'Buffets API' do
       expect(json_response[0]['name']).to include 'Festa de Casamento'
       expect(json_response[0].keys).to include 'price'
       expect(json_response[1]['name']).to include 'Festa Infantil'
+    end
+
+    it 'event deactivated' do
+      owner = Owner.create!(email: 'angelo@email.com', password: 'password')
+      buffet = Buffet.create!(name: 'Felicidade', corporate_name: 'Felicidade SA', cnpj: '1231534', 
+                    address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
+                    email: 'felicidade@email.com', phone: '8156456456', zipcode: '50000123',   
+                    pix: true, debit: true, credit: false, cash: true, owner: owner)
+      event = EventType.create!(name: 'Festa de Casamento', duration: '240', min_people: '10',
+                        max_people: '100', description: 'Festa completa', menu: 'Sushi, mesa de frios, strogonoff',
+                        buffet: buffet)
+      Price.create!(base: 5000, extra_person: 200, extra_hour: 1500, event_type: event)
+      EventType.create!(name: 'Festa Infantil', duration: '240', min_people: '10',
+                        max_people: '100', description: 'Festa completa', menu: 'Sushi, mesa de frios, strogonoff',
+                        buffet: buffet)
+        event_not_to_be_shown = EventType.create!(name: 'Festa da Bagunça', duration: '240', min_people: '10',
+                          max_people: '100', description: 'Festa completa', menu: 'Sushi, mesa de frios, strogonoff',
+                          buffet: buffet)
+        event_not_to_be_shown.deactivated! 
+
+      get "/api/v1/buffets/#{buffet.id}/event_types"
+
+      expect(response.status).to eq 200
+      expect(response.content_type).to include 'application/json'
+
+      json_response = JSON.parse(response.body)
+
+      expect(json_response.length).to eq 2
+      expect(json_response[0]['name']).to include 'Festa de Casamento'
+      expect(json_response[0].keys).to include 'price'
+      expect(json_response[1]['name']).to include 'Festa Infantil'
+      expect(json_response).not_to include 'Festa da Bagunça'
     end
 
     it 'and raise internal error' do

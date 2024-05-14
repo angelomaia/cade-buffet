@@ -5,6 +5,7 @@
   background-color: white;
   padding: 1rem;
   margin-bottom: 0.5rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
 .border-card-2 {
@@ -14,6 +15,23 @@
   background-color: white;
   padding: 0.5rem;
   margin-bottom: 0.5rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.border-card-3 {
+  border: 1px solid #adadad;
+  border-radius: 0.25rem;
+  background-color: white;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.message-user-color {
+  background-color: lightblue;
+}
+
+.message-buffet-color {
+  background-color: lightgreen;
 }
 
 .border-card-3 {
@@ -27,9 +45,9 @@
 .border-card-4 {
   border: 1px solid #adadad;
   border-radius: 0.25rem;
-  background-color: #adadad;
   padding: 5px;
   margin-bottom: 0.5rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
 .border-card-5 {
@@ -39,6 +57,7 @@
   padding: 0.5rem;
   margin-bottom: 1rem;
   margin-top: 1rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
 .border-card-6 {
@@ -48,4 +67,64 @@
   padding: 0.5rem;
   margin-bottom: 1rem;
   margin-top: 1rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.border-card-7 {
+  border: 1px solid #adadad;
+  border-radius: 0.25rem;
+  background-color: white;
+  padding: 25px;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+body {
+  background-color: #edfffc !important;
+}
+
+:root {
+  --btn-shadow-color: rgba(0, 0, 0, 0.15);
+}
+
+.btn:hover {
+  box-shadow: 0 4px 8px var(--btn-shadow-color);
+  transform: translateX(1px) translateY(-1px);
+}
+
+.btn.btn-primary {
+  --btn-shadow-color: rgba(40, 167, 69, 0.5);
+}
+
+.btn.btn-secondary {
+  --btn-shadow-color: rgba(108, 117, 125, 0.5); /* Gray */
+}
+
+.btn.btn-success {
+  --btn-shadow-color: rgba(0, 123, 255, 0.5); /* Blue */
+}
+
+.btn.btn-danger {
+  --btn-shadow-color: rgba(220, 53, 69, 0.5); /* Red */
+}
+
+.btn.btn-warning {
+  --btn-shadow-color: rgba(255, 193, 7, 0.5); /* Yellow */
+}
+
+.btn.btn-info {
+  --btn-shadow-color: rgba(23, 162, 184, 0.5); /* Cyan */
+}
+
+.btn.btn-light {
+  --btn-shadow-color: rgba(248, 249, 250, 0.5); /* Light */
+}
+
+.btn.btn-dark {
+  --btn-shadow-color: rgba(52, 58, 64, 0.5); /* Dark */
+}
+
+.btn.btn-link {
+  --btn-shadow-color: rgba(0, 123, 255, 0.5); /* Blue for links */
 }

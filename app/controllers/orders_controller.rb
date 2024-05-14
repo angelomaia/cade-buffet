@@ -17,7 +17,7 @@ class OrdersController < ApplicationController
       redirect_to root_path, notice: 'O Buffet está desativado.'
     end
 
-    @event_types = buffet.event_types
+    @event_types = buffet.event_types.where(status: 'active')
     @order = Order.new
     @preset_event = params[:preset_event]
   end
@@ -29,7 +29,11 @@ class OrdersController < ApplicationController
     @order.buffet = @order.event_type.buffet
 
     if @order.buffet.deactivated?
-      redirect_to root_path, notice: 'O Buffet está desativado.'
+      return redirect_to root_path, notice: 'O Buffet está desativado.'
+    end
+
+    if @order.event_type.deactivated?
+      return redirect_to @order.buffet, notice: 'Esse Tipo de Evento está desativado.'
     end
 
     @order.user = current_user
@@ -186,4 +190,11 @@ class OrdersController < ApplicationController
     end
   end
   
+  def event_type_deactivated?
+    @event_type = EventType.find(params[:event_type_id])
+    if @event_type.status == 'deactivated'
+      flash[:alert] = "Esse Tipo de Evento está desativado."
+      redirect_to root_path
+    end
+  end
 end

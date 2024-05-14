@@ -1,15 +1,17 @@
-<div class="container mt-3">
-  <h2>Cadastrar Buffet</h2>
+<div class="border-card-7" style="padding: 10px;">
+  <div class="container mt-3" style="width: 600px;">
+    <h2 class="text-center">Cadastrar Buffet</h2>
 
-  <% if @buffet.errors.any? %>
-    <div class="alert alert-danger" role="alert">
-      <ul>
-        <% @buffet.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+    <% if @buffet.errors.any? %>
+      <div class="alert alert-danger" role="alert">
+        <ul>
+          <% @buffet.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
 
-  <%= render 'form' %>
+    <%= render 'form' %>
+  </div>
 </div>
