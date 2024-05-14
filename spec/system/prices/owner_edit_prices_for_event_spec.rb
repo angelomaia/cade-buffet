@@ -16,7 +16,7 @@ describe 'Owner tries to edit prices for event' do
     login_as owner, scope: :owner
     visit "/buffets/#{buffet.id}"
     click_on 'Festa de Casamento'
-    click_on 'Editar Tipo de Evento e Preços'
+    click_on 'Definir Preços'
     fill_in 'Preço Base', with: '2000'
     fill_in 'Valor extra por pessoa', with: '100'
     fill_in 'Valor extra por hora', with: '1000'
@@ -54,7 +54,7 @@ describe 'Owner tries to edit prices for event' do
     login_as owner, scope: :owner
     visit "/buffets/#{buffet.id}"
     click_on 'Festa de Casamento'
-    click_on 'Editar Tipo de Evento e Preços'
+    click_on 'Editar Tipo de Evento'
     click_on 'Meu Buffet'
     click_on 'Festa de Casamento'
 

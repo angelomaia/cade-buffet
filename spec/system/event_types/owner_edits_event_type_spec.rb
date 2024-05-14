@@ -91,9 +91,6 @@ describe 'Owner edits event type' do
     fill_in 'Quantidade mínima de Pessoas', with: '20'
     fill_in 'Duração (minutos)', with: '180'
     fill_in 'Cardápio', with:  'Macarrão com sassissinha'
-    fill_in 'Preço Base', with: '2000'
-    fill_in 'Valor extra por pessoa', with: '100'
-    fill_in 'Valor extra por hora', with: '500'
     click_on 'Registrar'
 
     expect(page).to have_content 'Tipo de Evento alterado com sucesso.'

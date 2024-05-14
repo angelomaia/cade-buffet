@@ -10,12 +10,12 @@ describe 'Owner tries to set prices for event' do
     event = EventType.create!(name: 'Festa de Casamento', duration: '240', min_people: '10',
                               max_people: '100', description: 'Festa grande', menu: 'Macarrão com salsicha',
                               buffet: buffet)
-    price = Price.create!(base: 2500, extra_person: 200, extra_hour: 500,
+    Price.create!(base: 2500, extra_person: 200, extra_hour: 500,
                           weekend_base: 3500, weekend_extra_person: 300, weekend_extra_hour: 750,
                           event_type: event)
     
     visit root_path
-    visit edit_event_type_path(event.id)
+    visit set_price_event_type_path(event.id)
 
     expect(current_path).to eq "/owners/sign_in"
   end
@@ -34,9 +34,9 @@ describe 'Owner tries to set prices for event' do
     visit root_path
     click_on 'Meu Buffet'
     click_on 'Festa de Casamento'
-    click_on 'Editar Tipo de Evento e Preços'
+    click_on 'Definir Preços'
 
-    expect(current_path).to eq edit_event_type_path(event.id)
+    expect(current_path).to eq set_price_event_type_path(event.id)
     expect(page).to have_field 'Preço Base'
     expect(page).to have_field 'Valor extra por pessoa'
     expect(page).to have_field 'Valor extra por hora'
@@ -59,7 +59,7 @@ describe 'Owner tries to set prices for event' do
     visit root_path
     click_on 'Meu Buffet'
     click_on 'Festa de Casamento'
-    click_on 'Editar Tipo de Evento e Preços'
+    click_on 'Definir Preços'
     fill_in 'Preço Base', with: '2000'
     fill_in 'Valor extra por pessoa', with: '100'
     fill_in 'Valor extra por hora', with: '1000'
@@ -87,7 +87,7 @@ describe 'Owner tries to set prices for event' do
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
                   email: 'alegria@email.com', phone: '8156456456', zipcode: '50000123',   
                   pix: true, debit: true, credit: false, cash: true, owner: owner)
-    event = EventType.create!(name: 'Festa de Casamento', duration: '240', min_people: '10',
+    EventType.create!(name: 'Festa de Casamento', duration: '240', min_people: '10',
                               max_people: '100', description: 'Festa grande', menu: 'Macarrão com salsicha',
                               buffet: buffet)
     
@@ -95,7 +95,7 @@ describe 'Owner tries to set prices for event' do
     visit root_path
     click_on 'Meu Buffet'
     click_on 'Festa de Casamento'
-    click_on 'Editar Tipo de Evento e Preços'
+    click_on 'Definir Preços'
     fill_in 'Preço Base', with: ''
     fill_in 'Valor extra por pessoa', with: ''
     fill_in 'Valor extra por hora', with: ''

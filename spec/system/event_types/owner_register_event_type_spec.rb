@@ -241,10 +241,7 @@ describe 'Owner adds event type to buffet' do
     check  'Estacionamento/valet'
     choose('event_type[location]', option: "anywhere")
     click_on 'Registrar'
-    click_on 'Editar Tipo de Evento e Preços'
-    fill_in 'Preço Base', with: '2000'
-    fill_in 'Valor extra por pessoa', with: '100'
-    fill_in 'Valor extra por hora', with: '500'
+    click_on 'Editar Tipo de Evento'
     attach_file 'Galeria de Fotos', [Rails.root.join('spec', 'support', 'wedding_3.jpg'), Rails.root.join('spec', 'support', 'wedding_4.jpg')]
     click_on 'Registrar'
 

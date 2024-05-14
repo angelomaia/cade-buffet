@@ -1,6 +1,6 @@
 class EventTypesController < ApplicationController
-  before_action :authenticate_owner!, only: [:new, :create, :edit, :update]
-  before_action :set_event_type_check_owner, only: [:edit, :update]
+  before_action :authenticate_owner!, only: [:new, :create, :edit, :update, :set_price]
+  before_action :set_event_type_check_owner, only: [:edit, :update, :set_price]
 
   def new
     @event_type = EventType.new
@@ -27,14 +27,15 @@ class EventTypesController < ApplicationController
   end
 
   def update
-    @event_type.price.destroy if @event_type.price
-    @event_type.build_price
-    
     if @event_type.update(event_type_params)
       redirect_to event_type_path(@event_type.id), notice: 'Tipo de Evento alterado com sucesso.'
     else
       flash.now[:notice] = "Não foi possível atualizar o Tipo de Evento"
+      if @event_type.errors.details.keys.any? { |error_key| error_key.to_s.start_with?('price.') }
+      render 'set_price'
+    else
       render 'edit'
+    end
     end
   end
   
@@ -51,6 +52,11 @@ class EventTypesController < ApplicationController
     redirect_to @event_type, notice: 'Foto apagada com sucesso.'
   end
   
+  def set_price
+    @event_type.price.destroy if @event_type.price
+    @event_type.build_price
+  end
+
   private
 
   def event_type_params

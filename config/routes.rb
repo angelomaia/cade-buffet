@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   
   resources :event_types, only: [:show, :edit, :update, :new, :create] do
     delete 'delete_photo/:photo_id', to: 'event_types#delete_photo', as: 'delete_photo'
+    get 'set_price', on: :member
   end
 
   namespace :api do

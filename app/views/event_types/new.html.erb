@@ -1,4 +1,4 @@
-<div class="container mt-4">
+<div class="container mt-4 text-center">
   <h1>Novo Tipo de Evento</h1>
 
   <% if @event_type.errors.any? %>
@@ -12,8 +12,12 @@
     </div>
   <% end %>
 
-  <%= link_to 'Voltar', :back, class: "btn btn-secondary mt-3" %>
 </div>
 
-
 <%= render 'form' %>
+
+<div class="row">
+  <div class="col text-center">
+    <%= link_to 'Voltar', :back, class: "btn btn-secondary mt-3" %>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-<div class="container mt-3 pb-5">
+<div class="container mt-4">
   <div class="row justify-content-center">
     <div class="col-6 text-center">
       <div class="border-card-5">
@@ -108,7 +108,8 @@
                                                                                     class: "btn btn-success" %>
       <% end %>
       <% if @event_type.buffet.owner == current_owner %>
-        <%= link_to 'Editar Tipo de Evento e Preços', edit_event_type_path, class: "btn btn-primary" %>
+        <%= link_to 'Definir Preços', set_price_event_type_path, class: "btn btn-warning" %>
+        <%= link_to 'Editar Tipo de Evento', edit_event_type_path, class: "btn btn-primary" %>
       <% end %>
       <%= link_to 'Voltar', @event_type.buffet, class: "btn btn-secondary" %>
     </div>
