@@ -10,7 +10,7 @@ describe 'Owner adds event type to buffet' do
 
   it 'and sees all fields' do
     owner = Owner.create!(email: 'angelo@email.com', password: 'password')
-    buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
+    Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
                   email: 'alegria@email.com', phone: '8156456456', zipcode: '50000123',   
                   pix: true, debit: true, credit: false, cash: true, owner: owner)
@@ -36,7 +36,7 @@ describe 'Owner adds event type to buffet' do
 
   it 'and is successfull' do
     owner = Owner.create!(email: 'angelo@email.com', password: 'password')
-    buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
+    Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
                   email: 'alegria@email.com', phone: '8156456456', zipcode: '50000123',   
                   pix: true, debit: true, credit: false, cash: true, owner: owner)
@@ -68,7 +68,7 @@ describe 'Owner adds event type to buffet' do
 
   it 'and leave blank fields' do
     owner = Owner.create!(email: 'angelo@email.com', password: 'password')
-    buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
+    Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
                   email: 'alegria@email.com', phone: '8156456456', zipcode: '50000123',   
                   pix: true, debit: true, credit: false, cash: true, owner: owner)
@@ -97,7 +97,7 @@ describe 'Owner adds event type to buffet' do
 
   it 'and access the event through a list' do
     owner = Owner.create!(email: 'angelo@email.com', password: 'password')
-    buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
+    Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
                   email: 'alegria@email.com', phone: '8156456456', zipcode: '50000123',   
                   pix: true, debit: true, credit: false, cash: true, owner: owner)
@@ -126,7 +126,7 @@ describe 'Owner adds event type to buffet' do
 
   it 'and adds a cover photo' do
     owner = Owner.create!(email: 'angelo@email.com', password: 'password')
-    buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
+    Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
                   email: 'alegria@email.com', phone: '8156456456', zipcode: '50000123',   
                   pix: true, debit: true, credit: false, cash: true, owner: owner)
@@ -150,5 +150,110 @@ describe 'Owner adds event type to buffet' do
     expect(current_path).to eq "/event_types/#{EventType.last.id}"
     expect(page).to have_content 'Festa de Casamento'
     expect(page).to have_css 'img[src*="wedding.jpg"]'
+  end
+
+  it 'and adds gallery photos' do
+    owner = Owner.create!(email: 'angelo@email.com', password: 'password')
+    Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
+                  address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
+                  email: 'alegria@email.com', phone: '8156456456', zipcode: '50000123',   
+                  pix: true, debit: true, credit: false, cash: true, owner: owner)
+    
+    login_as owner, scope: :owner
+    visit root_path
+    click_on 'Meu Buffet'
+    click_on 'Adicionar Tipo de Evento'
+    fill_in 'Nome do Evento', with: "Festa de Casamento"
+    fill_in  'Descrição', with: "Uma festança"
+    fill_in  'Quantidade mínima de Pessoas', with: "20"
+    fill_in  'Quantidade máxima de Pessoas', with: "200"
+    fill_in  'Duração (minutos)', with: "240"
+    fill_in  'Cardápio', with: "Sushi, Strogonoff, Frios"
+    attach_file 'Foto do Evento', Rails.root.join('spec', 'support', 'wedding.jpg')
+    attach_file 'Galeria de Fotos', [Rails.root.join('spec', 'support', 'wedding_1.jpg'), Rails.root.join('spec', 'support', 'wedding_2.jpg')]
+    check  'Bebidas alcoólicas'
+    check  'Estacionamento/valet'
+    choose('event_type[location]', option: "anywhere")
+    click_on 'Registrar'
+
+    expect(current_path).to eq "/event_types/#{EventType.last.id}"
+    expect(page).to have_content 'Festa de Casamento'
+    expect(page).to have_css 'img[src*="wedding.jpg"]'
+    expect(page).to have_css 'img[src*="wedding_1.jpg"]'
+    expect(page).to have_css 'img[src*="wedding_2.jpg"]'
+  end
+
+  it ', adds gallery photos and deletes one photo' do
+    owner = Owner.create!(email: 'angelo@email.com', password: 'password')
+    Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
+                  address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
+                  email: 'alegria@email.com', phone: '8156456456', zipcode: '50000123',   
+                  pix: true, debit: true, credit: false, cash: true, owner: owner)
+    
+    login_as owner, scope: :owner
+    visit root_path
+    click_on 'Meu Buffet'
+    click_on 'Adicionar Tipo de Evento'
+    fill_in 'Nome do Evento', with: "Festa de Casamento"
+    fill_in  'Descrição', with: "Uma festança"
+    fill_in  'Quantidade mínima de Pessoas', with: "20"
+    fill_in  'Quantidade máxima de Pessoas', with: "200"
+    fill_in  'Duração (minutos)', with: "240"
+    fill_in  'Cardápio', with: "Sushi, Strogonoff, Frios"
+    attach_file 'Foto do Evento', Rails.root.join('spec', 'support', 'wedding.jpg')
+    attach_file 'Galeria de Fotos', [Rails.root.join('spec', 'support', 'wedding_1.jpg'), Rails.root.join('spec', 'support', 'wedding_2.jpg')]
+    check  'Bebidas alcoólicas'
+    check  'Estacionamento/valet'
+    choose('event_type[location]', option: "anywhere")
+    click_on 'Registrar'
+    within('#gallery > div:nth-child(1)') do
+      click_on 'Apagar'
+    end
+
+    expect(current_path).to eq "/event_types/#{EventType.last.id}"
+    expect(page).to have_content 'Festa de Casamento'
+    expect(page).to have_content 'Foto apagada com sucesso.'
+    expect(page).to have_css 'img[src*="wedding.jpg"]'
+    expect(page).to have_css 'img[src*="wedding_1.jpg"]'
+    expect(page).not_to have_css 'img[src*="wedding_2.jpg"]'
+  end
+
+  it ', adds gallery photos and then adds more photos' do
+    owner = Owner.create!(email: 'angelo@email.com', password: 'password')
+    Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
+                  address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
+                  email: 'alegria@email.com', phone: '8156456456', zipcode: '50000123',   
+                  pix: true, debit: true, credit: false, cash: true, owner: owner)
+    
+    login_as owner, scope: :owner
+    visit root_path
+    click_on 'Meu Buffet'
+    click_on 'Adicionar Tipo de Evento'
+    fill_in 'Nome do Evento', with: "Festa de Casamento"
+    fill_in  'Descrição', with: "Uma festança"
+    fill_in  'Quantidade mínima de Pessoas', with: "20"
+    fill_in  'Quantidade máxima de Pessoas', with: "200"
+    fill_in  'Duração (minutos)', with: "240"
+    fill_in  'Cardápio', with: "Sushi, Strogonoff, Frios"
+    attach_file 'Foto do Evento', Rails.root.join('spec', 'support', 'wedding.jpg')
+    attach_file 'Galeria de Fotos', [Rails.root.join('spec', 'support', 'wedding_1.jpg'), Rails.root.join('spec', 'support', 'wedding_2.jpg')]
+    check  'Bebidas alcoólicas'
+    check  'Estacionamento/valet'
+    choose('event_type[location]', option: "anywhere")
+    click_on 'Registrar'
+    click_on 'Editar Tipo de Evento e Preços'
+    fill_in 'Preço Base', with: '2000'
+    fill_in 'Valor extra por pessoa', with: '100'
+    fill_in 'Valor extra por hora', with: '500'
+    attach_file 'Galeria de Fotos', [Rails.root.join('spec', 'support', 'wedding_3.jpg'), Rails.root.join('spec', 'support', 'wedding_4.jpg')]
+    click_on 'Registrar'
+
+    expect(current_path).to eq "/event_types/#{EventType.last.id}"
+    expect(page).to have_content 'Festa de Casamento'
+    expect(page).to have_css 'img[src*="wedding.jpg"]'
+    expect(page).to have_css 'img[src*="wedding_1.jpg"]'
+    expect(page).to have_css 'img[src*="wedding_2.jpg"]'
+    expect(page).to have_css 'img[src*="wedding_3.jpg"]'
+    expect(page).to have_css 'img[src*="wedding_4.jpg"]'
   end
 end

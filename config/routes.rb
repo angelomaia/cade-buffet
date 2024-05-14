@@ -25,7 +25,9 @@ Rails.application.routes.draw do
     get 'buffet_search', on: :collection
   end
   
-  resources :event_types, only: [:show, :edit, :update, :new, :create]
+  resources :event_types, only: [:show, :edit, :update, :new, :create] do
+    delete 'delete_photo/:photo_id', to: 'event_types#delete_photo', as: 'delete_photo'
+  end
 
   namespace :api do
     namespace :v1 do

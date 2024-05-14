@@ -1,9 +1,10 @@
 class EventType < ApplicationRecord
   belongs_to :buffet
   has_one :price
-  has_one_attached :cover_photo
   accepts_nested_attributes_for :price
   has_many :orders
+  has_one_attached :cover_photo
+  has_many_attached :gallery_photos
   
   validates :name, :description, :duration, :min_people, :max_people, :menu, presence: true
   validates :duration, :min_people, :max_people, format: { :with => /\A[0-9]+\z/, :message => "Deve conter apenas números" }

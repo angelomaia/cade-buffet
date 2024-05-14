@@ -1,6 +1,12 @@
 <div class="container mt-4">
-  <h1 class="text-center">Buffet: <%= @buffet.name %></h1>
-  <h3 class="text-center"><%= @buffet.description if @buffet.description %></h3>
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="border-card-6">
+        <h1 class="text-center">Buffet: <%= @buffet.name %></h1>
+        <h4 class="text-center"><%= @buffet.description if @buffet.description %></h4>
+      </div>
+    </div>
+  </div>
   
   <div class="row justify-content-center">
     <div class="col-md-8">

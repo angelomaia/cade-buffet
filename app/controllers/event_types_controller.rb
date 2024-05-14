@@ -29,12 +29,26 @@ class EventTypesController < ApplicationController
   def update
     @event_type.price.destroy if @event_type.price
     @event_type.build_price
+    
     if @event_type.update(event_type_params)
       redirect_to event_type_path(@event_type.id), notice: 'Tipo de Evento alterado com sucesso.'
     else
       flash.now[:notice] = "Não foi possível atualizar o Tipo de Evento"
       render 'edit'
     end
+  end
+  
+  def delete_photo
+    @event_type = EventType.find(params[:event_type_id])
+    photo = @event_type.gallery_photos.find(params[:photo_id])
+
+    if @event_type.buffet != current_owner.buffet
+      return redirect_to root_path, alert: 'Você não pode editar este Tipo de Evento.'
+    end
+    
+    photo.purge
+  
+    redirect_to @event_type, notice: 'Foto apagada com sucesso.'
   end
   
   private
@@ -50,7 +64,8 @@ class EventTypesController < ApplicationController
                                     :extra_hour, 
                                     :weekend_base, 
                                     :weekend_extra_person, 
-                                    :weekend_extra_hour])
+                                    :weekend_extra_hour],
+                                    gallery_photos: [])
   end
 
   def set_event_type_check_owner

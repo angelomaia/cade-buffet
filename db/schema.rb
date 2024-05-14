@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_05_180410) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_13_184700) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -93,6 +93,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_05_180410) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["buffet_id"], name: "index_event_types_on_buffet_id"
+  end
+
+  create_table "galleries", force: :cascade do |t|
+    t.integer "event_type_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_type_id"], name: "index_galleries_on_event_type_id"
   end
 
   create_table "order_prices", force: :cascade do |t|
@@ -190,6 +197,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_05_180410) do
   add_foreign_key "buffets", "owners"
   add_foreign_key "chats", "orders"
   add_foreign_key "event_types", "buffets"
+  add_foreign_key "galleries", "event_types"
   add_foreign_key "order_prices", "buffets"
   add_foreign_key "order_prices", "event_types"
   add_foreign_key "order_prices", "orders"

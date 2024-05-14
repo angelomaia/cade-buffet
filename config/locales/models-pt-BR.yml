@@ -47,6 +47,7 @@ pt-BR:
         decoration: 'Decoração'
         parking: 'Estacionamento/valet'
         location: 'Localização do Evento'
+        gallery_photos: 'Galeria de Fotos'
       event_type/location:
         exclusive: 'Exclusivamente no Endereço do Buffet'
         anywhere: 'Em qualquer local solicitado'

@@ -1,12 +1,32 @@
 <div class="container mt-3 pb-5">
   <div class="row justify-content-center">
-    <div class="col-12 text-center">
-      <h1><%= @event_type.name %></h1>
-      <% if @event_type.cover_photo.attached? %>
-        <%= image_tag @event_type.cover_photo.variant(resize_to_fit: [400, 300]) %>
-      <% end %>
+    <div class="col-6 text-center">
+      <div class="border-card-5">
+        <h1><%= @event_type.name %></h1>
+        <% if @event_type.cover_photo.attached? %>
+          <%= image_tag @event_type.cover_photo.variant(resize_to_fit: [400, 300]) %>
+        <% end %>
+      </div>
     </div>
   </div>
+  <% if @event_type.gallery_photos.attached? %>
+    <div class="row justify-content-center">
+      <div class="col-12 text-center">
+        <div class="border-card-5 d-flex flex-wrap justify-content-center" id="gallery">
+          <% @event_type.gallery_photos.each do |photo| %>
+            <div class="mr-2 mb-2">
+              <%= image_tag photo.variant(resize_to_fit: [300, 200]) %>
+              <% if @event_type.buffet.owner == current_owner %>
+                <%= button_to 'Apagar', event_type_delete_photo_path(event_type_id: @event_type.id, 
+                                                                    photo_id: photo.id), method: :delete, 
+                                                                    class: 'btn btn-danger btn-sm' %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
   <div class="row justify-content-center">
     <div class="col">
       <dl class="row">
@@ -84,7 +104,8 @@
   <div class="row justify-content-center">
     <div class="col-12 col-md-8 text-center">
       <% if !owner_signed_in? %>
-        <%= link_to 'Novo Pedido', new_order_path(buffet_id: @event_type.buffet.id, preset_event: @event_type), class: "btn btn-success" %>
+        <%= link_to 'Novo Pedido', new_order_path(buffet_id: @event_type.buffet.id, preset_event: @event_type), 
+                                                                                    class: "btn btn-success" %>
       <% end %>
       <% if @event_type.buffet.owner == current_owner %>
         <%= link_to 'Editar Tipo de Evento e Preços', edit_event_type_path, class: "btn btn-primary" %>
