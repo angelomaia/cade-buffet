@@ -1,0 +1,35 @@
+<div class="border-card-7 d-flex flex-column align-items-center justify-content-center">
+  <div class="row justify-content-center">
+    <h3>Avaliação de <%= @rating.user.name %> </h3>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col">
+      <div class="buffet">
+        <h4><%= @rating.event_type.name %> em <%= @rating.order.date %></h4>
+      </div>
+      <div class="border-card">
+        <div class="card-body">
+          <dl class="row">
+
+            <dt class="col-sm-5"><%= Rating.human_attribute_name(:grade) %>:</dt>
+            <dd class="col-sm-7"><%= @rating.grade %></dd>
+
+            <dt class="col-sm-5"><%= Rating.human_attribute_name(:text) %>:</dt>
+            <dd class="col-sm-7"><%= @rating.text %></dd>
+
+          </dl>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <% if @rating.user == current_user %>
+        <div class="col-auto">
+          <%= link_to 'Voltar para Pedido', order_path(@rating.order.id), class: "btn btn-info pe-3 ps-3" %>
+        </div>
+      <% end %>
+      <div class="col-auto">
+        <%= link_to 'Voltar para Buffet', buffet_path(@rating.buffet.id), class: "btn btn-secondary" %>
+      </div>
+    </div>
+  </div>
+</div>

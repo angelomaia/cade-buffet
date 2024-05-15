@@ -26,6 +26,7 @@ Rails.application.routes.draw do
     get 'buffet_search', on: :collection
     post 'deactivate', on: :member
     post 'activate', on: :member
+    resources :ratings, only: [:show]
   end
   
   resources :event_types, only: [:show, :edit, :update, :new, :create] do

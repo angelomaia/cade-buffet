@@ -120,5 +120,12 @@ describe 'User tries to rate an event' do
     expect(Rating.last.user).to eq user
     expect(Rating.last.buffet).to eq buffet
     expect(Rating.last.event_type).to eq event
+    expect(current_path).to eq buffet_rating_path(buffet_id: Rating.last.buffet.id, id: Rating.last.id)
+    expect(page).to have_content 'Avaliação de Angelo'
+    expect(page).to have_content "Festa de Casamento em #{Order.last.date}"
+    expect(page).to have_content 'Nota: 5'
+    expect(page).to have_content 'Comentário: Amei a festa'
+    expect(page).to have_link 'Voltar para Buffet'
+    expect(page).to have_link 'Voltar para Pedido'
   end
 end
