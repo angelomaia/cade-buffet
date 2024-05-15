@@ -93,9 +93,9 @@
                 <div class="card-body-2">
                   <p class="card-text">
                     <% if message.is_a?(UserMessage) %>
-                      Você: 
+                      <strong>Você: </strong>
                     <% elsif message.is_a?(BuffetMessage) %>
-                      Buffet <%= message.buffet.name %>: 
+                      <strong>Buffet <%= message.buffet.name %>:</strong> 
                     <% end %>
                     <%= message.content %>
                   </p>
@@ -119,16 +119,21 @@
       </div>
     <% end %>
     <div class="row">
-      <div class="col-auto">
-        <% if @order.status == 'approved' && @order.order_price.expiration_date >= Date.today %>
+      <% if @order.status == 'confirmed' && @order.date < Date.today %>
+        <div class="col-auto">
+          <%= link_to 'Avaliar Buffet', new_order_rating_path(order_id: @order.id), class: "btn btn-success pe-3 ps-3" %>
+        </div>
+      <% end %>
+      <% if @order.status == 'approved' && @order.order_price.expiration_date >= Date.today %>
+        <div class="col-auto">
           <%= button_to 'Confirmar Pedido', confirm_order_path, method: :post, class: "btn btn-success pe-3 ps-3" %>
-        <% end %>
-      </div>
-      <div class="col-auto">
-        <% if @order.status != 'cancelled' && @order.status != 'confirmed'  %>
+        </div>
+      <% end %>
+      <% if @order.status != 'cancelled' && @order.status != 'confirmed'  %>
+        <div class="col-auto">
           <%= button_to 'Cancelar Pedido', user_cancel_order_path, method: :post, class: "btn btn-danger pe-3 ps-3", id: "cancel-order-btn" %>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
       <div class="col-auto">
         <%= link_to 'Voltar', orders_path, class: "btn btn-secondary" %>
       </div>

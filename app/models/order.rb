@@ -7,8 +7,8 @@ class Order < ApplicationRecord
   has_one :chat
 
   validates :date, :guest_quantity, presence: true
-  validates :guest_quantity, numericality: true
-  validate :date_is_future
+  validates :guest_quantity, numericality: { greater_than: 0 }
+  validate :date_is_future, on: :create
   validate :address_mandatory_if_location_elsewhere
   validate :max_guest_quantity
   validate :event_type_needs_to_have_prices

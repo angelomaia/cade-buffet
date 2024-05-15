@@ -15,6 +15,9 @@ pt-BR:
       chat: 'Chat'
       user_message: 'Mensagem do Cliente'
       buffet_message: 'Mensagem do Buffet'
+      rating:
+        one: 'Avaliação'
+        other: 'Avaliações'
     attributes:
       user:
         name: 'Nome'
@@ -89,6 +92,10 @@ pt-BR:
       buffet_message:
         content: 'Mensagem'
         created_at: 'Enviado em'
+      rating:
+        grade: 'Nota'
+        text: 'Comentário'
+        photos: 'Fotos'
 
 
 

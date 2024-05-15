@@ -104,9 +104,9 @@
                 <div class="card-body-2">
                   <p class="card-text">
                     <% if message.is_a?(UserMessage) %>
-                      <%= message.user.name %>: 
+                      <strong><%= message.user.name %>: </strong>
                     <% elsif message.is_a?(BuffetMessage) %>
-                      Você: 
+                      <strong>Você: </strong>
                     <% end %>
                     <%= message.content %>
                   </p>

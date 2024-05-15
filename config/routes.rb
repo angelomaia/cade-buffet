@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     post 'owner_cancel', on: :member
     post 'new_user_message', on: :member
     post 'new_buffet_message', on: :member
+    resources :ratings, only: [:new, :create]
   end
 
   resources :buffets, only: [:show, :new, :create, :edit, :update] do
@@ -33,6 +34,7 @@ Rails.application.routes.draw do
     post 'deactivate', on: :member
     post 'activate', on: :member
   end
+
 
   namespace :api do
     namespace :v1 do

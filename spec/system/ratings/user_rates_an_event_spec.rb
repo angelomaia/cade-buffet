@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe 'User access approved order' do
-  it 'from My Orders page' do
+describe 'User tries to rate an event' do
+  it 'by accessing the order page' do
     owner = Owner.create!(email: 'alegria@email.com', password: 'password')
     buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
@@ -13,33 +13,33 @@ describe 'User access approved order' do
                               location: 'anywhere', buffet: buffet)
     Price.create(base: 2000, extra_person: 50, extra_hour: 300, weekend_base: 3000, 
                 weekend_extra_person: 75, weekend_extra_hour: 450, event_type: event) 
-    allow(SecureRandom).to receive(:alphanumeric).and_return('moIoiXkBAFMXr4RGhn0J')
-    order = Order.create!(user: user, buffet: buffet, event_type: event, date: 1.week.from_now.to_date, 
-                  guest_quantity: 30, details: 'Festa de Casamento pra 50 pessoas',
-                  location: 'buffet_address', status: 'pending')
-    Chat.create!(order: order)
-    OrderPrice.create!(order: order, buffet: buffet, event_type: event, base: 2000, 
-                      payment: 'debit', expiration_date: 1.day.from_now.to_date, discount: 0, fee: 0)
-    order.approved!
 
+    travel 1.week do
+      allow(SecureRandom).to receive(:alphanumeric).and_return('moIoiXkBAFMXr4RGhn0J')
+      order = Order.create!(user: user, buffet: buffet, event_type: event, date: 1.week.from_now.to_date, 
+                    guest_quantity: 30, details: 'Festa de Casamento pra 50 pessoas',
+                    location: 'buffet_address', status: 'pending')
+      Chat.create!(order: order)
+      OrderPrice.create!(order: order, buffet: buffet, event_type: event, base: 2000, 
+                        payment: 'debit', expiration_date: 1.year.from_now.to_date, discount: 0, fee: 0)
+      order.approved!
+      order.confirmed!
+    end 
+
+    travel 1.month
     login_as user, scope: :user
     visit root_path
     click_on 'Meus Pedidos'
     click_on 'moIoiXkBAFMXr4RGhn0J'
 
-    expect(page).to have_content 'Status:'
-    expect(page).to have_content 'Aprovado pelo Buffet'
-    expect(page).to have_content 'Proposta do Buffet:'
-    expect(page).to have_content 'Método de Pagamento:'
-    expect(page).to have_content 'Cartão de Débito'
-    expect(page).to have_content "Data de Validade:"
-    expect(page).to have_content "#{1.day.from_now.to_date}"
-    expect(page).to have_content 'Valor do Pedido:'
-    expect(page).to have_content '2000'
-    expect(page).to have_button 'Confirmar Pedido'
+    expect(Order.last.date).to be < Date.today
+    expect(page).to have_content 'Festa de Casamento'
+    expect(page).to have_content 'Status: Confirmado'
+    expect(current_path).to eq order_path(Order.last.id)
+    expect(page).to have_link 'Avaliar Buffet'
   end
 
-  it 'and confirms it' do
+  it 'and sees rating form' do
     owner = Owner.create!(email: 'alegria@email.com', password: 'password')
     buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
@@ -51,34 +51,36 @@ describe 'User access approved order' do
                               location: 'anywhere', buffet: buffet)
     Price.create(base: 2000, extra_person: 50, extra_hour: 300, weekend_base: 3000, 
                 weekend_extra_person: 75, weekend_extra_hour: 450, event_type: event) 
-    allow(SecureRandom).to receive(:alphanumeric).and_return('moIoiXkBAFMXr4RGhn0J')
-    order = Order.create!(user: user, buffet: buffet, event_type: event, date: 1.week.from_now.to_date, 
-                  guest_quantity: 30, details: 'Festa de Casamento pra 50 pessoas',
-                  location: 'buffet_address', status: 'pending')
-    Chat.create!(order: order)
-    OrderPrice.create!(order: order, buffet: buffet, event_type: event, base: 2000, 
-                      payment: 'debit', expiration_date: 1.day.from_now.to_date, discount: 0, fee: 0)
-    order.approved!
 
+    travel 1.week do
+      allow(SecureRandom).to receive(:alphanumeric).and_return('moIoiXkBAFMXr4RGhn0J')
+      order = Order.create!(user: user, buffet: buffet, event_type: event, date: 1.week.from_now.to_date, 
+                    guest_quantity: 30, details: 'Festa de Casamento pra 50 pessoas',
+                    location: 'buffet_address', status: 'pending')
+      Chat.create!(order: order)
+      OrderPrice.create!(order: order, buffet: buffet, event_type: event, base: 2000, 
+                        payment: 'debit', expiration_date: 1.year.from_now.to_date, discount: 0, fee: 0)
+      order.approved!
+      order.confirmed!
+    end 
+
+    travel 1.month
     login_as user, scope: :user
     visit root_path
     click_on 'Meus Pedidos'
     click_on 'moIoiXkBAFMXr4RGhn0J'
-    click_on 'Confirmar Pedido'
+    click_on 'Avaliar Buffet'
 
-    expect(page).to have_content 'Status:'
-    expect(page).to have_content 'Confirmado'
-    expect(page).to have_content 'Proposta do Buffet:'
-    expect(page).to have_content 'Método de Pagamento:'
-    expect(page).to have_content 'Cartão de Débito'
-    expect(page).to have_content "Data de Validade:"
-    expect(page).to have_content "#{1.day.from_now.to_date}"
-    expect(page).to have_content 'Valor do Pedido:'
-    expect(page).to have_content '2000'
-    expect(page).not_to have_link 'Confirmar Pedido'
+    expect(Order.last.date).to be < Date.today
+    expect(current_path).to eq new_order_rating_path(Order.last.id)
+    expect(page).to have_content "Avalie o Buffet #{buffet.name}"
+    expect(page).to have_content "Festa de Casamento em #{Order.last.date}"
+    expect(page).to have_content 'Nota:'
+    expect(page).to have_field 'Comentário'
+    expect(page).to have_field 'Fotos'
   end
 
-  it 'and it is past due expiration date, and therefore is cancelled ' do
+  it ', fills rating form fields and sends rating' do
     owner = Owner.create!(email: 'alegria@email.com', password: 'password')
     buffet = Buffet.create!(name: 'Alegria', corporate_name: 'Alegria SA', cnpj: '65165161', 
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Recife', state: 'PE', 
@@ -90,23 +92,33 @@ describe 'User access approved order' do
                               location: 'anywhere', buffet: buffet)
     Price.create(base: 2000, extra_person: 50, extra_hour: 300, weekend_base: 3000, 
                 weekend_extra_person: 75, weekend_extra_hour: 450, event_type: event) 
-    allow(SecureRandom).to receive(:alphanumeric).and_return('moIoiXkBAFMXr4RGhn0J')
-    order = Order.create!(user: user, buffet: buffet, event_type: event, date: 1.week.from_now.to_date, 
-                  guest_quantity: 30, details: 'Festa de Casamento pra 50 pessoas',
-                  location: 'buffet_address', status: 'pending')
-    Chat.create!(order: order)
-    OrderPrice.create!(order: order, buffet: buffet, event_type: event, base: 2000, 
-                      payment: 'debit', expiration_date: 1.day.from_now.to_date, discount: 0, fee: 0)
-    order.approved!
 
-    travel 2.day
+    travel 1.week do
+      allow(SecureRandom).to receive(:alphanumeric).and_return('moIoiXkBAFMXr4RGhn0J')
+      order = Order.create!(user: user, buffet: buffet, event_type: event, date: 1.week.from_now.to_date, 
+                    guest_quantity: 30, details: 'Festa de Casamento pra 50 pessoas',
+                    location: 'buffet_address', status: 'pending')
+      Chat.create!(order: order)
+      OrderPrice.create!(order: order, buffet: buffet, event_type: event, base: 2000, 
+                        payment: 'debit', expiration_date: 1.year.from_now.to_date, discount: 0, fee: 0)
+      order.approved!
+      order.confirmed!
+    end 
+
+    travel 1.month
     login_as user, scope: :user
     visit root_path
     click_on 'Meus Pedidos'
     click_on 'moIoiXkBAFMXr4RGhn0J'
+    click_on 'Avaliar Buffet'
+    find('#rating_grade_5').click
+    fill_in 'Comentário', with: 'Amei a festa'
+    click_on 'Enviar Avaliação'
 
-    expect(page).to have_content 'Status:'
-    expect(page).to have_content 'Cancelado'
-    expect(page).not_to have_link 'Confirmar Pedido'
+    expect(page).to have_content "Avaliação enviada com sucesso"
+    expect(Rating.last.text).to eq 'Amei a festa'
+    expect(Rating.last.user).to eq user
+    expect(Rating.last.buffet).to eq buffet
+    expect(Rating.last.event_type).to eq event
   end
 end

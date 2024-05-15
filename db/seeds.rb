@@ -3,6 +3,7 @@ owner_two = Owner.create!(email: 'owner_two@email.com', password: 'password')
 owner_three = Owner.create!(email: 'owner_three@email.com', password: 'password')
 owner_four = Owner.create!(email: 'owner_four@email.com', password: 'password')
 owner_five = Owner.create!(email: 'owner_five@email.com', password: 'password')
+User.create!(name: 'User', cpf: CPF.generate, email: 'user@email.com', password: 'password')
 
 festim = Buffet.create!(name: 'Festim', corporate_name: 'Festim Eventos Ltda', cnpj: '12345678901', 
                address: 'Rua das Camélias, 58', neighborhood: 'Jardim', city: 'São Paulo', state: 'SP', 

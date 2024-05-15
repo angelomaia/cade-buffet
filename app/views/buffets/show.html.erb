@@ -25,12 +25,12 @@
               <% when 'deactivated' then 'text-danger' %>
               <% else '' %>
             <% end %>
-            <dt class="col-sm-3 text-sm-right">Status:</dt>
-            <dd class="col-sm-9 text-sm-left <%= status_class %>"><strong><%= I18n.t(@buffet.status) %></strong></dd>
+            <dt class="col-sm-4 text-sm-right text-end">Status:</dt>
+            <dd class="col-sm-8 text-sm-left <%= status_class %>"><strong><%= I18n.t(@buffet.status) %></strong></dd>
           <% end %>
 
-          <dt class="col-sm-3 text-sm-right">Localização:</dt>
-          <dd class="col-sm-9 text-sm-left">
+          <dt class="col-sm-4 text-sm-right text-end"">Localização:</dt>
+          <dd class="col-sm-8 text-sm-left">
             <%= @buffet.address %>, <%= @buffet.neighborhood %>, <%= @buffet.city %> - <%= @buffet.state %>, <%= @buffet.zipcode %>
           </dd>
 
@@ -40,20 +40,20 @@
           <% payment_methods << Buffet.human_attribute_name(:credit) if @buffet.credit %>
           <% payment_methods << Buffet.human_attribute_name(:cash) if @buffet.cash %>
           <% if payment_methods.any? %>
-            <dt class="col-sm-3 text-sm-right">Métodos de Pagamento:</dt>
-            <dd class="col-sm-9 text-sm-left">
+            <dt class="col-sm-4 text-sm-right text-end"">Métodos de Pagamento:</dt>
+            <dd class="col-sm-8 text-sm-left">
               <%= payment_methods.join(', ') %>
             </dd>
           <% end %>
           
-          <dt class="col-sm-3 text-sm-right">E-mail:</dt>
-          <dd class="col-sm-9 text-sm-left"><%= @buffet.email %></dd>
+          <dt class="col-sm-4 text-sm-right text-end"">E-mail:</dt>
+          <dd class="col-sm-8 text-sm-left"><%= @buffet.email %></dd>
           
-          <dt class="col-sm-3 text-sm-right">Telefone:</dt>
-          <dd class="col-sm-9 text-sm-left"><%= @buffet.phone %></dd>
+          <dt class="col-sm-4 text-sm-right text-end"">Telefone:</dt>
+          <dd class="col-sm-8 text-sm-left"><%= @buffet.phone %></dd>
           
-          <dt class="col-sm-3 text-sm-right">CNPJ:</dt>
-          <dd class="col-sm-9 text-sm-left"><%= @buffet.cnpj %></dd>
+          <dt class="col-sm-4 text-sm-right text-end"">CNPJ:</dt>
+          <dd class="col-sm-8 text-sm-left"><%= @buffet.cnpj %></dd>
         </dl>
       </div>
     </div>

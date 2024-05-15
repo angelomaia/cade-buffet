@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'User visits homepage' do
+describe 'Guest visits homepage' do
   it 'and sees the app name' do
     visit root_path
 
@@ -19,11 +19,11 @@ describe 'User visits homepage' do
     Buffet.create!(name: 'Felicidade', corporate_name: 'Felicidaade SA', cnpj: '454654654', 
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Salvador', state: 'BA', 
                   email: 'felicidade@email.com', phone: '8156456456', zipcode: '50000123',   
-                  pix: true, debit: true, credit: false, cash: true, owner: owner)
+                  pix: true, debit: true, credit: false, cash: true, owner: owner_two)
     Buffet.create!(name: 'Euforia', corporate_name: 'Euforia SA', cnpj: '321321321', 
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'São Paulo', state: 'SP', 
                   email: 'euforia@email.com', phone: '8156456456', zipcode: '50000123',   
-                  pix: true, debit: true, credit: false, cash: true, owner: owner)
+                  pix: true, debit: true, credit: false, cash: true, owner: owner_three)
 
     visit root_path
 
@@ -49,11 +49,11 @@ describe 'User visits homepage' do
     Buffet.create!(name: 'Felicidade', corporate_name: 'Felicidaade SA', cnpj: '454654654', 
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'Salvador', state: 'BA', 
                   email: 'felicidade@email.com', phone: '8156456456', zipcode: '50000123',   
-                  pix: true, debit: true, credit: false, cash: true, owner: owner)
+                  pix: true, debit: true, credit: false, cash: true, owner: owner_two)
     Buffet.create!(name: 'Euforia', corporate_name: 'Euforia SA', cnpj: '321321321', 
                   address: 'Rua da Felicidade, 100', neighborhood: 'Alegre', city: 'São Paulo', state: 'SP', 
                   email: 'euforia@email.com', phone: '8156456456', zipcode: '50000123',   
-                  pix: true, debit: true, credit: false, cash: true, owner: owner)
+                  pix: true, debit: true, credit: false, cash: true, owner: owner_three)
 
     visit root_path
     click_on 'Felicidade'
@@ -68,7 +68,5 @@ describe 'User visits homepage' do
     expect(page).to have_content 'Telefone: 8156456456'
     expect(page).to have_content 'Métodos de Pagamento: PIX, Cartão de Débito, Dinheiro'
     expect(page).not_to have_content 'Felicidade SA'
-
-
   end
 end
