@@ -17,6 +17,10 @@
         <div class="border-card-3 mb-3 text-center">
           <%= f.label :grade, class: 'form-label' %>: <br>
           <div class="form-check form-check-inline">
+            <%= f.radio_button :grade, 0, class: 'form-check-input' %>
+            <%= f.label :grade_1, '0', class: 'form-check-label' %>
+          </div>
+          <div class="form-check form-check-inline">
             <%= f.radio_button :grade, 1, class: 'form-check-input' %>
             <%= f.label :grade_1, '1', class: 'form-check-label' %>
           </div>

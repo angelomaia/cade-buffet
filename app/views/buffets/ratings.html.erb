@@ -10,15 +10,27 @@
       </div>
 
       <% @ratings.each do |rating| %>
-        <%= link_to buffet_rating_path(rating.id), class: "card-link invisible-link" do %>
-          <div class="border-card-7">
+        <%= link_to "/buffets/#{@buffet.id}/ratings/#{rating.id}", class: "card-link invisible-link" do %>
+          <div class="border-card-8 row">
             <h5 class="text-center"><%= rating.event_type.name %> em <%= rating.order.date %></h5>
-            <p>Nota: <%= rating.grade %></p>
-            <p>Comentário: <%= rating.text %></p>
+            <div class="col-md-6">
+              <p><strong>Nota: </strong><%= rating.grade %></p>
+              <p><strong>Comentário: </strong><%= rating.text %></p>
+            </div>
+            <div class="col-md-6">
+              <% rating.photos.each do |photo| %>
+                <div class="mr-2 mb-2">
+                  <%= image_tag photo.variant(resize_to_fit: [120, 80]) %>
+                </div>
+              <% end %>
+            </div>
           </div>
         <% end %>
       <% end %>
 
+      <div class="mt-3 mb-4 text-center">
+        <%= link_to 'Voltar', @buffet, class: "btn btn-secondary" %>
+      </div>
     </div>
   </div>
 </div>

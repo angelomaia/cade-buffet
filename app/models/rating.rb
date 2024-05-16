@@ -6,8 +6,9 @@ class Rating < ApplicationRecord
   has_many_attached :photos
 
   validates :grade, :text, presence: true
-  validates :grade, numericality: { in: 1..5 }
+  validates :grade, numericality: { in: 0..5 }
   validate :order_must_be_in_the_past
+  validate :order_must_be_unrated
 
   def self.list(buffet)
     where(buffet: buffet).order(created_at: :desc)
@@ -18,6 +19,12 @@ class Rating < ApplicationRecord
   end
 
   private
+
+  def order_must_be_unrated
+    if self.order.rated?
+      self.errors.add(:base, 'Avaliação só pode ser feita uma vez por pedido.')
+    end
+  end
 
   def order_must_be_in_the_past
     if self.order.date > Date.today

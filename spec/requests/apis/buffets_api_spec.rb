@@ -22,6 +22,7 @@ describe 'Buffets API' do
       expect(json_response.length).to eq 2
       expect(json_response[0]['name']).to include 'Alegria'
       expect(json_response[1]['name']).to include 'Felicidade'
+      expect(json_response[0].keys).to include("average_rating")
     end
 
     it 'list all buffets ordered by name, except deactivated ones' do
@@ -118,6 +119,7 @@ describe 'Buffets API' do
       expect(json_response["city"]).to eq 'Recife'
       expect(json_response["state"]).to eq 'PE'
       expect(json_response["email"]).to eq 'felicidade@email.com'
+      expect(json_response.keys).to include("average_rating")
       expect(json_response.keys).not_to include("corporate_name")
       expect(json_response.keys).not_to include("cnpj")
       expect(json_response.keys).not_to include("created_at")

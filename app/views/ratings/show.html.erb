@@ -7,7 +7,7 @@
       <div class="buffet">
         <h4 class="text-center"><%= @rating.event_type.name %> em <%= @rating.order.date %></h4>
       </div>
-      <div class="border-card">
+      <div class="border-card-7">
         <div class="card-body">
           <dl class="row">
 
@@ -21,15 +21,36 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <% if @rating.photos.attached? %>
     <div class="row justify-content-center">
-      <% if @rating.user == current_user %>
-        <div class="col-auto">
-          <%= link_to 'Voltar para Pedido', order_path(@rating.order.id), class: "btn btn-info pe-3 ps-3" %>
+      <div class="col-12 text-center"></div>
+        <h5 class="text-center">Fotos do Evento:</h5>
+        <div class="border-card-5 d-flex flex-wrap justify-content-center" id="gallery">
+          <% @rating.photos.each do |photo| %>
+            <div class="mr-2 mb-2">
+              <%= image_tag photo.variant(resize_to_fit: [600, 400]) %>
+            </div>
+          <% end %>
         </div>
-      <% end %>
-      <div class="col-auto">
-        <%= link_to 'Voltar', :back, class: "btn btn-secondary" %>
       </div>
+    </div>
+  <% end %>
+
+  <div class="row justify-content-center">
+    <% if @rating.user == current_user %>
+      <div class="col-auto">
+        <%= link_to 'Voltar para Pedido', order_path(@rating.order.id), class: "btn btn-info pe-3 ps-3" %>
+      </div>
+    <% end %>
+    <% if @rating.buffet.owner == current_owner %>
+      <div class="col-auto">
+        <%= link_to 'Voltar para Pedido', details_order_path(@rating.order.id), class: "btn btn-info pe-3 ps-3" %>
+      </div>
+    <% end %>
+    <div class="col-auto">
+      <%= link_to 'Voltar para Buffet', buffet_path(@rating.buffet), class: "btn btn-secondary" %>
     </div>
   </div>
 </div>

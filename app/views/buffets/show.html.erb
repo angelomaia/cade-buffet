@@ -29,6 +29,11 @@
             <dd class="col-sm-8 text-sm-left <%= status_class %>"><strong><%= I18n.t(@buffet.status) %></strong></dd>
           <% end %>
 
+          <% if @buffet.ratings.any? %>
+            <dt class="col-sm-4 text-sm-right text-end">Nota do Buffet (0 - 5):</dt>
+            <dd class="col-sm-8 text-sm-left"><%= sprintf("%.1f", @buffet.average_rating) %></dd>
+          <% end %>
+
           <dt class="col-sm-4 text-sm-right text-end"">Localização:</dt>
           <dd class="col-sm-8 text-sm-left">
             <%= @buffet.address %>, <%= @buffet.neighborhood %>, <%= @buffet.city %> - <%= @buffet.state %>, <%= @buffet.zipcode %>
@@ -115,30 +120,41 @@
 <% if @buffet.ratings.any? %>
   <div class="row justify-content-center">
     <div class="col-auto" style="width: 800px;">
-      <div class="border-card-5">
-          <div class="container mt-3">
-            <div class="row justify-content-center"></div>
-              <h3 class="text-center mb-3">Avaliações do Buffet</h3>
-              
-              <% Rating.top_three(@buffet).each do |rating| %>
-                <div class="border-card-3">
-                  <h5 class="text-center"><%= rating.event_type.name %> em <%= rating.order.date %></h5>
-                  <p>Nota: <%= rating.grade %></p>
-                  <p>Comentário: <%= rating.text %></p>
-                </div>
-              <% end %>
-
-              <% if @buffet.ratings.count > 3 %>
-                <div class="text-center">
-                  <%= link_to 'Ver Todas', ratings_buffet_path, class: "btn btn-info" %>
-                </div>
-              <% end %>
-            </div>
+      <div class="border-card-7">
+        <div class="container mt-3">
+          <div class="row justify-content-center">
+            <h3 class="text-center mb-3">Avaliações do Buffet</h3>
           </div>
+          <% Rating.top_three(@buffet).each do |rating| %>
+            <%= link_to "/buffets/#{@buffet.id}/ratings/#{rating.id}", class: "card-link invisible-link" do %>
+              <div class="border-card-8 row">
+                <h5 class="text-center"><%= rating.event_type.name %> em <%= rating.order.date %></h5>
+                <div class="col-md-6">
+                  <p><strong>Nota: </strong><%= rating.grade %></p>
+                  <p><strong>Comentário: </strong><%= rating.text %></p>
+                </div>
+                <div class="col-md-6">
+                  <% rating.photos.each do |photo| %>
+                    <div class="mr-2 mb-2">
+                      <%= image_tag photo.variant(resize_to_fit: [120, 80]) %>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+
+          <% if @buffet.ratings.count > 3 %>
+            <div class="text-center">
+              <%= link_to 'Ver Todas', ratings_buffet_path, class: "btn btn-info" %>
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
 <% end %>
+
 
 </div>
   <div class="mt-3 mb-4 text-center">

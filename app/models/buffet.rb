@@ -19,6 +19,14 @@ class Buffet < ApplicationRecord
   has_many :orders
   has_many :ratings
 
+  def average_rating
+    total_ratings = ratings.count
+    return nil if total_ratings.zero?
+
+    total_grades = ratings.sum(:grade)
+    total_grades.to_f / total_ratings
+  end
+
   def has_any_price?
     event_types.joins(:price).exists?
   end

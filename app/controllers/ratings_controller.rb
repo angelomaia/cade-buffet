@@ -19,7 +19,7 @@ class RatingsController < ApplicationController
     @event_type = @order.event_type
 
     if @order.user == current_user
-      @rating = Rating.new(params.require(:rating).permit(:grade, :text, :photos))
+      @rating = Rating.new(params.require(:rating).permit(:grade, :text, photos: []))
       @rating.order = @order
       @rating.buffet = @buffet
       @rating.event_type = @event_type
@@ -27,6 +27,7 @@ class RatingsController < ApplicationController
   
       if @rating.valid?
         @rating.save!
+        @rating.order.rated!
         return redirect_to buffet_rating_path(@rating.buffet, @rating), notice: 'Avaliação enviada com sucesso.'
       else
         return render :new, alert: 'Não foi possível enviar a avaliação.'

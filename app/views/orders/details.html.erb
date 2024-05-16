@@ -137,6 +137,11 @@
           <%= link_to 'Fazer Nova Proposta', evaluation_order_path, class: "btn btn-warning pe-3 ps-3" %>
         <% end %>
       </div>
+      <% if @order.rated? %>
+        <div class="col-auto">
+          <%= link_to 'Avaliação do Cliente', "/buffets/#{@order.buffet.id}/ratings/#{@order.rating.id}", class: "btn btn-outline-success" %>
+        </div>
+      <% end %>
       <div class="col-auto">
         <% if @order.status != 'cancelled' && @order.status != 'confirmed'  %>
           <%= button_to 'Cancelar Pedido', owner_cancel_order_path, method: :post, class: "btn btn-danger pe-3 ps-3", id: "cancel-order-btn" %>

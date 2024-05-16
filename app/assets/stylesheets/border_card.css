@@ -80,6 +80,21 @@
   box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
+.border-card-8 {
+  border: 1px solid #adadad;
+  border-radius: 0.25rem;
+  background-color: white;
+  padding: 25px;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.border-card-8:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  transform: translateY(-2px) translateX(-2px);
+}
+
 body {
   background-color: #edfffc !important;
 }

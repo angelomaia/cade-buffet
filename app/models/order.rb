@@ -16,6 +16,7 @@ class Order < ApplicationRecord
 
   enum location: { buffet_address: 0, elsewhere: 1 }
   enum status: { pending: 0, approved: 1, confirmed: 2, cancelled: 9}
+  enum rating_status: { unrated: 0, rated: 1}
 
   before_validation :generate_code, on: :create
 

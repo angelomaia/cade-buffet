@@ -119,9 +119,14 @@
       </div>
     <% end %>
     <div class="row">
-      <% if @order.status == 'confirmed' && @order.date < Date.today %>
+      <% if @order.status == 'confirmed' && @order.date < Date.today && @order.unrated? %>
         <div class="col-auto">
           <%= link_to 'Avaliar Buffet', new_order_rating_path(order_id: @order.id), class: "btn btn-success pe-3 ps-3" %>
+        </div>
+      <% end %>
+      <% if @order.rated? %>
+        <div class="col-auto">
+          <%= link_to 'Avaliação Enviada!', "/buffets/#{@order.buffet.id}/ratings/#{@order.rating.id}", class: "btn btn-outline-success" %>
         </div>
       <% end %>
       <% if @order.status == 'approved' && @order.order_price.expiration_date >= Date.today %>
