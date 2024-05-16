@@ -18,6 +18,9 @@ pt-BR:
       rating:
         one: 'Avaliação'
         other: 'Avaliações'
+      cancel_fine:
+        one: 'Multa por Cancelamento'
+        other: 'Multas por Cancelamento'
     attributes:
       user:
         name: 'Nome'
@@ -96,6 +99,9 @@ pt-BR:
         grade: 'Nota'
         text: 'Comentário'
         photos: 'Fotos'
+      cancel_fine:
+        days: 'Dias antes da Data do Evento'
+        percentage: 'Porcentagem da Multa'
 
 
 

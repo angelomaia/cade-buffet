@@ -12,14 +12,14 @@
                   <% buffet.event_types.each do |event| %>
                     <div style="padding: 5px;">
                       <% unless event.deactivated? %>
-                        <div class="row justify-content-end">
-                          <div class="col-auto">
-                            <%= event.name %> 
-                          </div>
+                        <div class="row justify-content-start">
                           <div class="col-auto">
                             <% if event.cover_photo.attached? %>
                               <%= image_tag event.cover_photo.variant(resize_to_limit: [40, 30])%>
                             <% end %>
+                          </div>
+                          <div class="col-auto">
+                            <%= event.name %> 
                           </div>
                         </div>
                       <% end %>

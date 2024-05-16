@@ -1,0 +1,39 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="border-card-7" style="width: 600px;">
+      <h3 class="mb-4 text-center">Nova Multa por Cancelamento para <%= @event_type.name %></h3>
+      <% if @cancel_fine.errors.any? %>
+        <div class="alert alert-danger" role="alert">
+          <ul>
+            <% @cancel_fine.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= form_with(model: [@event_type, @cancel_fine]) do |f| %>
+        <div class="mb-3">
+          <%= f.label :days, class: 'form-label' %>: 
+          <%= f.number_field :days, class: 'form-control' %>
+        </div>
+        <div class="mb-3">
+          <%= f.label :percentage, class: 'form-label' %>: 
+          <%= f.number_field :percentage, multiple: true, class: 'form-control' %>
+        </div>
+        <div class="mb-3 text-center">
+          <%= f.submit 'Registrar', class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-8 text-center">
+          <%= link_to 'Voltar', :back, class: "btn btn-secondary" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

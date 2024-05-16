@@ -5,7 +5,7 @@
         <div>
           <h1><%= @event_type.name %></h1>
           <% if @event_type.cover_photo.attached? %>
-            <%= image_tag @event_type.cover_photo.variant(resize_to_fit: [400, 300]) %>
+            <%= image_tag @event_type.cover_photo.variant(resize_to_limit: [400, 300])%>
           <% end %>
         </div>
 
@@ -25,7 +25,7 @@
         <div class="border-card-5 d-flex flex-wrap justify-content-center" id="gallery">
           <% @event_type.gallery_photos.each do |photo| %>
             <div class="mr-2 mb-2" style="padding: 2px;">
-              <%= image_tag photo.variant(resize_to_fit: [300, 200]) %>
+              <%= image_tag photo.variant(resize_to_limit: [300, 200]), class: "mb-1" %>
               <% if @event_type.buffet.owner == current_owner %>
                 <%= button_to 'Apagar', event_type_delete_photo_path(event_type_id: @event_type.id, 
                                                                     photo_id: photo.id), method: :delete, 
@@ -135,6 +135,7 @@
     <div class="col-12 col-md-8 text-center">
       <% if @event_type.buffet.owner == current_owner %>
         <%= link_to 'Definir Preços', set_price_event_type_path, class: "btn btn-warning" %>
+        <%= link_to 'Definir Multa por Cancelamento', new_event_type_cancel_fine_path(@event_type), class: "btn btn-danger" %>
         <%= link_to 'Editar Tipo de Evento', edit_event_type_path, class: "btn btn-primary" %>
       <% end %>
       <%= link_to 'Voltar', @event_type.buffet, class: "btn btn-secondary" %>

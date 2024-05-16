@@ -33,10 +33,10 @@ class EventTypesController < ApplicationController
     else
       flash.now[:notice] = "Não foi possível atualizar o Tipo de Evento"
       if @event_type.errors.details.keys.any? { |error_key| error_key.to_s.start_with?('price.') }
-      render 'set_price'
-    else
-      render 'edit'
-    end
+        render 'set_price'
+      else
+        render 'edit'
+      end
     end
   end
   

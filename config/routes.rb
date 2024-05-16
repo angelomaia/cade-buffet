@@ -35,6 +35,7 @@ Rails.application.routes.draw do
     get 'set_price', on: :member
     post 'deactivate', on: :member
     post 'activate', on: :member
+    resources :cancel_fines, only: [:new, :create]
   end
 
 
