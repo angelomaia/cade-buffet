@@ -133,11 +133,11 @@
                   <p><strong>Nota: </strong><%= rating.grade %></p>
                   <p><strong>Comentário: </strong><%= rating.text %></p>
                 </div>
-                <div class="col-md-6">
+                <div class="col-lg-6">
                   <% rating.photos.each do |photo| %>
-                    <div class="mr-2 mb-2">
+                    <span class="mr-2 mb-2">
                       <%= image_tag photo.variant(resize_to_fit: [120, 80]) %>
-                    </div>
+                    </span>
                   <% end %>
                 </div>
               </div>

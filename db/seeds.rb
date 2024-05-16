@@ -1,9 +1,8 @@
 owner = Owner.create!(email: 'owner@email.com', password: 'password')
 owner_two = Owner.create!(email: 'owner_two@email.com', password: 'password')
 owner_three = Owner.create!(email: 'owner_three@email.com', password: 'password')
-owner_four = Owner.create!(email: 'owner_four@email.com', password: 'password')
-owner_five = Owner.create!(email: 'owner_five@email.com', password: 'password')
-User.create!(name: 'User', cpf: CPF.generate, email: 'user@email.com', password: 'password')
+
+user = User.create!(name: 'User', cpf: CPF.generate, email: 'user@email.com', password: 'password')
 
 festim = Buffet.create!(name: 'Festim', corporate_name: 'Festim Eventos Ltda', cnpj: '12345678901', 
                address: 'Rua das Camélias, 58', neighborhood: 'Jardim', city: 'São Paulo', state: 'SP', 
@@ -20,16 +19,6 @@ bons_momentos = Buffet.create!(name: 'Bons Momentos', corporate_name: 'Bons Mome
                email: 'atendimento@bonsmomentos.com.br', phone: '4198526374', zipcode: '52000123', 
                pix: true, debit: false, credit: true, cash: true, owner: owner_three)
 
-Buffet.create!(name: 'Viva!', corporate_name: 'Viva Eventos e Recepções Ltda', cnpj: '20293048576', 
-               address: 'Rua Nova Esperança, 90', neighborhood: 'Vila Nova', city: 'Porto Alegre', state: 'RS', 
-               email: 'contato@viva.com.br', phone: '5198765432', zipcode: '52000123', 
-               pix: true, debit: true, credit: false, cash: true, owner: owner_four)
-
-noite_feliz = Buffet.create!(name: 'Noite Feliz', corporate_name: 'Noite Feliz Eventos Ltda', cnpj: '56789123456', 
-               address: 'Travessa Lunar, 15', neighborhood: 'Luar', city: 'Manaus', state: 'AM', 
-               email: 'contato@noitefeliz.com.br', phone: '9298765432', zipcode: '52000123', 
-               pix: true, debit: true, credit: true, cash: false, owner: owner_five)
-
 casamento_festim = EventType.create!(name: 'Festa de Casamento', duration: '240', min_people: '20',
                   max_people: '100', description: 'Festa completa', menu: 'Sushi, mesa de frios, strogonoff',
                   buffet: festim)
@@ -38,18 +27,32 @@ Price.create!(base: 5000, extra_person: 200, extra_hour: 1500, event_type: casam
 infantil_festim = EventType.create!(name: 'Festa Infantil', duration: '240', min_people: '10',
                   max_people: '100', description: 'Festa completa', menu: 'Sushi, mesa de frios, strogonoff',
                   location: 'anywhere', buffet: festim)
+Price.create!(base: 3000, extra_person: 100, extra_hour: 1000, event_type: infantil_festim)
+
 EventType.create!(name: 'Festa de Casamento', duration: '240', min_people: '10',
                   max_people: '100', description: 'Festa completa', menu: 'Sushi, mesa de frios, strogonoff',
                   buffet: celebra)
 EventType.create!(name: 'Festa de Casamento', duration: '240', min_people: '10',
                   max_people: '100', description: 'Festa completa', menu: 'Sushi, mesa de frios, strogonoff',
                   buffet: bons_momentos)
-EventType.create!(name: 'Festa de Casamento', duration: '240', min_people: '10',
-                  max_people: '100', description: 'Festa completa', menu: 'Sushi, mesa de frios, strogonoff',
-                  buffet: noite_feliz)
-EventType.create!(name: 'Festa Infantil', duration: '240', min_people: '10',
-                  max_people: '100', description: 'Festa completa', menu: 'Sushi, mesa de frios, strogonoff',
-                  buffet: noite_feliz)
 
 casamento_festim.cover_photo.attach(io: File.open(Rails.root.join('spec', 'support', 'wedding.jpg')), filename: 'wedding.jpg')
 infantil_festim.cover_photo.attach(io: File.open(Rails.root.join('spec', 'support', 'kids_party.jpg')), filename: 'kids_party.jpg')
+
+casamento_festim.gallery_photos.attach(io: File.open(Rails.root.join('spec', 'support', 'wedding_3.jpg')), filename: 'wedding_3.jpg')
+casamento_festim.gallery_photos.attach(io: File.open(Rails.root.join('spec', 'support', 'wedding_4.jpg')), filename: 'wedding_4.jpg')
+casamento_festim.gallery_photos.attach(io: File.open(Rails.root.join('spec', 'support', 'wedding_5.jpg')), filename: 'wedding_5.jpg')
+
+order = Order.create!(user: user, buffet: festim, event_type: casamento_festim, date: 1.week.from_now.to_date, 
+              guest_quantity: 50, details: 'Festa de Casamento pra 50 pessoas',
+              location: 'buffet_address', status: 'pending')
+Chat.create!(order: order)
+OrderPrice.create!(order: order, buffet: festim, event_type: casamento_festim, base: 11000, 
+                  payment: 'debit', expiration_date: 1.year.from_now.to_date, discount: 0, fee: 0)
+order.approved!
+order.confirmed!
+order.date = 1.month.ago.to_date
+rating = Rating.create!(user: user, order: order, buffet: festim, event_type: casamento_festim, grade: 5, text: 'Ótima festa de casamento!')
+
+rating.photos.attach(io: File.open(Rails.root.join('spec', 'support', 'wedding_1.jpg')), filename: 'wedding_1.jpg')
+rating.photos.attach(io: File.open(Rails.root.join('spec', 'support', 'wedding_2.jpg')), filename: 'wedding_2.jpg')

@@ -8,7 +8,23 @@
             <div class="card h-100">
               <div class="card-body">
                 <%= link_to buffet_path(buffet), class: "stretched-link" do %>
-                  <h5 class="card-title"><%= buffet.name %></h5>
+                  <h4 class="card-title"><%= buffet.name %></h4>
+                  <% buffet.event_types.each do |event| %>
+                    <div style="padding: 5px;">
+                      <% unless event.deactivated? %>
+                        <div class="row justify-content-end">
+                          <div class="col-auto">
+                            <%= event.name %> 
+                          </div>
+                          <div class="col-auto">
+                            <% if event.cover_photo.attached? %>
+                              <%= image_tag event.cover_photo.variant(resize_to_limit: [40, 30])%>
+                            <% end %>
+                          </div>
+                        </div>
+                      <% end %>
+                    </div>
+                  <% end %>
                 <% end %>
               </div>
               <div class="card-footer">
