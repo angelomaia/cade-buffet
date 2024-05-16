@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     post 'deactivate', on: :member
     post 'activate', on: :member
     resources :ratings, only: [:show]
+    get 'ratings', on: :member
   end
   
   resources :event_types, only: [:show, :edit, :update, :new, :create] do

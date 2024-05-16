@@ -1,11 +1,11 @@
-<div class="border-card-7 d-flex flex-column align-items-center justify-content-center">
+<div class="border-card-7 d-flex flex-column align-items-center">
   <div class="row justify-content-center">
     <h3>Avaliação de <%= @rating.user.name %> </h3>
   </div>
   <div class="row justify-content-center">
     <div class="col">
       <div class="buffet">
-        <h4><%= @rating.event_type.name %> em <%= @rating.order.date %></h4>
+        <h4 class="text-center"><%= @rating.event_type.name %> em <%= @rating.order.date %></h4>
       </div>
       <div class="border-card">
         <div class="card-body">
@@ -28,7 +28,7 @@
         </div>
       <% end %>
       <div class="col-auto">
-        <%= link_to 'Voltar para Buffet', buffet_path(@rating.buffet.id), class: "btn btn-secondary" %>
+        <%= link_to 'Voltar', :back, class: "btn btn-secondary" %>
       </div>
     </div>
   </div>

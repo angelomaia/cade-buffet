@@ -79,6 +79,11 @@ class BuffetsController < ApplicationController
     @buffets = buffets
   end
 
+  def ratings
+    @buffet = Buffet.find(params[:id])
+    @ratings = Rating.list(@buffet)
+  end
+
   private
 
   def buffet_params

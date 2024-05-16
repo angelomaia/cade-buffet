@@ -111,6 +111,36 @@
     <% end %>
   </div>
 </div>
+
+<% if @buffet.ratings.any? %>
+  <div class="row justify-content-center">
+    <div class="col-auto" style="width: 800px;">
+      <div class="border-card-5">
+          <div class="container mt-3">
+            <div class="row justify-content-center"></div>
+              <h3 class="text-center mb-3">Avaliações do Buffet</h3>
+              
+              <% Rating.top_three(@buffet).each do |rating| %>
+                <div class="border-card-3">
+                  <h5 class="text-center"><%= rating.event_type.name %> em <%= rating.order.date %></h5>
+                  <p>Nota: <%= rating.grade %></p>
+                  <p>Comentário: <%= rating.text %></p>
+                </div>
+              <% end %>
+
+              <% if @buffet.ratings.count > 3 %>
+                <div class="text-center">
+                  <%= link_to 'Ver Todas', ratings_buffet_path, class: "btn btn-info" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+</div>
   <div class="mt-3 mb-4 text-center">
     <%= link_to 'Voltar', :back, class: "btn btn-secondary" %>
   </div>

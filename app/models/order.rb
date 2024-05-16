@@ -5,6 +5,7 @@ class Order < ApplicationRecord
 
   has_one :order_price
   has_one :chat
+  has_one :rating
 
   validates :date, :guest_quantity, presence: true
   validates :guest_quantity, numericality: { greater_than: 0 }

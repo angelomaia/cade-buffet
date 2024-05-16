@@ -3,6 +3,7 @@ class EventType < ApplicationRecord
   has_one :price
   accepts_nested_attributes_for :price
   has_many :orders
+  has_many :ratings
   has_one_attached :cover_photo
   has_many_attached :gallery_photos
   

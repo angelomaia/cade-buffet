@@ -97,6 +97,10 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
     @orders = current_owner.buffet.orders.where(date: @order.date)
 
+    if @order.approved?
+      old_price = @order.order_price
+    end
+
     @order.order_price.destroy if @order.order_price != nil
 
     @order_price = OrderPrice.new(params.require(:order_price).permit(:discount, :fee, :payment, :description, :expiration_date))
@@ -113,6 +117,7 @@ class OrdersController < ApplicationController
       @order.update(status: 'approved')
       redirect_to details_order_path(@order), notice: 'Pedido aprovado com sucesso.'
     else
+      @order.order_price = old_price.dup if old_price
       render :evaluation, alert: 'Não foi possível aprovar o pedido.'
     end
   end

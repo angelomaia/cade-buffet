@@ -9,4 +9,5 @@ class User < ApplicationRecord
   validates_cpf_format_of :cpf
 
   has_many :orders
+  has_many :ratings
 end

@@ -17,6 +17,7 @@ class Buffet < ApplicationRecord
 
   has_many :event_types
   has_many :orders
+  has_many :ratings
 
   def has_any_price?
     event_types.joins(:price).exists?

@@ -9,6 +9,17 @@
       <% end %></p>
     <% end %>
   </div>
+
+  <% if @order_price.errors.any? %>
+    <div class="alert alert-danger" role="alert">
+      <ul>
+        <% @order_price.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
 <div class="border-card-7">
   <h2>Avaliando Pedido de <%= @order.event_type.name %> </h2>
   <br>

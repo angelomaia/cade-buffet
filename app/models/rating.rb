@@ -9,6 +9,14 @@ class Rating < ApplicationRecord
   validates :grade, numericality: { in: 1..5 }
   validate :order_must_be_in_the_past
 
+  def self.list(buffet)
+    where(buffet: buffet).order(created_at: :desc)
+  end
+
+  def self.top_three(buffet)
+    where(buffet: buffet).order(created_at: :desc).limit(3)
+  end
+
   private
 
   def order_must_be_in_the_past
