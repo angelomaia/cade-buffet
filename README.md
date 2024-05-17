@@ -9,6 +9,7 @@
 
 - [Dependencies](#dependencies)
 - [Setup](#setup)
+- [Testing](#testing)
 - [Example Credentials](#example-credentials)
 - [App Features](#app-features)
 - [API Documentation](#api-documentation)
@@ -48,6 +49,13 @@ rails server
 Acces the App via localhost:3000 in your browser:
 ```
 http://localhost:3000
+```
+
+## Testing
+<p>The whole app was built following TDD (Test-driven development) practices. Hence, there are several system, requests, and unit tests. All tests can be run with the following command:</p>
+
+```
+rspec
 ```
 
 ## Example Credentials
