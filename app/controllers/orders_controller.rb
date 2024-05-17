@@ -7,9 +7,9 @@ class OrdersController < ApplicationController
                                               :cancel_with_fine]
   before_action :authenticate_owner!, only: [:owner, :details, :evaluation, 
                                               :create_order_price, :new_buffet_message,
-                                              :owner_cancel]
+                                              :owner_cancel, :fine_paid]
   before_action :set_order_check_owner, only: [:details, :evaluation, :new_buffet_message,
-                                              :owner_cancel]
+                                              :owner_cancel, :fine_paid]
   before_action :check_expired_orders, only: [:owner, :index, :show, :details]
   
   def new
@@ -131,7 +131,7 @@ class OrdersController < ApplicationController
     @confirmed_orders = Order.where(buffet: @buffet, status: 'confirmed')
     @cancelled_orders = Order.where(buffet: @buffet, status: 'cancelled')
   end
-
+  
   def new_cancel_fine_charge
     cancel_fines = @order.event_type.cancel_fines
   
@@ -153,7 +153,12 @@ class OrdersController < ApplicationController
     @order.cancelled!
     redirect_to @order, notice: 'Pedido cancelado com sucesso. Multa aplicada.'
   end
-  
+
+  def fine_paid
+    fine = FineCharge.where(order: @order).first
+    fine.paid!
+    redirect_to details_order_path(@order), notice: 'Multa definida como Paga.'
+  end
 
   def new_user_message
     @user_message = UserMessage.new(params.require(:user_message).permit(:content))

@@ -166,10 +166,14 @@
         </div>
       </div>
     <% end %>
-    <% if @order.cancelled? && @order.fine_charge && @order.fine_charge.pending? %>
+    <% if @order.cancelled? && @order.fine_charge %>
       <div class="col-6">
         <div class="border-card-7">
-          <h4 class="text-center text-danger">Multa Pendente de R$ <%= @order.fine_charge.value %></h4>
+          <% if @order.fine_charge.pending? %>
+            <h4 class="text-center text-danger">Multa Pendente de R$ <%= @order.fine_charge.value %></h4>
+          <% else %>
+            <h4 class="text-center text-success">Multa de R$ <%= @order.fine_charge.value %> Paga.</h4>
+          <% end %>
         </div>
       </div>
     <% end %>

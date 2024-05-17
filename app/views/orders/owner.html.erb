@@ -51,6 +51,11 @@
             <span><%= order.date %> </span><br>
             <span>Cliente: <%= order.user.name %> (<%= order.user.email %>)</span>
             <%= link_to order.code, details_order_path(order), class: 'stretched-link' %>
+            <% if order.fine_charge && order.fine_charge.pending? %>
+              <strong class="text-danger">Multa Pendente</strong>
+            <% elsif order.fine_charge && order.fine_charge.paid? %>
+              <strong class="text-success">Multa Paga</strong>            
+            <% end %>
           </div>
         </div>
       <% end %>

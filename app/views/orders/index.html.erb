@@ -52,6 +52,11 @@
             <h6><%= order.event_type.name %></h6>
             <span><%= order.date %></span>
             <%= link_to order.code, order, class: 'stretched-link' %>
+            <% if order.fine_charge && order.fine_charge.pending? %>
+              <strong class="text-danger">Multa Pendente</strong>
+            <% elsif order.fine_charge && order.fine_charge.paid? %>
+              <strong class="text-success">Multa Paga</strong>            
+            <% end %>
           </div>
         </div>
       <% end %>

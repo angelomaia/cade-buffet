@@ -39,7 +39,11 @@ class Api::V1::EventTypesController < Api::V1::ApiController
           base_price = event.price.base
           extra_person_price = event.price.extra_person
           min_people = event.min_people.to_f
-          value = base_price + (extra_person_price * (guests - min_people))
+          if guests >= min_people
+            value = base_price + (extra_person_price * (guests - min_people))
+          else
+            value = base_price
+          end
 
           result = { 'price': value }
         end

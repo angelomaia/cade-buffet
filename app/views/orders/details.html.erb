@@ -152,6 +152,41 @@
       </div>
     </div>
   </div>
+  <div class="row">
+    <% if @order.event_type.cancel_fines.any? %>
+      <div class="col-6">
+        <div class="border-card-7">
+          <h4 class="text-center">Multas por Cancelamento:</h4>
+          <% @order.event_type.cancel_fines.each do |fine| %>
+            <div class="border-card-3">
+              <dl>
+                <dd><strong>Dias antes da Data do Evento: </strong><%= fine.days %></dd>
+                <dd><strong>Porcentagem da Multa: </strong><%= fine.percentage %>%</dd>
+              </dl>
+              <small class="form-text text-muted">Essa multa é aplicada apenas para eventos confirmados que forem cancelados a <%= fine.days %> dias ou menos antes da data do evento.</small>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+    <% if @order.cancelled? && @order.fine_charge %>
+      <div class="col-6">
+        <div class="border-card-7 text-center">
+
+          <% if @order.fine_charge.pending? %>
+            <h4 class="text-center text-danger">Multa Pendente de R$ <%= @order.fine_charge.value %></h4>
+          <% else %>
+            <h4 class="text-center text-success">Multa de R$ <%= @order.fine_charge.value %> Paga.</h4>
+          <% end %>
+
+          <% if @order.buffet.owner == current_owner && @order.fine_charge.pending? %>
+            <%= button_to 'Multa Paga', fine_paid_order_path, method: :post, class: "btn btn-success pe-3 ps-3" %>
+          <% end %>
+
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>
 
 <script>

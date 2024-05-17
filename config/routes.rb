@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     resources :ratings, only: [:new, :create]
     get 'new_cancel_fine_charge', on: :member
     post 'cancel_with_fine', on: :member
+    post 'fine_paid', on: :member
   end
 
   resources :buffets, only: [:show, :new, :create, :edit, :update] do

@@ -22,6 +22,10 @@ bons_momentos = Buffet.create!(name: 'Bons Momentos', corporate_name: 'Bons Mome
 casamento_festim = EventType.create!(name: 'Festa de Casamento', duration: '240', min_people: '20',
                   max_people: '100', description: 'Festa completa', menu: 'Sushi, mesa de frios, strogonoff',
                   buffet: festim)
+
+CancelFine.create!(days: 30, percentage: 50, event_type: casamento_festim)
+CancelFine.create!(days: 7, percentage: 100, event_type: casamento_festim)
+
 Price.create!(base: 5000, extra_person: 200, extra_hour: 1500, event_type: casamento_festim)
 
 infantil_festim = EventType.create!(name: 'Festa Infantil', duration: '240', min_people: '10',
