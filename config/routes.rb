@@ -39,6 +39,7 @@ Rails.application.routes.draw do
     post 'deactivate', on: :member
     post 'activate', on: :member
     resources :cancel_fines, only: [:new, :create]
+    resources :special_offers, only: [:new, :create]
   end
 
 

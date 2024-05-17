@@ -5,6 +5,7 @@ class EventType < ApplicationRecord
   has_many :orders
   has_many :ratings
   has_many :cancel_fines
+  has_many :special_offers
   has_one_attached :cover_photo
   has_many_attached :gallery_photos
   

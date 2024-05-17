@@ -210,7 +210,7 @@ class OrdersController < ApplicationController
       base_price + (extra_person_price * (order.guest_quantity - min_people))
     else
       base_price = order.event_type.price.base
-      extra_person_price = @order.event_type.price.extra_person
+      extra_person_price = order.event_type.price.extra_person
       min_people = order.event_type.min_people.to_f
       base_price + (extra_person_price * (order.guest_quantity - min_people))
     end

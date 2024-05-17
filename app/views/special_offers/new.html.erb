@@ -1,0 +1,43 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="border-card-7" style="width: 600px;">
+      <h2 class="mb-4 text-center">Nova Promoção para <%= @event_type.name %></h2>
+      <% if @special_offer.errors.any? %>
+        <div class="alert alert-danger" role="alert">
+          <ul>
+            <% @special_offer.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= form_with(model: [@event_type, @special_offer]) do |f| %>
+        <div class="mb-3">
+          <%= f.label :start, class: 'form-label' %>: 
+          <%= f.date_field :start, class: 'form-control' %>
+        </div>
+        <div class="mb-3">
+          <%= f.label :end, class: 'form-label' %>: 
+          <%= f.date_field :end, class: 'form-control' %>
+        </div>
+        <div class="mb-3">
+          <%= f.label :percentage, class: 'form-label' %>: 
+          <%= f.number_field :percentage, class: 'form-control' %>
+        </div>
+        <div class="mb-3 text-center">
+          <%= f.submit 'Registrar', class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-8 text-center">
+          <%= link_to 'Voltar', :back, class: "btn btn-secondary" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

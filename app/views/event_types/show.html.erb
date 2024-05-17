@@ -43,6 +43,9 @@
         <dl class="row">
           <% if @event_type.buffet.owner == current_owner %>
             <div class="text-center mb-3">
+              <%= link_to 'Criar Promoção', new_event_type_special_offer_path(@event_type), class: "btn, btn-success" %>
+            </div>
+            <div class="text-center mb-3">
                 <% if @event_type.active? %>
                   <%= button_to 'Desativar Tipo de Evento', deactivate_event_type_path, method: :post, class: "btn btn-danger" %>
                 <% else %>
@@ -93,6 +96,13 @@
     <% if @event_type.price != nil %>
       <div class="row justify-content-center">
         <div class="col">
+          <% if @event_type.special_offers.any? %>
+            <% @event_type.special_offers.each do |offer| %>
+              <% unless offer.end < Date.today %>
+                <h4 class="text-success">Promoção: Desconto de <%= offer.percentage %>% dos dias <%= offer.start %> a <%= offer.end %></h4>
+              <% end %>
+            <% end %>
+          <% end %>
           <h3>Preços</h3>
           <dl class="row">
             <% unless @event_type.price.base == nil %>

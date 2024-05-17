@@ -21,6 +21,9 @@ pt-BR:
       cancel_fine:
         one: 'Multa por Cancelamento'
         other: 'Multas por Cancelamento'
+      special_offer:
+        one: 'Promoção'
+        other: 'Promoções'
     attributes:
       user:
         name: 'Nome'
@@ -102,6 +105,10 @@ pt-BR:
       cancel_fine:
         days: 'Dias antes da Data do Evento'
         percentage: 'Porcentagem da Multa'
+      special_offer:
+        start: 'Data de Início'
+        end: 'Data de Encerramento'
+        percentage: 'Porcentagem de Desconto'
 
 
 
