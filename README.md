@@ -5,6 +5,8 @@
 # Cadê Buffet?
 <p align="justify"><i>Cadê Buffet?</i> is an application that aims to connect potential clients to companies that provide Buffet services. Users can browse through a selection of registered Buffets with different Event Types. Events can be ordered via the app, with scheduled date, guests quantity, and much more. The Order system provides a clear way to create, approve, confirm, or cancel an ordered event, with the interaction of the User and the Buffet provider. Once an order is created, the User and Buffet can chat via the App to discuss details. The Buffet provider can set cancel fines for confirmed orders. After a confirmed Event occurs, the User can Rate the Buffet.</p>
 
+![header](https://github.com/angelomaia/cade-buffet/blob/main/app/assets/images/Screenshot%20from%202024-05-17%2011-33-58.png)
+
 ## Table of Contents
 
 - [Dependencies](#dependencies)
