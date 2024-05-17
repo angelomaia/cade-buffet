@@ -42,6 +42,10 @@ Run bin/setup:
 ```
 bin/setup
 ```
+To avoid any SQLite issues, run:
+```
+rails db:reset
+```
 Run rails server:
 ```
 rails server
