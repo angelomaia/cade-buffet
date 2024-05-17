@@ -46,7 +46,7 @@ Run rails server:
 ```
 rails server
 ```
-Acces the App via localhost:3000 in your browser:
+Access the App via localhost:3000 in your browser:
 ```
 http://localhost:3000
 ```
@@ -90,6 +90,7 @@ rspec
 	<li>Add a cover photo to an Event</li>
 	<li>Add Gallery photos to an Event</li>
 	<li>Set Cancel Fines for an Event, based on days before order date and a percentage of the total value</li>
+  	<li>Activate or Deactivate your Event Type as an Owner to make it visible/invisible</li>
   </ul>
   <li>List Buffets</li>
   <li>Search for Buffets by their names, associated Events, or locations</li>
