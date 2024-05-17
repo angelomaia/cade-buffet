@@ -1,8 +1,10 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :show, :index, :confirm, 
-                                            :new_user_message, :user_cancel]
+                                            :new_user_message, :user_cancel,
+                                            :new_cancel_fine_charge, :cancel_with_fine]
   before_action :set_order_check_user, only: [:show, :confirm, :new_user_message, 
-                                              :user_cancel]
+                                              :user_cancel, :new_cancel_fine_charge,
+                                              :cancel_with_fine]
   before_action :authenticate_owner!, only: [:owner, :details, :evaluation, 
                                               :create_order_price, :new_buffet_message,
                                               :owner_cancel]
@@ -129,6 +131,29 @@ class OrdersController < ApplicationController
     @confirmed_orders = Order.where(buffet: @buffet, status: 'confirmed')
     @cancelled_orders = Order.where(buffet: @buffet, status: 'cancelled')
   end
+
+  def new_cancel_fine_charge
+    cancel_fines = @order.event_type.cancel_fines
+  
+    applicable_fines = cancel_fines.select do |cancel_fine|
+      (Date.today + cancel_fine.days.days) >= @order.date
+    end
+  
+    if applicable_fines.any?
+      applicable_fine = applicable_fines.min_by(&:days)
+      @value = (applicable_fine.percentage.to_f * @order.order_price.total.to_f)/100.0
+    else
+      flash[:alert] = "Não foram encontradas Multas por Cancelamento."
+    end
+  end
+
+  def cancel_with_fine
+    value = params[:value]
+    FineCharge.create!(order: @order, user: @order.user, buffet: @order.buffet, value: value)
+    @order.cancelled!
+    redirect_to @order, notice: 'Pedido cancelado com sucesso. Multa aplicada.'
+  end
+  
 
   def new_user_message
     @user_message = UserMessage.new(params.require(:user_message).permit(:content))

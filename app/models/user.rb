@@ -10,4 +10,5 @@ class User < ApplicationRecord
 
   has_many :orders
   has_many :ratings
+  has_many :fine_charges
 end

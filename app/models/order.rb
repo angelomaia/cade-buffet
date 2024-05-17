@@ -6,6 +6,7 @@ class Order < ApplicationRecord
   has_one :order_price
   has_one :chat
   has_one :rating
+  has_one :fine_charge
 
   validates :date, :guest_quantity, presence: true
   validates :guest_quantity, numericality: { greater_than: 0 }
@@ -19,6 +20,19 @@ class Order < ApplicationRecord
   enum rating_status: { unrated: 0, rated: 1}
 
   before_validation :generate_code, on: :create
+
+  def cancel_fines_apply?
+    return false unless event_type.cancel_fines.any?
+  
+    event_type.cancel_fines.each do |cancel_fine|
+      if (Date.today + cancel_fine.days.days) >= date
+        return true
+      end
+    end
+  
+    false
+  end
+  
 
   private
 

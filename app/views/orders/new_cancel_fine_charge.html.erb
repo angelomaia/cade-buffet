@@ -1,0 +1,21 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="border-card-7" style="width: 600px;">
+      <h3 class="mb-4 text-center text-danger">Alerta!</h3>
+      <h4 class="mb-4 text-center">O Cancelamento do Pedido acarretará na cobrança da seguinte multa:</h3>
+      <h4 class="mb-4 text-center">R$ <%= @value %></h4>
+      <div class="row justify-content-center">
+        <div class="col-auto">
+          <%= button_to 'Confirmar Cancelamento', cancel_with_fine_order_path(value: @value), method: :post, class: "btn btn-danger pe-3 ps-3" %>
+        </div>
+        <div class="col-auto">
+          <%= link_to 'Voltar', :back, class: "btn btn-secondary" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

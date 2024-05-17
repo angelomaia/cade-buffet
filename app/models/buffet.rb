@@ -18,6 +18,7 @@ class Buffet < ApplicationRecord
   has_many :event_types
   has_many :orders
   has_many :ratings
+  has_many :fine_charges
 
   def average_rating
     total_ratings = ratings.count

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_16_190605) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_17_000205) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -104,6 +104,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_16_190605) do
     t.datetime "updated_at", null: false
     t.integer "status", default: 1
     t.index ["buffet_id"], name: "index_event_types_on_buffet_id"
+  end
+
+  create_table "fine_charges", force: :cascade do |t|
+    t.integer "order_id", null: false
+    t.integer "user_id", null: false
+    t.integer "buffet_id", null: false
+    t.float "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "status", default: 0
+    t.index ["buffet_id"], name: "index_fine_charges_on_buffet_id"
+    t.index ["order_id"], name: "index_fine_charges_on_order_id"
+    t.index ["user_id"], name: "index_fine_charges_on_user_id"
   end
 
   create_table "galleries", force: :cascade do |t|
@@ -225,6 +238,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_16_190605) do
   add_foreign_key "cancel_fines", "event_types"
   add_foreign_key "chats", "orders"
   add_foreign_key "event_types", "buffets"
+  add_foreign_key "fine_charges", "buffets"
+  add_foreign_key "fine_charges", "orders"
+  add_foreign_key "fine_charges", "users"
   add_foreign_key "galleries", "event_types"
   add_foreign_key "order_prices", "buffets"
   add_foreign_key "order_prices", "event_types"

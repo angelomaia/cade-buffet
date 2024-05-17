@@ -20,6 +20,8 @@ Rails.application.routes.draw do
     post 'new_user_message', on: :member
     post 'new_buffet_message', on: :member
     resources :ratings, only: [:new, :create]
+    get 'new_cancel_fine_charge', on: :member
+    post 'cancel_with_fine', on: :member
   end
 
   resources :buffets, only: [:show, :new, :create, :edit, :update] do
