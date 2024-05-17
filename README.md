@@ -3,10 +3,13 @@
 ![Badge](https://img.shields.io/static/v1?label=Bootstrap&message=front-end&color=blue&style=for-the-badge&logo=bootstrap)
 
 # Cadê Buffet?
-<p align="justify"><i>Cadê Buffet?</i> is an application that aims to connect clients to companies that provide Buffet services.</p>
+<p align="justify"><i>Cadê Buffet?</i> is an application that aims to connect potential clients to companies that provide Buffet services. Users can browse through a selection of registered Buffets with different Event Types. Events can be ordered via the app, with scheduled date, guests quantity, and much more. The Order system provides a clear way to create, approve, confirm, or cancel an ordered event, with the interaction of the User and the Buffet provider. Once an order is created, the User and Buffet can chat via the App to discuss details. The Buffet provider can set cancel fines for confirmed orders. After a confirmed Event occurs, the User can Rate the Buffet.</p>
 
 ## Table of Contents
 
+- [Dependencies](#dependencies)
+- [Setup](#setup)
+- [Example Credentials](#example-credentials)
 - [App Features](#app-features)
 - [API Documentation](#api-documentation)
 	- [Buffets API endpoint](#buffets-api-endpoint)
@@ -14,29 +17,85 @@
 	- [Event types API endpoint](#event-types-api-endpoint)
 	- [Availability check API endpoint](#availability-check-api-endpoint)
 
+## Dependencies
+```ruby``` version 3.0.2 <br>
+```rails``` version 7.1.3.2 <br>
+```libvips``` for image processing <br>
+
+To install ```libvips``` in Ubuntu, just run: 
+```
+sudo apt install libvips
+```
+For other OS, see how to [install libvips](https://github.com/libvips/libvips)<br>
+
+## Setup
+With Ruby on Rails installed, clone this repository via git:
+```
+git clone https://github.com/angelomaia/cade-buffet.git
+```
+Navigate to the folder:
+```
+cd cade-buffet
+```
+Run bin/setup:
+```
+bin/setup
+```
+Run rails server:
+```
+rails server
+```
+Acces the App via localhost:3000 in your browser:
+```
+http://localhost:3000
+```
+
+## Example Credentials
+<p>Example credentials are set in the seeds, with a preset Order, Rating, and a ready-to-order Buffet with two Event Types. The examples should be installed when running bin/setup:</p>
+<ul>
+	<li>To access as Buffet Owner, use:</li>
+	<dl>
+		<dt>Login:</dt> <dd> owner@email.com </dd>
+		<dt>Password:</dt><dd> password </dd>
+	</dl>
+	<li>To access as User, use:</li>
+	<dl>
+		<dt>Login:</dt> <dd> user@email.com </dd>
+		<dt>Password:</dt><dd> password </dd>
+	</dl>
+</ul>
+
 ## App Features
 <ul>
   <li>Authentication using Devise</li>
   <ul>
-    <li> Sign up and log in as a User</li>
-    <li> Sign up and log in as a Buffet Owner</li>
+	<li> Sign up and log in as a User</li>
+	<li> Sign up and log in as a Buffet Owner</li>
   </ul>
   <li>Register a Buffet as an Owner</li>
+  <ul>
+  	<li>Activate or Deactivate your Buffet as an Owner to make it visible/invisible</li>
+  </ul>
   <li>Add Event Types to a Buffet</li>
   <ul>
-    <li>Set predefined prices for Events</li>
-    <li>Add a cover photo to an Event</li>
+	<li>Set predefined prices for Events</li>
+	<li>Add a cover photo to an Event</li>
+	<li>Add Gallery photos to an Event</li>
+	<li>Set Cancel Fines for an Event, based on days before order date and a percentage of the total value</li>
   </ul>
   <li>List Buffets</li>
   <li>Search for Buffets by their names, associated Events, or locations</li>
   <li>Orders system</li>
   <ul>
-    <li>User can order an Event by inputting date, guest quantity, and location</li>
-    <li>Buffet Owner can evaluate an order and approve it by setting the price</li>
-    <li>User can confirm the order if approved by the Buffet</li>
-    <li>User and Buffet Owner can chat via the Order view page</li>
+	<li>User can order an Event by inputting date, guest quantity, and location</li>
+	<li>Buffet Owner can evaluate an order and approve it by setting the price</li>
+	<li>User can confirm the order if approved by the Buffet</li>
+	<li>User and Buffet Owner can chat via the Order view page</li>
+	<li>Both the User and Buffet can cancel the event, except when confirmed</li>
+	<li>Only the User can cancel a confirmed event, but cancel fines may apply</li>
+	<li>A User can Rate a Buffet after an ordered event occurs, adding a Grade, a Comment, and optionally adding Photos</li>
   </ul>
-  <li>The app provides API endpoints that are further described below</li>
+<li>The app provides API endpoints that are further described below</li>
 </ul>
 
 ## API Documentation
