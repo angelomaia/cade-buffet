@@ -22,7 +22,7 @@
 
 ## Dependencies
 ```ruby``` version 3.0.2 <br>
-```rails``` version 7.1.3.2 <br>
+```rails``` version 7.1.3.2 (if not already installed, bin/setup will automatically install Rails) <br>
 ```libvips``` for image processing <br>
 
 To install ```libvips``` in Ubuntu, just run: 
@@ -32,7 +32,7 @@ sudo apt install libvips
 For other OS, see how to [install libvips](https://github.com/libvips/libvips)<br>
 
 ## Setup
-With Ruby on Rails installed, clone this repository via git:
+With Ruby installed, clone this repository via git:
 ```
 git clone https://github.com/angelomaia/cade-buffet.git
 ```
