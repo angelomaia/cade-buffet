@@ -1,8 +1,8 @@
 <div class="container mt-4">
   <div class="row justify-content-center">
     <div class="border-card-7" style="width: 600px;">
-      <h2 class="mb-4 text-center">Avalie o Buffet <%= @buffet.name %></h2>
-      <h3 class="mb-4 text-center"><%= @event_type.name %> em <%= @order.date %></h3>
+      <h2 class="mb-4 text-center">Rate the Buffet <%= @buffet.name %></h2>
+      <h3 class="mb-4 text-center"><%= @event_type.name %> in <%= @order.date %></h3>
       <% if @rating.errors.any? %>
         <div class="alert alert-danger" role="alert">
           <ul>
@@ -50,12 +50,12 @@
           <%= f.file_field :photos, multiple: true, class: 'form-control' %>
         </div>
         <div class="mb-3 text-center">
-          <%= f.submit 'Enviar Avaliação', class: 'btn btn-primary' %>
+          <%= f.submit 'Send Evaluation', class: 'btn btn-primary' %>
         </div>
       <% end %>
       <div class="row justify-content-center">
         <div class="col-12 col-md-8 text-center">
-          <%= link_to 'Voltar', :back, class: "btn btn-secondary" %>
+          <%= link_to 'Back', :back, class: "btn btn-secondary" %>
         </div>
       </div>
     </div>
