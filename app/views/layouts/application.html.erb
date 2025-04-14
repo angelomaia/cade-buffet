@@ -19,9 +19,9 @@
           <% unless owner_signed_in? %>
             <%= form_with url: buffet_search_buffets_path, method: :get do |f| %>
               <span class="d-flex align-items-center">
-                <% f.label :query, 'Buscar Buffet:', class: "form-label" %>
-                <%= f.text_field :query, placeholder: "Buscar Buffet", class: "form-control me-2" %>
-                <%= f.submit 'Buscar', class: "btn btn-outline-success" %>
+                <% f.label :query, 'Search Buffet:', class: "form-label" %>
+                <%= f.text_field :query, placeholder: "Search Buffet", class: "form-control me-2" %>
+                <%= f.submit 'Search', class: "btn btn-outline-success" %>
               </span>
             <% end %>
           <% end %>
@@ -32,14 +32,14 @@
               <span class="navbar-text me-2">
                 <%= current_user.email %> | <%= User.model_name.human %>
               </span>
-                <%= link_to 'Meus Pedidos', orders_path, class: "btn btn-info ms-2" %>
-                <%= button_to 'Sair', destroy_user_session_path, method: :delete, class: "btn btn-danger ms-2" %>
+                <%= link_to 'My Orders', orders_path, class: "btn btn-info ms-2" %>
+                <%= button_to 'Logout', destroy_user_session_path, method: :delete, class: "btn btn-danger ms-2" %>
             </span>
 
           <% elsif owner_signed_in? %>
 
             <% unless current_owner.buffet.nil? || !@buffet.valid? %>
-              <h2 class="border-card-3 text-center" style="width: 16rem;"><%= link_to 'Meu Buffet', current_owner.buffet, class: "nav-link" %></h2>
+              <h2 class="border-card-3 text-center" style="width: 16rem;"><%= link_to 'My Buffet', current_owner.buffet, class: "nav-link" %></h2>
             <% end %>
 
             <span class="d-flex align-items-center">
@@ -47,14 +47,14 @@
                     <%= current_owner.email %> | <%= Owner.model_name.human %>
                 </span>
                 <% unless current_owner.buffet == nil || !current_owner.buffet.valid? %>
-                  <%= link_to 'Pedidos', owner_orders_path, class: "btn btn-info ms-2" %>
+                  <%= link_to 'Orders', owner_orders_path, class: "btn btn-info ms-2" %>
                 <% end %>
-                <%= button_to 'Sair', destroy_owner_session_path, method: :delete, class: "btn btn-danger" %>
+                <%= button_to 'Logout', destroy_owner_session_path, method: :delete, class: "btn btn-danger" %>
             </span>
 
           <% else %>
             <% unless request.path == home_choice_path %>
-              <%= link_to 'Entrar', home_choice_path, class: "btn btn-primary" %>
+              <%= link_to 'Login', home_choice_path, class: "btn btn-primary" %>
             <% end %>
           <% end %>
 
