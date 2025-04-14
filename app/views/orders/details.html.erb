@@ -1,7 +1,7 @@
 <div class="border-card-7">
   <div class="row justify-content-center">
     <% if @orders.any? && @orders.count > 1 %>
-      <p class="notice alert alert-info" role="alert">Existem outros pedidos para a mesma data:
+      <p class="notice alert alert-info" role="alert">There are other orders for the same date:
       <% @orders.each do |o| %>
         <% unless o == @order %>
           <br>
@@ -10,12 +10,12 @@
       <% end %>
       </p>
     <% end %>
-    
-    <h2>Pedido de <%= @order.event_type.name %> </h2>
+
+    <h2>Order for <%= @order.event_type.name %> </h2>
   </div>  
   <div class="row justify-content-center">
     <div class="col">
-       <div class="border-card">
+      <div class="border-card">
         <div class="card-body">
           <dl class="row">
             <dt class="col-sm-5"><%= Order.human_attribute_name(:status) %>:</dt>
@@ -55,47 +55,48 @@
 
             <dt class="col-sm-5"><%= Order.human_attribute_name(:code) %>:</dt>
             <dd class="col-sm-7"><%= @order.code %></dd>
+          </dl>
+        </div>
+      </div>
+
+      <% if @order.status == 'approved' || @order.status == 'confirmed' %>
+        <div class="border-card">
+          <div class="card-body">
+            <h5 class="text-primary">Buffet Proposal:</h5>
+
+            <dt class="col-sm-5"><%= OrderPrice.human_attribute_name(:base) %>:</dt>
+            <dd class="col-sm-7">US$ <%= @order_price.base %></dd>
+
+            <% if @order_price.discount > 0 %>
+              <dt class="col-sm-5"><%= OrderPrice.human_attribute_name(:discount) %>:</dt>
+              <dd class="col-sm-7">US$ <%= @order_price.discount %></dd>
+            <% elsif @order_price.fee > 0 %>
+              <dt class="col-sm-5"><%= OrderPrice.human_attribute_name(:fee) %>:</dt>
+              <dd class="col-sm-7">US$ <%= @order_price.fee %></dd>
+            <% end %>
+
+            <% unless @order_price.base == @order_price.total %>
+              <dt class="col-sm-5"><%= OrderPrice.human_attribute_name(:description) %>:</dt>
+              <dd class="col-sm-7"><%= @order_price.description %></dd>
+
+              <dt class="col-sm-5"><%= OrderPrice.human_attribute_name(:total) %>:</dt>
+              <dd class="col-sm-7">US$ <%= @order_price.total %></dd>
+            <% end %>
+
+            <dt class="col-sm-5"><%= OrderPrice.human_attribute_name(:payment) %>:</dt>
+            <dd class="col-sm-7"><%= I18n.t(@order_price.payment) %></dd>
+
+            <dt class="col-sm-5"><%= OrderPrice.human_attribute_name(:expiration_date) %>:</dt>
+            <dd class="col-sm-7"><%= @order_price.expiration_date %></dd>
           </div>
         </div>
-
-        <% if @order.status == 'approved' || @order.status == 'confirmed' %>
-          <div class="border-card">
-            <div class="card-body">
-              <h5 class="text-primary">Proposta do Buffet:</h5>
-              
-                <dt class="col-sm-5"><%= OrderPrice.human_attribute_name(:base) %>: </dt>
-                <dd class="col-sm-7">R$ <%= @order_price.base %></dd>
-
-                <% if @order_price.discount > 0 %>
-                  <dt class="col-sm-5"><%= OrderPrice.human_attribute_name(:discount) %>:</dt>
-                  <dd class="col-sm-7">R$ <%= @order_price.discount %></dd>
-                <% elsif @order_price.fee > 0 %>
-                  <dt class="col-sm-5"><%= OrderPrice.human_attribute_name(:fee) %>:</dt>
-                  <dd class="col-sm-7">R$ <%= @order_price.fee %></dd>
-                <% end %>
-                
-                <% unless @order_price.base == @order_price.total %>
-                  <dt class="col-sm-5"><%= OrderPrice.human_attribute_name(:description) %>:</dt>
-                  <dd class="col-sm-7"><%= @order_price.description %></dd>
-
-                  <dt class="col-sm-5"><%= OrderPrice.human_attribute_name(:total) %>:</dt>
-                  <dd class="col-sm-7">R$ <%= @order_price.total %></dd>
-                <% end %>
-
-                <dt class="col-sm-5"><%= OrderPrice.human_attribute_name(:payment) %>:</dt>
-                <dd class="col-sm-7"><%= I18n.t(@order_price.payment) %></dd>
-
-                <dt class="col-sm-5"><%= OrderPrice.human_attribute_name(:expiration_date) %>:</dt>
-                <dd class="col-sm-7"><%= @order_price.expiration_date %></dd>
-            </div>
-          </div>
-        <% end %>
-      </dl>
+      <% end %>
     </div>
+
     <% unless @order.status == 'cancelled' %>
       <div class="col">
         <div>
-          <h4>Converse com <%= @order.user.name %></h4>
+          <h4>Chat with <%= @order.user.name %></h4>
         </div>
         <div class="border-card">
           <div class="border-card-3" id="chat-box" style="height: 250px; overflow-y: scroll;">
@@ -106,7 +107,7 @@
                     <% if message.is_a?(UserMessage) %>
                       <strong><%= message.user.name %>: </strong>
                     <% elsif message.is_a?(BuffetMessage) %>
-                      <strong>Você: </strong>
+                      <strong>You: </strong>
                     <% end %>
                     <%= message.content %>
                   </p>
@@ -123,66 +124,67 @@
               <%= f.text_area :content, class: 'form-control' %>
             </div>
             <div class="mt-4">
-              <%= f.submit 'Enviar', class: 'btn btn-primary' %>
+              <%= f.submit 'Send', class: 'btn btn-primary' %>
             </div>
           <% end %>
         </div>
       </div>
     <% end %>
+
     <div class="row">
       <div class="col-auto">
         <% if @order.status == 'pending' %>
-          <%= link_to 'Avaliar Pedido', evaluation_order_path, class: "btn btn-warning pe-3 ps-3" %>
+          <%= link_to 'Evaluate Order', evaluation_order_path, class: "btn btn-warning pe-3 ps-3" %>
         <% elsif @order.status == 'approved' %>
-          <%= link_to 'Fazer Nova Proposta', evaluation_order_path, class: "btn btn-warning pe-3 ps-3" %>
+          <%= link_to 'Make New Proposal', evaluation_order_path, class: "btn btn-warning pe-3 ps-3" %>
         <% end %>
       </div>
       <% if @order.rated? %>
         <div class="col-auto">
-          <%= link_to 'Avaliação do Cliente', "/buffets/#{@order.buffet.id}/ratings/#{@order.rating.id}", class: "btn btn-outline-success" %>
+          <%= link_to 'Customer Rating', "/buffets/#{@order.buffet.id}/ratings/#{@order.rating.id}", class: "btn btn-outline-success" %>
         </div>
       <% end %>
       <div class="col-auto">
-        <% if @order.status != 'cancelled' && @order.status != 'confirmed'  %>
-          <%= button_to 'Cancelar Pedido', owner_cancel_order_path, method: :post, class: "btn btn-danger pe-3 ps-3", id: "cancel-order-btn" %>
+        <% if @order.status != 'cancelled' && @order.status != 'confirmed' %>
+          <%= button_to 'Cancel Order', owner_cancel_order_path, method: :post, class: "btn btn-danger pe-3 ps-3", id: "cancel-order-btn" %>
         <% end %>
       </div>
       <div class="col-auto">
-        <%= link_to 'Voltar', owner_orders_path, class: "btn btn-secondary" %>
+        <%= link_to 'Back', owner_orders_path, class: "btn btn-secondary" %>
       </div>
     </div>
   </div>
+
   <div class="row">
     <% if @order.event_type.cancel_fines.any? %>
       <div class="col-6">
         <div class="border-card-7">
-          <h4 class="text-center">Multas por Cancelamento:</h4>
+          <h4 class="text-center">Cancellation Fines:</h4>
           <% @order.event_type.cancel_fines.each do |fine| %>
             <div class="border-card-3">
               <dl>
-                <dd><strong>Dias antes da Data do Evento: </strong><%= fine.days %></dd>
-                <dd><strong>Porcentagem da Multa: </strong><%= fine.percentage %>%</dd>
+                <dd><strong>Days before Event Date: </strong><%= fine.days %></dd>
+                <dd><strong>Fine Percentage: </strong><%= fine.percentage %>%</dd>
               </dl>
-              <small class="form-text text-muted">Essa multa é aplicada apenas para eventos confirmados que forem cancelados a <%= fine.days %> dias ou menos antes da data do evento.</small>
+              <small class="form-text text-muted">This fine is applied only for confirmed events that are canceled <%= fine.days %> days or less before the event date.</small>
             </div>
           <% end %>
         </div>
       </div>
     <% end %>
+
     <% if @order.cancelled? && @order.fine_charge %>
       <div class="col-6">
         <div class="border-card-7 text-center">
-
           <% if @order.fine_charge.pending? %>
-            <h4 class="text-center text-danger">Multa Pendente de R$ <%= @order.fine_charge.value %></h4>
+            <h4 class="text-center text-danger">Pending Fine of US$ <%= @order.fine_charge.value %></h4>
           <% else %>
-            <h4 class="text-center text-success">Multa de R$ <%= @order.fine_charge.value %> Paga.</h4>
+            <h4 class="text-center text-success">Fine of US$ <%= @order.fine_charge.value %> Paid.</h4>
           <% end %>
 
           <% if @order.buffet.owner == current_owner && @order.fine_charge.pending? %>
-            <%= button_to 'Multa Paga', fine_paid_order_path, method: :post, class: "btn btn-success pe-3 ps-3" %>
+            <%= button_to 'Mark Fine as Paid', fine_paid_order_path, method: :post, class: "btn btn-success pe-3 ps-3" %>
           <% end %>
-
         </div>
       </div>
     <% end %>
@@ -199,7 +201,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const cancelButton = document.getElementById("cancel-order-btn");
   if (cancelButton) {
     cancelButton.addEventListener('click', function(event) {
-      if (!confirm('Tem certeza?')) {
+      if (!confirm('Are you sure?')) {
         event.preventDefault();
       }
     });

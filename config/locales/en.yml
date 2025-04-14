@@ -28,4 +28,20 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  exclusive: 'Only at the Buffet Address'
+  anywhere: 'At Any Requested Location'
+  found:
+    one: 'found'
+    other: 'found'
+  buffet_address: 'Buffet Address'
+  elsewhere: 'Other Location'
+  pending: 'Waiting for Buffet Approval'
+  approved: 'Approved by Buffet'
+  confirmed: 'Confirmed'
+  cancelled: 'Cancelled'
+  pix: 'PIX'
+  debit: 'Debit Card'
+  credit: 'Credit Card'
+  cash: 'Cash'
+  deactivated: 'Deactivated'
+  active: 'Active'

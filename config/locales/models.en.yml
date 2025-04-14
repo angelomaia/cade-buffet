@@ -1,0 +1,111 @@
+en:
+  activerecord:
+    models:
+      user: 'Customer'
+      owner: 'Buffet Owner'
+      buffet: 
+        one: 'Buffet'
+        other: 'Buffets'
+      event_type: 'Event Type'
+      price: 'Prices'
+      order:
+        one: 'Order'
+        other: 'Orders'
+      order_price: 'Order Price'
+      chat: 'Chat'
+      user_message: 'Customer Message'
+      buffet_message: 'Buffet Message'
+      rating:
+        one: 'Rating'
+        other: 'Ratings'
+      cancel_fine:
+        one: 'Cancellation Fine'
+        other: 'Cancellation Fines'
+      special_offer:
+        one: 'Promotion'
+        other: 'Promotions'
+    attributes:
+      user:
+        name: 'Name'
+        cpf: 'CPF'
+      buffet:
+        name: 'Brand Name'
+        corporate_name: 'Corporate Name'
+        cnpj: 'CNPJ'
+        address: 'Address'
+        neighborhood: 'Neighborhood'
+        city: 'City'
+        state: 'State'
+        email: 'Email'
+        phone: 'Phone'
+        zipcode: 'ZIP Code'
+        description: 'Description'
+        pix: 'PIX'
+        debit: 'Debit Card'
+        credit: 'Credit Card'
+        cash: 'Cash'
+      event_type:
+        name: 'Event Name'
+        description: 'Description'
+        cover_photo: 'Event Photo'
+        min_people: 'Minimum Number of People'
+        max_people: 'Maximum Number of People'
+        duration: 'Duration (minutes)'
+        menu: 'Menu'
+        alcohol: 'Alcoholic Beverages'
+        decoration: 'Decoration'
+        parking: 'Parking/Valet'
+        location: 'Event Location'
+        gallery_photos: 'Photo Gallery'
+      event_type/location:
+        exclusive: 'Only at the Buffet Address'
+        anywhere: 'At Any Requested Location'
+      price:
+        base: 'Base Price'
+        extra_person: 'Extra Charge per Person'
+        extra_hour: 'Extra Charge per Hour'
+        weekend_base: 'Weekend Price'
+        weekend_extra_person: 'Extra Charge per Person (Weekend)'
+        weekend_extra_hour: 'Extra Charge per Hour (Weekend)'
+      order:
+        buffet_id: 'Buffet'
+        event_type_id: 'Event Type'
+        user_id: 'Customer'
+        date: 'Date'
+        guest_quantity: 'Number of Guests'
+        details: 'Details'
+        code: 'Code'
+        address: 'Address'
+        city: 'City'
+        state: 'State'
+        zipcode: 'ZIP Code'
+        status: 'Status'
+        location: 'Event Location'
+      order/location:
+        buffet_address: 'Buffet Address'
+        elsewhere: 'Other Location'
+      order_price:
+        base: 'Order Value'
+        discount: 'Discount'
+        fee: 'Additional Fee'
+        total: 'Final Amount'
+        payment: 'Payment Method'
+        description: 'Final Amount Description'
+        expiration_date: 'Expiration Date'
+      user_message:
+        content: 'Message'
+        created_at: 'Sent At'
+      buffet_message:
+        content: 'Message'
+        created_at: 'Sent At'
+      rating:
+        grade: 'Grade'
+        text: 'Comment'
+        photos: 'Photos'
+      cancel_fine:
+        days: 'Days Before Event Date'
+        percentage: 'Fine Percentage'
+      special_offer:
+        start: 'Start Date'
+        end: 'End Date'
+        percentage: 'Discount Percentage'

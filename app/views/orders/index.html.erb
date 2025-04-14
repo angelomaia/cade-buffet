@@ -1,11 +1,11 @@
 <div class="container mt-4">
   <% if @user.orders.any? %>
     <% if @approved_orders.present? %>
-      <h3 class="text-primary">Pedidos aguardando sua confirmação:</h3>
+      <h3 class="text-primary">Orders awaiting your confirmation:</h3>
       <% @approved_orders.each do |order| %>
         <div class="card mb-3" onclick="location.href='<%= order_path(order) %>'" style="cursor: pointer;">
           <div class="card-body">
-            <h4 class="text-warning">Expira em: <%= order.order_price.expiration_date %></h4>
+            <h4 class="text-warning">Expires on: <%= order.order_price.expiration_date %></h4>
             <h5>Buffet: <%= order.buffet.name %></h5>
             <h6><%= order.event_type.name %></h6>
             <span><%= order.date %></span>
@@ -16,7 +16,7 @@
     <% end %>
 
     <% if @pending_orders.present? %>
-      <h3 class="text-warning">Pedidos aguardando aprovação do Buffet:</h3>
+      <h3 class="text-warning">Orders awaiting Buffet's approval:</h3>
       <% @pending_orders.each do |order| %>
         <div class="card mb-3" onclick="location.href='<%= order_path(order) %>'" style="cursor: pointer;">
           <div class="card-body">
@@ -30,7 +30,7 @@
     <% end %>
 
     <% if @confirmed_orders.present? %>
-      <h3 class="text-success">Pedidos confirmados:</h3>
+      <h3 class="text-success">Confirmed orders:</h3>
       <% @confirmed_orders.each do |order| %>
         <div class="card mb-3" onclick="location.href='<%= order_path(order) %>'" style="cursor: pointer;">
           <div class="card-body">
@@ -44,7 +44,7 @@
     <% end %>
 
     <% if @cancelled_orders.present? %>
-      <h3 class="text-danger">Pedidos cancelados:</h3>
+      <h3 class="text-danger">Cancelled orders:</h3>
       <% @cancelled_orders.each do |order| %>
         <div class="card mb-3" onclick="location.href='<%= order_path(order) %>'" style="cursor: pointer;">
           <div class="card-body">
@@ -53,15 +53,15 @@
             <span><%= order.date %></span>
             <%= link_to order.code, order, class: 'stretched-link' %>
             <% if order.fine_charge && order.fine_charge.pending? %>
-              <strong class="text-danger">Multa Pendente</strong>
+              <strong class="text-danger">Pending Fine</strong>
             <% elsif order.fine_charge && order.fine_charge.paid? %>
-              <strong class="text-success">Multa Paga</strong>            
+              <strong class="text-success">Fine Paid</strong>            
             <% end %>
           </div>
         </div>
       <% end %>
     <% end %>
   <% else %>
-    <h3>Não há pedidos cadastrados.</h3>
+    <h3>No orders registered.</h3>
   <% end %>
 </div>

@@ -12,7 +12,7 @@
         <% if !owner_signed_in? && @event_type.price %>
         <br>
         <div>
-          <%= link_to 'Novo Pedido', new_order_path(buffet_id: @event_type.buffet.id, preset_event: @event_type), 
+          <%= link_to 'New Order', new_order_path(buffet_id: @event_type.buffet.id, preset_event: @event_type), 
                                                                                       class: "btn btn-success" %>
         </div>
         <% end %>
@@ -27,7 +27,7 @@
             <div class="mr-2 mb-2" style="padding: 2px;">
               <%= image_tag photo.variant(resize_to_limit: [300, 200]), class: "mb-1" %>
               <% if @event_type.buffet.owner == current_owner %>
-                <%= button_to 'Apagar', event_type_delete_photo_path(event_type_id: @event_type.id, 
+                <%= button_to 'Delete', event_type_delete_photo_path(event_type_id: @event_type.id, 
                                                                     photo_id: photo.id), method: :delete, 
                                                                     class: 'btn btn-danger btn-sm' %>
               <% end %>
@@ -43,13 +43,13 @@
         <dl class="row">
           <% if @event_type.buffet.owner == current_owner %>
             <div class="text-center mb-3">
-              <%= link_to 'Criar Promoção', new_event_type_special_offer_path(@event_type), class: "btn, btn-success" %>
+              <%= link_to 'Create Promotion', new_event_type_special_offer_path(@event_type), class: "btn, btn-success" %>
             </div>
             <div class="text-center mb-3">
                 <% if @event_type.active? %>
-                  <%= button_to 'Desativar Tipo de Evento', deactivate_event_type_path, method: :post, class: "btn btn-danger" %>
+                  <%= button_to 'Deactivate Event Type', deactivate_event_type_path, method: :post, class: "btn btn-danger" %>
                 <% else %>
-                  <%= button_to 'Ativar Tipo de Evento', activate_event_type_path, method: :post, class: "btn btn-success" %>
+                  <%= button_to 'Activate Event Type', activate_event_type_path, method: :post, class: "btn btn-success" %>
                 <% end %>
             </div>
             <% status_class = case @event_type.status %>
@@ -99,11 +99,11 @@
           <% if @event_type.special_offers.any? %>
             <% @event_type.special_offers.each do |offer| %>
               <% unless offer.end < Date.today %>
-                <h4 class="text-success">Promoção: Desconto de <%= offer.percentage %>% dos dias <%= offer.start %> a <%= offer.end %></h4>
+                <h4 class="text-success">Promotion: Discount of <%= offer.percentage %>% from <%= offer.start %> to <%= offer.end %></h4>
               <% end %>
             <% end %>
           <% end %>
-          <h3>Preços</h3>
+          <h3>Prices</h3>
           <dl class="row">
             <% unless @event_type.price.base == nil %>
               <dt class="col-sm-3"><%= Price.human_attribute_name(:base) %>:</dt>
@@ -138,21 +138,21 @@
         </div>
       </div>
     <% else %>
-      <strong class="text-warning">Evento ainda não possui preços definidos.</strong>
+      <strong class="text-warning">Event has no prices defined yet.</strong>
     <% end %>
   </div>
   <% if @event_type.cancel_fines.any? %>
   <div class="row justify-content-center">
     <div class="col-6">
       <div class="border-card-7">
-        <h4 class="text-center">Multas por Cancelamento:</h4>
+        <h4 class="text-center">Cancellation Fines:</h4>
         <% @event_type.cancel_fines.each do |fine| %>
           <div class="border-card-3">
             <dl>
-              <dd><strong>Dias antes da Data do Evento: </strong><%= fine.days %></dd>
-              <dd><strong>Porcentagem da Multa: </strong><%= fine.percentage %>%</dd>
+              <dd><strong>Days before Event Date: </strong><%= fine.days %></dd>
+              <dd><strong>Fine Percentage: </strong><%= fine.percentage %>%</dd>
             </dl>
-            <small class="form-text text-muted">Essa multa é aplicada apenas para eventos confirmados que forem cancelados a <%= fine.days %> dias ou menos antes da data do evento.</small>
+            <small class="form-text text-muted">This fine is only applied to confirmed events that are canceled <%= fine.days %> days or fewer before the event date.</small>
           </div>
         <% end %>
       </div>
@@ -162,12 +162,11 @@
   <div class="row justify-content-center">
     <div class="col-12 col-md-8 text-center">
       <% if @event_type.buffet.owner == current_owner %>
-        <%= link_to 'Definir Preços', set_price_event_type_path, class: "btn btn-warning" %>
-        <%= link_to 'Definir Multa por Cancelamento', new_event_type_cancel_fine_path(@event_type), class: "btn btn-danger" %>
-        <%= link_to 'Editar Tipo de Evento', edit_event_type_path, class: "btn btn-primary" %>
+        <%= link_to 'Set Prices', set_price_event_type_path, class: "btn btn-warning" %>
+        <%= link_to 'Set Cancellation Fine', new_event_type_cancel_fine_path(@event_type), class: "btn btn-danger" %>
+        <%= link_to 'Edit Event Type', edit_event_type_path, class: "btn btn-primary" %>
       <% end %>
-      <%= link_to 'Voltar', @event_type.buffet, class: "btn btn-secondary" %>
+      <%= link_to 'Back', @event_type.buffet, class: "btn btn-secondary" %>
     </div>
   </div>
 </div>
-

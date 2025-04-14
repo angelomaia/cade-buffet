@@ -1,27 +1,27 @@
-  <div class="row justify-content-center">
-    <% if @orders.any? && @orders.count > 1 %>
-      <p class="notice alert alert-info" role="alert">Existem outros pedidos para a mesma data:
-      <% @orders.each do |o| %>
-        <% unless o == @order %>
-          <br>
-          <%= link_to o.code, details_order_path(o) %>
-        <% end %>
-      <% end %></p>
-    <% end %>
-  </div>
-
-  <% if @order_price.errors.any? %>
-    <div class="alert alert-danger" role="alert">
-      <ul>
-        <% @order_price.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
+<div class="row justify-content-center">
+  <% if @orders.any? && @orders.count > 1 %>
+    <p class="notice alert alert-info" role="alert">There are other orders for the same date:
+    <% @orders.each do |o| %>
+      <% unless o == @order %>
+        <br>
+        <%= link_to o.code, details_order_path(o) %>
+      <% end %>
+    <% end %></p>
   <% end %>
+</div>
+
+<% if @order_price.errors.any? %>
+  <div class="alert alert-danger" role="alert">
+    <ul>
+      <% @order_price.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 
 <div class="border-card-7">
-  <h2>Avaliando Pedido de <%= @order.event_type.name %> </h2>
+  <h2>Reviewing Order for <%= @order.event_type.name %> </h2>
   <br>
   <div class="row justify-content-center">
     <div class="col">
@@ -61,7 +61,7 @@
   <div class="col">
     <%= form_with(model: [@order, @order_price], url: create_order_price_order_path(@order), method: :post, local: true) do |f| %>
       <div class="form-group mb-3">
-        <h5><%= f.label :base, class: 'form-label' %>: R$ <span id="base_amount"><%= @order_price.base %></span></h5>
+        <h5><%= f.label :base, class: 'form-label' %>: US$ <span id="base_amount"><%= @order_price.base %></span></h5>
       </div>
 
       <div class="form-group mb-3">
@@ -75,13 +75,13 @@
       </div>
 
       <div class="border-card-3">
-        <h5><%= f.label :total, class: 'form-label' %>: R$ <span id="updated_amount">0.00</span></h5>
+        <h5><%= f.label :total, class: 'form-label' %>: US$ <span id="updated_amount">0.00</span></h5>
       </div>
 
       <div class="form-group mb-3">
         <%= f.label :description, class: 'form-label' %>
         <%= f.text_area :description, class: 'form-control' %>
-        <small class="form-text text-muted">Caso haja um desconto ou taxa extra, deve ser explicado aqui o motivo.</small>
+        <small class="form-text text-muted">If there's a discount or additional fee, the reason must be explained here.</small>
       </div>
 
       <div class="form-group mb-3"></div>
@@ -99,11 +99,11 @@
       <div class="form-group mb-3">
         <%= f.label :expiration_date, class: 'form-label' %>
         <%= f.date_field :expiration_date, class: 'form-control' %>
-        <small class="form-text text-muted">Até quando vale esta proposta.</small>
+        <small class="form-text text-muted">Until when this proposal is valid.</small>
       </div>
       
       <div class="mt-4">
-        <%= f.submit 'Aprovar Pedido', class: 'btn btn-primary' %>
+        <%= f.submit 'Approve Order', class: 'btn btn-primary' %>
       </div>
     <% end %>
   </div>
@@ -111,7 +111,7 @@
 
 <div class="row justify-content-center">
   <div class="col-12 col-md-8 text-center">
-    <%= link_to 'Voltar', details_order_path(@order), class: "btn btn-secondary" %>
+    <%= link_to 'Back', details_order_path(@order), class: "btn btn-secondary" %>
   </div>
 </div>
 
