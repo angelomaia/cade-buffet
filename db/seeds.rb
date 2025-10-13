@@ -4,23 +4,24 @@ owner_three = Owner.create!(email: 'owner_three@email.com', password: 'password'
 
 user = User.create!(name: 'User', cpf: CPF.generate, email: 'user@email.com', password: 'password')
 
-festim = Buffet.create!(name: 'Festim', corporate_name: 'Festim Eventos Ltda', cnpj: '12345678901', 
-               address: 'Rua das Camélias, 58', neighborhood: 'Jardim', city: 'São Paulo', state: 'SP', 
-               email: 'contato@festim.com.br', phone: '1198765432', zipcode: '52000123', 
+festim = Buffet.create!(name: 'Festim', corporate_name: 'Festim Events Ltd.', cnpj: '12345678901', 
+               address: '58 Camellia Street', neighborhood: 'Garden District', city: 'São Paulo', state: 'SP', 
+               email: 'contact@festim.com', phone: '1198765432', zipcode: '52000123', 
                pix: true, debit: true, credit: true, cash: false, owner: owner)
 
-celebra = Buffet.create!(name: 'Celebra', corporate_name: 'Celebrações e Festas S.A.', cnpj: '98765432109', 
-               address: 'Avenida dos Diamantes, 300', neighborhood: 'Industrial', city: 'Belo Horizonte', state: 'MG', 
-               email: 'celebra@celebra.com.br', phone: '3197654321', zipcode: '52000123', 
+celebra = Buffet.create!(name: 'Celebrate', corporate_name: 'Celebrations and Parties Inc.', cnpj: '98765432109', 
+               address: '300 Diamond Avenue', neighborhood: 'Industrial District', city: 'Belo Horizonte', state: 'MG', 
+               email: 'celebrate@celebrate.com', phone: '3197654321', zipcode: '52000123', 
                pix: false, debit: true, credit: true, cash: true, owner: owner_two)
 
-bons_momentos = Buffet.create!(name: 'Bons Momentos', corporate_name: 'Bons Momentos Buffet Ltda', cnpj: '56473829100', 
-               address: 'Praça da Estação, 45', neighborhood: 'Centro', city: 'Recife', state: 'PE', 
-               email: 'atendimento@bonsmomentos.com.br', phone: '4198526374', zipcode: '52000123', 
+bons_momentos = Buffet.create!(name: 'Good Times', corporate_name: 'Good Times Buffet Ltd.', cnpj: '56473829100', 
+               address: '45 Station Square', neighborhood: 'Downtown', city: 'Recife', state: 'PE', 
+               email: 'support@goodtimes.com', phone: '4198526374', zipcode: '52000123', 
                pix: true, debit: false, credit: true, cash: true, owner: owner_three)
 
-casamento_festim = EventType.create!(name: 'Festa de Casamento', duration: '240', min_people: '20',
-                  max_people: '100', description: 'Festa completa', menu: 'Sushi, mesa de frios, strogonoff',
+casamento_festim = EventType.create!(name: 'Wedding Party', duration: '240', min_people: '20',
+                  max_people: '100', description: 'Full service wedding celebration', 
+                  menu: 'Sushi, cold cuts platter, beef stroganoff',
                   buffet: festim)
 
 CancelFine.create!(days: 30, percentage: 50, event_type: casamento_festim)
@@ -28,16 +29,19 @@ CancelFine.create!(days: 7, percentage: 100, event_type: casamento_festim)
 
 Price.create!(base: 5000, extra_person: 200, extra_hour: 1500, event_type: casamento_festim)
 
-infantil_festim = EventType.create!(name: 'Festa Infantil', duration: '240', min_people: '10',
-                  max_people: '100', description: 'Festa completa', menu: 'Sushi, mesa de frios, strogonoff',
+infantil_festim = EventType.create!(name: 'Kids Party', duration: '240', min_people: '10',
+                  max_people: '100', description: 'Complete kids party package', 
+                  menu: 'Sushi, cold cuts platter, beef stroganoff',
                   location: 'anywhere', buffet: festim)
 Price.create!(base: 3000, extra_person: 100, extra_hour: 1000, event_type: infantil_festim)
 
-EventType.create!(name: 'Festa de Casamento', duration: '240', min_people: '10',
-                  max_people: '100', description: 'Festa completa', menu: 'Sushi, mesa de frios, strogonoff',
+EventType.create!(name: 'Wedding Party', duration: '240', min_people: '10',
+                  max_people: '100', description: 'Full service wedding celebration', 
+                  menu: 'Sushi, cold cuts platter, beef stroganoff',
                   buffet: celebra)
-EventType.create!(name: 'Festa de Casamento', duration: '240', min_people: '10',
-                  max_people: '100', description: 'Festa completa', menu: 'Sushi, mesa de frios, strogonoff',
+EventType.create!(name: 'Wedding Party', duration: '240', min_people: '10',
+                  max_people: '100', description: 'Full service wedding celebration', 
+                  menu: 'Sushi, cold cuts platter, beef stroganoff',
                   buffet: bons_momentos)
 
 casamento_festim.cover_photo.attach(io: File.open(Rails.root.join('spec', 'support', 'wedding.jpg')), filename: 'wedding.jpg')
@@ -48,7 +52,7 @@ casamento_festim.gallery_photos.attach(io: File.open(Rails.root.join('spec', 'su
 casamento_festim.gallery_photos.attach(io: File.open(Rails.root.join('spec', 'support', 'wedding_5.jpg')), filename: 'wedding_5.jpg')
 
 order = Order.create!(user: user, buffet: festim, event_type: casamento_festim, date: 1.week.from_now.to_date, 
-              guest_quantity: 50, details: 'Festa de Casamento pra 50 pessoas',
+              guest_quantity: 50, details: 'Wedding party for 50 guests',
               location: 'buffet_address', status: 'pending')
 Chat.create!(order: order)
 OrderPrice.create!(order: order, buffet: festim, event_type: casamento_festim, base: 11000, 
@@ -56,7 +60,7 @@ OrderPrice.create!(order: order, buffet: festim, event_type: casamento_festim, b
 order.approved!
 order.confirmed!
 order.date = 1.month.ago.to_date
-rating = Rating.create!(user: user, order: order, buffet: festim, event_type: casamento_festim, grade: 5, text: 'Ótima festa de casamento!')
+rating = Rating.create!(user: user, order: order, buffet: festim, event_type: casamento_festim, grade: 5, text: 'Amazing wedding party!')
 
 rating.photos.attach(io: File.open(Rails.root.join('spec', 'support', 'wedding_1.jpg')), filename: 'wedding_1.jpg')
 rating.photos.attach(io: File.open(Rails.root.join('spec', 'support', 'wedding_2.jpg')), filename: 'wedding_2.jpg')
